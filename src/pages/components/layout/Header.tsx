@@ -10,7 +10,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import TOKAMAK_ICON from '@/assets/images/tnss_bi.png';
+import TOKAMAK_ICON_WHITE from '@/assets/images/tndao-wm-logo.svg';
+import TOKAMAK_ICON from '@/assets/images/tndao-w-logo.svg';
 import { useRecoilValue } from 'recoil';
 // import { txStatusState } from '@/atom/global/transaction';
 
@@ -40,7 +41,6 @@ const NavItem = () => {
     <>
       {navItemList.map((item, index) => {
         const capitalLinkName = item.link.charAt(0).toUpperCase() + item.link.slice(1)
-        console.log(pathname)
         return (
           <Link href={`${item.link}`} key={`nav-item-${index}`} passHref>
             <Flex
@@ -49,12 +49,13 @@ const NavItem = () => {
               color={
                 isHover === index
                   ? pathname === '/home' + item.link
+                    ? "#2a72e5"
+                    : "#3e495c"
+                  : pathname === '/home' 
                     ? "#ffffff"
                     : "#3e495c"
-                  : pathname === '/home' + item.link
-                  ? "#ffffff"
-                  : "#3e495c"
               }
+              fontSize={'16px'}
               cursor={"pointer"}
               onMouseEnter={() => setIsHover(index)}
               onMouseLeave={() => setIsHover(undefined)}
@@ -72,6 +73,8 @@ const MenuLinks: React.FC<MenuLinksProps> = ({ account, walletopen }) => {
   const theme = useTheme();
   // const txPending = useRecoilValue(txStatusState);
   const txPending = false
+  const router = useRouter();
+  const { pathname } = router;
 
   return (
     <Box display={{ base:'none', md: 'block' }} flexBasis={{ base: '100%', md: 'auto' }}>
@@ -92,7 +95,9 @@ const MenuLinks: React.FC<MenuLinksProps> = ({ account, walletopen }) => {
             //     ? theme.colors.gray[225]
             //     : 'white.100'
             //   : theme.colors.gray[175]
-            '#86929d'
+            pathname === '/home' 
+            ? '#ffffff'
+            : '#86929d'
           }
           w={151}
           h={35}
@@ -108,7 +113,9 @@ const MenuLinks: React.FC<MenuLinksProps> = ({ account, walletopen }) => {
             //     ? 'white.100'
             //     : 'blue.200'
             //   : 'transparent'
-            'white.100'
+            pathname === '/home' 
+            ? '#0062c2' 
+            : 'white.100'
           }
           zIndex={100}
           _hover={{}}
@@ -159,9 +166,8 @@ export const Header = () => {
   // const theme = useTheme();
   const { account } = useWeb3React();
   // /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  // const router = useRouter();
-  // const { pathname } = router;
-
+  const router = useRouter();
+  const { pathname } = router;
 
   return (
     <Flex
@@ -170,18 +176,16 @@ export const Header = () => {
       justifyContent={['space-between', 'space-between', 'end']}
       alignItems={'center'}
       pr={[0, '11px', '35px']}
-      // pt={'24px'}
-      // pb={'20px'}
+      bgColor={pathname ==='/home' ? '#0062c2' : ''}
     >
       <Flex flexDir={'row'} w={'95%'} justifyContent="space-between">
-        <Flex fontSize={'27px'} fontWeight={900}>
-          <Image src={TOKAMAK_ICON} alt="" />
-        </Flex>
+        <Link href={'/home'} passHref>
+          <Image src={pathname ==='/home' ? TOKAMAK_ICON_WHITE :TOKAMAK_ICON} alt="" />
+        </Link>
         <Flex fontSize={'18px'} fontWeight={'bold'} justifyContent="space-between" alignItems={'center'} w={'540px'} mr={'250px'}>
           <NavItem/>
         </Flex>
         <Flex>
-            
           <MenuLinks account={account} walletopen={openModal} />
         </Flex>
       </Flex>

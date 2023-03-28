@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import { Box, ChakraProvider, ColorModeScript, Flex } from '@chakra-ui/react';
+import { Box, ChakraProvider, ColorModeScript, Flex, useTheme } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { Web3ReactProvider } from '@web3-react/core';
 import getLibrary from 'utils/getLibrary';
@@ -10,11 +10,13 @@ import Header from 'pages/components/layout/Header';
 import Entry from './entry';
 import HeadMeta from './Header';
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
+import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { onOpen, isOpen: isModalOpen, onClose } = useDisclosure();
   const [width] = useWindowDimensions();
-  const mobile = width < 1040;
+  const router = useRouter();
+  const { pathname } = router;
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       {/* <ApolloProvider client={client}> */}
@@ -22,15 +24,26 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ChakraProvider resetCSS theme={theme}>
           <RecoilRoot>
             <HeadMeta />
-            <Header />
-            <Entry Component={Component} {...pageProps} />
-            <Footer />
-            {/* <Flex minH={'100vh'} w={'100%'}>
+            {/* <Flex
+              flexDir={'column'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              w={'100%'}
+            >
+              <Header />
+              <Entry Component={Component} {...pageProps} />
+              <Footer />
+            </Flex> */}
+            
+            <Flex minH={'100vh'} w={'100%'}>
               <Flex
                 flexDir={"column"}
                 w={"100%"}
                 alignItems={"center"}
                 justifyContent={"space-between"}
+                bgColor={pathname === '/home' ? '#0062c2' : ''}
+                fontFamily={theme.fonts.roboto}
+                fontStyle={'normal'}
               >
                 <Header
                 // walletopen={() => handleWalletModalOpen("wallet")}
@@ -53,7 +66,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   </Flex>
                 </Flex>
               </Flex>
-            </Flex> */}
+            </Flex>
           </RecoilRoot>
         </ChakraProvider>
       {/* </ApolloProvider> */}

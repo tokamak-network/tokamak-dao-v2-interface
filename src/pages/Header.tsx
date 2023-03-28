@@ -7,9 +7,9 @@ const HeadMeta: NextPage = () => {
       <Head>
         <title>TokamakDao - Tokamak</title>
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://simple.staking.tokamak.network" />
-        <meta property="title" content="Simple Staking - Tokamak" />
-        <meta property="og:title" content="Simple Staking - Tokamak" />
+        <meta property="og:url" content="https://dao.staking.tokamak.network" />
+        <meta property="title" content="Tokamak DAO - Tokamak" />
+        <meta property="og:title" content="Tokamak DAO - Tokamak" />
         <meta
           property="description"
           content="Easier UI for Tokamak Staking"
