@@ -2,14 +2,42 @@ import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { Flex, useTheme } from '@chakra-ui/react';
 import Image from "next/image";
 import MAIN from '@/assets/images/main-interaction.gif'
-
-// import DesktopHome from "./components/home/DesktopHome";
-// import MobileHome from "./components/home/MobileHome";
-
+import { useEventList } from '../hooks/home/useEventList';
+import { useMemo } from "react";
+import { ActivityTable } from "@/common/table/home/activityTable";
 
 function Home() {
   const [width] = useWindowDimensions();
   const theme = useTheme()
+  const {eventList, candidateList} = useEventList()
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'tx',
+        accessor: 'tx',
+      },
+      {
+        Header: 'transactionid',
+        accessor: 'transactionid',
+      },
+      {
+        Header: 'description',
+        accessor: 'description',
+      },
+      {
+        Header: 'time',
+        accessor: 'time',
+      },
+      {
+        // Make an expander cell
+        Header: () => null, // No header
+        id: 'expander', // It needs an ID
+        Cell: () => null,
+      },
+    ],
+    [],
+  );
 
   return (
     <Flex
@@ -18,7 +46,6 @@ function Home() {
       flexDir={'column'}
       fontFamily={theme.fonts}
       fontWeight={'normal'}
-      fontStretch={'normal'}
       fontStyle={'normal'}
       color={'#fff'}
     >
@@ -54,7 +81,7 @@ function Home() {
           justifyContent={'center'}
           alignItems={'center'}
         >
-          1
+          {eventList ? eventList.length : 0}
         </Flex>
         DAO activities
       </Flex>
@@ -66,10 +93,16 @@ function Home() {
         <Flex
           fontSize={'24px'}
           fontWeight={500}
+          mb={'30px'}
         >
           Recent DAO Activities
         </Flex>
-
+        <ActivityTable 
+          columns={columns}
+          data={eventList}
+          isLoading={false}
+          candidateList={candidateList}
+        />
       </Flex>
     </Flex>
    

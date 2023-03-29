@@ -2,7 +2,7 @@ import { Flex, Text, Button, Stack, Box, useTheme, CircularProgress } from '@cha
 import Image from 'next/image';
 // import {NavLink, RouteMatch} from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
-import trimAddress from '@/utils/trimAddress';
+import { trimAddress } from '@/utils/trimAddress';
 import { useState } from 'react';
 import useModal from '@/hooks/useModal';
 // import WalletModal from '@/common/modal/Wallet/index';
