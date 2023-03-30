@@ -40,9 +40,7 @@ export const ActivityTable: FC<ActivityTableProps> = ({
   const {
     getTableProps,
     getTableBodyProps,
-    headerGroups,
     prepareRow,
-    visibleColumns,
     page,
     state: {pageIndex, pageSize},
   } = useTable(
@@ -85,7 +83,7 @@ export const ActivityTable: FC<ActivityTableProps> = ({
                     eventName, 
                     transactionHash
                   } = cell.row.original;
-                  console.log(cell.row.original)
+
                   const type = cell.column.id;
 
                   return (

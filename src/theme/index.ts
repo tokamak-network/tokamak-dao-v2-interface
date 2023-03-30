@@ -50,6 +50,25 @@ const colors = {
   },
 }
 
+const CARD_STYLE = {
+  mainTheme: () => ({
+    backgroundColor: '#fff',
+    boxShadow: '0 1px 1px 0 rgba(96, 97, 112, 0.16)',
+    borderRadius: '10px',
+  }),
+  memberCard: () => ({
+    width: '786px',
+    height: '213px',
+    padding: '22px 30px'
+  }),
+  nonMemberCard: () => ({
+    width: '786px',
+    height: '65px',
+    padding: '25px 30px',
+    marginBottom: '12px'
+  })
+}
+
 const PAGE_STYLE = {
   layoutTheme: () => ({
     width: '1114px',
@@ -265,6 +284,7 @@ const theme = extendTheme({
   SUPPORT_PARAGRAPH_STYLE,
   btnStyle,
   INPUT_STYLE,
+  CARD_STYLE,
   // BUTTON_STYLE,
   // HEADER_BUTTON_STYLE,
   // BALANCE_CONTAINER_STYLE,

@@ -4,13 +4,13 @@ import Image from "next/image";
 import MAIN from '@/assets/images/main-interaction.gif'
 import { useEventList } from '../hooks/home/useEventList';
 import { useMemo } from "react";
-import { ActivityTable } from "@/common/table/home/activityTable";
+import { ActivityTable } from "@/common/table/home/ActivityTable";
 
 function Home() {
   const [width] = useWindowDimensions();
   const theme = useTheme()
   const {eventList, candidateList} = useEventList()
-
+  console.log(eventList)
   const columns = useMemo(
     () => [
       {
@@ -48,6 +48,7 @@ function Home() {
       fontWeight={'normal'}
       fontStyle={'normal'}
       color={'#fff'}
+      minH={'88vh'}
     >
       <Image
         // w={'840px'}
