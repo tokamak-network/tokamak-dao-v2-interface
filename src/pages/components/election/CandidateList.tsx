@@ -1,25 +1,32 @@
 import { Flex, useTheme, Text } from '@chakra-ui/react';
 import { MemberCard } from "./MemberCard"
-import { useEvent } from "@/hooks/election/useEvent"
 import { SubText } from './SubText';
 import { convertNumber } from '@/components/number';
 import { commify } from 'ethers/lib/utils';
 import { CardTitle } from './CardTitle';
 
-export const CandidateList = () => {
-  const { slot, memberList, nonMemberList } = useEvent()
+type CandidateListProp = {
+  memberList: any
+  nonMemberList: any
+}
+
+export const CandidateList = (args: CandidateListProp) => {
+  const { memberList, nonMemberList } = args
   const theme = useTheme()
   const CARD_STYLE = theme.CARD_STYLE;
 
   return (
     <Flex
       w={'786px'}
-      mt={'35px'}
       flexDir={'column'}
     >
+      <CardTitle 
+        name={'Elected Candidates'}
+        mb={'35px'}
+      />
       {
         memberList ? 
-        memberList.map((member: any, i) => {
+        memberList.map((member: any, i: any) => {
           return (
             <MemberCard 
               data={member}

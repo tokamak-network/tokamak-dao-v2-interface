@@ -1,8 +1,8 @@
 import { getEvent, getCandidates } from "@/api";
 import { useEffect, useState } from 'react';
 
-export function useEvent() {
-  const [slot, setSlot] = useState(0);
+export function useCandidate() {
+  const [candidate, setCandidate] = useState(0);
   const [memberList, setMemberList] = useState<any[]>([]);
   const [nonMemberList, setNonMemberList] = useState<any[]>([]);
 
@@ -14,6 +14,12 @@ export function useEvent() {
 
       const events = await getEvent('ChangedSlotMaximum')
       const candidates = await getCandidates()
+
+      if (candidates) {
+        candidates.sort(function (a: any, b: any) {
+          return b.updateCoinageTotalString - a.updateCoinageTotalString
+        })
+      }
       
       const checkSlot = events.filter((event: any) => event.eventName === 'ChangedSlotMaximum')
       const fliterChangeMembers = events.filter((event: any) => event.eventName === 'ChangedMember')
@@ -31,7 +37,6 @@ export function useEvent() {
       })
       
       const slotNumber = checkSlot[0] ? checkSlot[0].data.slotMax : 3
-      console.log(slotNumber)
       if (slotNumber > members.length) {
         console.log(slotNumber - members.length)
         for (let i = 0 ; i< slotNumber - members.length ; i++ ) {
@@ -41,9 +46,9 @@ export function useEvent() {
       console.log(members)
       setNonMemberList(nonMembers)
       setMemberList(members)
-      setSlot(slotNumber)
+      setCandidate(candidates)
     }
     fetchEvent()
   }, [])
-  return { slot, memberList, nonMemberList };
+  return { candidate, memberList, nonMemberList };
 }

@@ -1,30 +1,28 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
 import { CandidateList } from "./components/election/CandidateList"
-import { CardTitle } from './components/election/CardTitle';
-import { ElectionSide } from "./components/election/ElectinoSide";
+import { ElectionSide } from "./components/election/ElectionSide";
+import { useCandidate } from "@/hooks/election/useCandidate"
 
 function Election () {
+  const { nonMemberList, memberList, candidate } = useCandidate()
+
   return (
     <Flex
       minW={'1200px'}
       w={'100%'}
       minH={'89vh'}
+      flexDir={'row'}
       justifyContent={'center'}
-      alignItems={'center'}
-      flexDir={'column'}
+      alignItems={'start'}
       my={'35px'}
     >
-      <CardTitle 
-        name={'Elected Candidates'}
-        w={'1200px'}
+      <CandidateList 
+        nonMemberList={nonMemberList}
+        memberList={memberList}
       />
-      <Flex
-        flexDir={'row'}
-        justifyContent={'space-between'}
-      >
-        <CandidateList />
-        <ElectionSide />
-      </Flex>
+      <ElectionSide
+        candidates={candidate}
+      />
     </Flex>
   )
 }

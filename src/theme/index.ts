@@ -66,6 +66,10 @@ const CARD_STYLE = {
     height: '65px',
     padding: '25px 30px',
     marginBottom: '12px'
+  }),
+  sideCard: () => ({
+    width: '378px',
+    height: '225px'
   })
 }
 
@@ -186,11 +190,10 @@ const STAKING_HISTORY_TABLE_STYLE = {
   }),
   paginationTable: () => ({
     w: '100%',
-    h: '50px',
-    pt: '5px',
-    pr: 9,
+    h: '40px',
+    // pt: '5px',
     border: '',
-    mb: '25px',
+
     borderTopWidth: 0,
     borderBottomRadius: '10px',
   }),

@@ -10,7 +10,6 @@ function Home() {
   const [width] = useWindowDimensions();
   const theme = useTheme()
   const {eventList, candidateList} = useEventList()
-  console.log(eventList)
   const columns = useMemo(
     () => [
       {
@@ -35,8 +34,7 @@ function Home() {
         id: 'expander', // It needs an ID
         Cell: () => null,
       },
-    ],
-    [],
+    ], [],
   );
 
   return (
