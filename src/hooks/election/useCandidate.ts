@@ -1,4 +1,4 @@
-import { getEvent, getCandidates } from "@/api";
+import { getEvent, getCandidates, getMembers } from "@/api";
 import { useEffect, useState } from 'react';
 
 export function useCandidate() {
@@ -12,6 +12,8 @@ export function useCandidate() {
       let members: any[] = []
       let nonMembers: any[] = []
 
+      // const mem = await getMembers()
+      // console.log(mem)
       const events = await getEvent('ChangedSlotMaximum')
       const candidates = await getCandidates()
 

@@ -3,7 +3,7 @@ import { MemberCard } from "./MemberCard"
 import { SubText } from './SubText';
 import { convertNumber } from '@/components/number';
 import { commify } from 'ethers/lib/utils';
-import { CardTitle } from './CardTitle';
+import { CardTitle } from 'common/card/CardTitle';
 
 type CandidateListProp = {
   memberList: any

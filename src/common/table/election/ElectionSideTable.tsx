@@ -75,6 +75,7 @@ export const ElectionSideTable: FC<ElectionSideTableProps> = ({
       overflowX={'auto'}
       {...CARD_STYLE.mainTheme()}
       {...CARD_STYLE.sideCard()}
+      mb={'30px'}
     >
       <chakra.table
         width={'full'}

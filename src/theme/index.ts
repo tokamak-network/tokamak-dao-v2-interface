@@ -56,6 +56,11 @@ const CARD_STYLE = {
     boxShadow: '0 1px 1px 0 rgba(96, 97, 112, 0.16)',
     borderRadius: '10px',
   }),
+  resourceCard: () => ({
+    width: '378px',
+    height: '200px',
+    padding: '20px'
+  }),
   memberCard: () => ({
     width: '786px',
     height: '213px',
