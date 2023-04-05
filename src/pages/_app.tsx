@@ -35,38 +35,36 @@ function MyApp({ Component, pageProps }: AppProps) {
               <Footer />
             </Flex> */}
             
-            <Flex minH={'100vh'} w={'100%'}>
-              <Flex
+            <Box minH={'100vh'} w={'100%'}>
+              <Box
                 flexDir={"column"}
                 w={"100%"}
                 alignItems={"center"}
                 justifyContent={"space-between"}
                 bgColor={pathname === '/home' ? '#0062c2' : ''}
-                fontFamily={theme.fonts.roboto}
+                fontFamily={'roboto'}
                 fontStyle={'normal'}
               >
-                <Header
-                // walletopen={() => handleWalletModalOpen("wallet")}
-                />
-                <Flex
+                <Header />
+                <Box
                   justifyContent="center"
                   w={"100%"}
                   alignItems="center"
                   px={["12px", "24px", "0px"]}
                 >
-                  <Flex
+                  <Box
                     maxW={["100%", "100%", "100%"]}
                     flexDir={"column"}
                     justifyContent="space-between"
                     w={"100%"}
-                    minH={"90vh"}
+                    minH={"100vh"}
                   >
                     <Entry Component={Component} {...pageProps} />
                     <Footer />
-                  </Flex>
-                </Flex>
-              </Flex>
-            </Flex>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
           </RecoilRoot>
         </ChakraProvider>
       {/* </ApolloProvider> */}

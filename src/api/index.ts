@@ -2,11 +2,12 @@ import axios from 'axios';
 
 function createInstance () {
   return axios.create({
-    baseURL: 'https://api-dev.tokamak.network/v1',
+    baseURL: 'https://daoapi.tokamak.network/v1',
+    // baseURL: 'https://api-dev.tokamak.network/v1',
   });
 }
 const instance = createInstance();
-const chainId = 5;
+const chainId = 1;
 
 export async function getRecentEvents () {
   const events = [
@@ -29,7 +30,6 @@ export async function getRecentEvents () {
     'RoundStart',
   ];
   const eventsString = events.join(',');
-
   const res = await instance.get('/events', {
     params: {
       chainId,
@@ -39,6 +39,23 @@ export async function getRecentEvents () {
     },
   });
 
+  return res.data.datas;
+}
+
+export async function getEvent (event: string) {
+  const events = [
+    'ChangedMember',
+    'ChangedSlotMaximum',
+  ];
+  const eventsString = events.join(',');
+  const res = await instance.get('/events', {
+    params: {
+      chainId,
+      page: 1,
+      pagesize: 1000,
+      eventNames: eventsString,
+    },
+  });
   return res.data.datas;
 }
 
