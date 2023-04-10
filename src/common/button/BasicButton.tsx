@@ -14,7 +14,7 @@ type BasicButtonProp = {
   h?: number | string;
   isDisabled?: boolean;
   style?: any;
-  onClick?: () => void;
+  onClick?: () => void | void;
   tooltip?: string;
   isLoading?: boolean;
   type: 'a' | 'b' | 'normal' | 'inactive';

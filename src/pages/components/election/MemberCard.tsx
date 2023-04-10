@@ -6,6 +6,8 @@ import { timeConverter, fromNow } from '@/components/getDate';
 import Image from 'next/image';
 import CLOCK from '@/assets/images/poll-time-active-icon.png'
 import BasicButton from '@/common/button/BasicButton';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type Member = {
   data: any;
@@ -16,8 +18,8 @@ export const MemberCard = (args: Member) => {
   const { data, index } = args
   // console.log(data)
   const { candidate, memberJoinedTime, name, candidateContract, updateCoinageTotalString } = data;
-  const theme = useTheme()
-  const CARD_STYLE = theme.CARD_STYLE;
+  const { CARD_STYLE } = useTheme()
+
   const voted = convertNumber({
     amount: updateCoinageTotalString,
     type: 'ray'
@@ -73,11 +75,22 @@ export const MemberCard = (args: Member) => {
         justifyContent={'space-between'}
       >
         <Flex>
-          {data === 'Empty' ? '' : 
-            <BasicButton 
-            type={'a'}
-            name={'View Details'}
-            />
+          {data === 'Empty' && data ? '' : 
+          <Link
+            href={{
+              pathname: `/election/${candidateContract}`,
+              query: {
+                data: data
+              },
+            }}
+            as={`/election/${candidateContract}`}
+          >
+              <BasicButton 
+                type={'a'}
+                name={'View Details'}
+                // onClick={viewDetail(candidateContract)}
+                />
+          </Link>
           }
         </Flex>
         <Flex>

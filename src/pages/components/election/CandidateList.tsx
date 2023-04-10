@@ -45,7 +45,7 @@ export const CandidateList = (args: CandidateListProp) => {
         />
         {
           nonMemberList ?
-          nonMemberList.map((nonMember: any, i) => {
+          nonMemberList.map((nonMember: any, i: any) => {
             const { candidate, memberJoinedTime, name, candidateContract, updateCoinageTotalString } = nonMember;
             const voted = convertNumber({
               amount: updateCoinageTotalString,

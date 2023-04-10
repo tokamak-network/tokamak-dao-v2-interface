@@ -75,6 +75,11 @@ const CARD_STYLE = {
   sideCard: () => ({
     width: '378px',
     height: '225px'
+  }),
+  detailCard: () => ({
+    width: '786px',
+    height: '600px',
+    padding: '25px 29px 30px 30px'
   })
 }
 
