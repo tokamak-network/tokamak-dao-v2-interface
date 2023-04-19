@@ -16,8 +16,8 @@ export const MemberCard = (args: Member) => {
   const { data, index } = args
   // console.log(data)
   const { candidate, memberJoinedTime, name, candidateContract, updateCoinageTotalString } = data;
-  const theme = useTheme()
-  const CARD_STYLE = theme.CARD_STYLE;
+  const { CARD_STYLE } = useTheme()
+
   const voted = convertNumber({
     amount: updateCoinageTotalString,
     type: 'ray'
