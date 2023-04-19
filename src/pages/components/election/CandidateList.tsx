@@ -12,8 +12,7 @@ type CandidateListProp = {
 
 export const CandidateList = (args: CandidateListProp) => {
   const { memberList, nonMemberList } = args
-  const theme = useTheme()
-  const CARD_STYLE = theme.CARD_STYLE;
+  const { CARD_STYLE } = useTheme()
 
   return (
     <Flex
