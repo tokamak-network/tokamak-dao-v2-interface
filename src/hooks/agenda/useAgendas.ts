@@ -1,4 +1,4 @@
-import { getAgendas, getAgendaVotes } from "@/api";
+import { getAgendas, getAgendaVotes, getAgendaContents } from "@/api";
 import { useEffect, useState } from 'react';
 
 export function useAgenda() {
@@ -7,7 +7,9 @@ export function useAgenda() {
   useEffect(() => {
     async function fetchAgenda () {
       const agenda = await getAgendas()
-      console.log(agenda)
+      // const agendaContents = await getAgendaContents(1)
+      // console.log(agendaContents)
+      // console.log(agenda)
       setAgendas(agenda)
     }
     fetchAgenda()

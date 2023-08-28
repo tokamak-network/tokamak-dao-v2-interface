@@ -40,6 +40,13 @@ export const AgendaCard = (args: AgendaCardProp) => {
       <AgendaCardHeader 
         index={agendaid}
       />
+      <Text
+        fontSize={'20px'}
+        mt={'5px'}
+        mb={'5px'}
+      >
+        {data === 'Empty' ? '-' : `${name}`}  
+      </Text>
 
     </Flex>
   )
