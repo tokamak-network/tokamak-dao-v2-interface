@@ -9,6 +9,7 @@ type AgendaListProp = {
 export const AgendaList = (args: AgendaListProp) => {
   const { agendaList } = args
   const { CARD_STYLE } = useTheme()
+  // const functions = useAgendaWithABI(agendaList.add)
 
   return (
     <Flex

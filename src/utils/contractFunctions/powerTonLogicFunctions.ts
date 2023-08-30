@@ -7,4 +7,3 @@ export const powerTonLogicFunctionsOfTypeB = [
   },
 ];
 
-module.exports.powerTonLogicFunctionsOfTypeB = powerTonLogicFunctionsOfTypeB;

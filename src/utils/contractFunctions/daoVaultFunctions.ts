@@ -1,4 +1,4 @@
-const daoVaultFunctionsOfTypeA = [
+export const daoVaultFunctionsOfTypeA = [
   {
     'params': {
       'aboutParam0': 'address _to: Address to which authority is granted',
@@ -129,5 +129,3 @@ const daoVaultFunctionsOfTypeB = [
   },
 ];
 
-module.exports.daoVaultFunctionsOfTypeA = daoVaultFunctionsOfTypeA;
-module.exports.daoVaultFunctionsOfTypeB = daoVaultFunctionsOfTypeB;

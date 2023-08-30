@@ -23,4 +23,3 @@ export const layer2RegistryFunctionsOfTypeB = [
   },
 ];
 
-module.exports.layer2RegistryFunctionsOfTypeB = layer2RegistryFunctionsOfTypeB;

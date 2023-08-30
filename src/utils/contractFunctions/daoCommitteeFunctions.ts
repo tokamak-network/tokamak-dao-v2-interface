@@ -170,4 +170,3 @@ export const daoCommitteeFunctionsOfTypeB = [
   },
 ];
 
-module.exports.daoCommitteeFunctionsOfTypeB = daoCommitteeFunctionsOfTypeB;

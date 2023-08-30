@@ -12,4 +12,3 @@ export const powerTonProxyFunctionsOfTypeB = [
   },
 ];
 
-module.exports.powerTonProxyFunctionsOfTypeB = powerTonProxyFunctionsOfTypeB;

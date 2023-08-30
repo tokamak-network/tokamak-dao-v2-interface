@@ -6,6 +6,7 @@ import CLOCK from '@/assets/images/poll-time-active-icon.png'
 import BasicButton from '@/common/button/BasicButton';
 import Image from 'next/image';
 import { AgendaCardHeader } from './AgendaCardHeader';
+import { useEffect } from 'react';
 
 type AgendaCardProp = {
   data: any;
@@ -27,9 +28,12 @@ export const AgendaCard = (args: AgendaCardProp) => {
     status,
     tCreationDate,
     voters,
+    tx,
+    type
   } = data;
   const { CARD_STYLE } = useTheme()
-  console.log(data)
+  console.log(data.onChainEffects)
+  
   return (
     <Flex
       {...CARD_STYLE.mainTheme()}

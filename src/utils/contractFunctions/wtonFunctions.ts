@@ -118,5 +118,3 @@ Enter the account of Sender in the first parameter (Param1), the account of Reci
 Enter the address acount in the first parameter (Param1) and the amount to be burned in the second parameter (Param2).`,
   },
 ];
-
-module.exports.wtonFunctionsOfTypeB = wtonFunctionsOfTypeB;

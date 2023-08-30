@@ -92,4 +92,3 @@ Enter the Sender account in Param1, the Recipient account in Param2, and the amo
   // },
 ];
 
-module.exports.tonFunctionsOfTypeB = tonFunctionsOfTypeB;

@@ -1,4 +1,4 @@
-const depositManagerFunctionsOfTypeA = [
+export const depositManagerFunctionsOfTypeA = [
   {
     'params': {
       'aboutParam0': 'uint256 globalWithdrawalDelay_: Minimum withdrawal period (unit: block)',
@@ -16,7 +16,7 @@ This withdrawal delay is specified in blocks. New global withdrawal delay will b
   },
 ];
 
-const depositManagerFunctionsOfTypeB = [
+export const depositManagerFunctionsOfTypeB = [
   {
     'params': {
       'aboutParam0': 'address newOwner: Address to receive owner authority',
@@ -56,6 +56,3 @@ This function allows you to change the contract, and you can enter the contract 
 // 'This function allows you to change the operator of Layer 2. Since the operator can be forcibly changed, it can be used in the event of malicious act.',
 //   },
 ];
-
-module.exports.depositManagerFunctionsOfTypeA = depositManagerFunctionsOfTypeA;
-module.exports.depositManagerFunctionsOfTypeB = depositManagerFunctionsOfTypeB;

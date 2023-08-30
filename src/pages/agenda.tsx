@@ -5,7 +5,7 @@ import { AgendaSide } from "./components/agenda/AgendaSide";
 
 function Agenda () {
   const agendas = useAgenda()
-  console.log(agendas)
+  // console.log(agendas)
   return (
     <Flex
       minW={'1200px'}
