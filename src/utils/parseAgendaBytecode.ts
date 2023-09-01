@@ -47,9 +47,9 @@ export const parseAgendaBytecode = function (tx: any, type: string) {
       const types: any[] = [];
       
       //@ts-ignore
-      // abi.inputs.forEach(input => {
-      //   types.push(input.type);
-      // });
+      abi.inputs.forEach(input => {
+        types.push(input.type);
+      });
       //@ts-ignore
       const bytecode = marshalString(unmarshalString(commands[i]).substring(8));
       //@ts-ignore

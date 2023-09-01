@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="propose_main_active_icon-05">
+        <path id="Base" fill="none" d="M0 0H50V50H0z"/>
+        <g id="icon" transform="translate(3 1)">
+            <path id="패스_46" d="M6.043 117L28.2 129.923 50.351 117" class="cls-2" transform="translate(-6.043 -81.923)"/>
+            <path id="패스_47" d="M6.043 81L28.2 93.923 50.351 81" class="cls-2" transform="translate(-6.043 -57)"/>
+            <path id="패스_48" d="M6.043 15.923L28.2 28.846l22.151-12.923L28.2 3z" class="cls-2" transform="translate(-6.043 -3)"/>
+        </g>
+    </g>
+</svg>

@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 
 type SubTextProp = {
-  value: number | string,
+  value: number | string | undefined,
   title: string,
   type?: string,
 }

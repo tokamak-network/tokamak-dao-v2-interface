@@ -86,7 +86,7 @@ Through this function, you can request to send the WTON stored in DAO Vault to a
   },
 ];
 
-const daoVaultFunctionsOfTypeB = [
+export const daoVaultFunctionsOfTypeB = [
   {
     'name': 'renounceOwnership',
     'title': '(Candidate)DAO\'s authority for candidate contracts will be removed.',

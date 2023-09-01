@@ -44,7 +44,8 @@ export function getAbiForAgenda () {
   const layer2B = set(layer2RegistryFunctionsOfTypeB, layer2Registry)
   const tonB = set(tonFunctionsOfTypeB, ton)
   const wtonB = set(wtonFunctionsOfTypeB, wton)
-  console.log(depositManagerA)
+  // console.log(depositManagerA)
+
   return {
     depositManagerA,
     depositManagerB,
@@ -66,6 +67,7 @@ export function getAbiForAgenda () {
 function set (functions: AbiFunctions, abi: AbiItem[]): AbiItem[] {
   // try {
     if (functions) {
+      console.log(functions)
       functions.forEach((func: AbiFunction) => {
         const f:AbiItem | undefined = abi.find((f: AbiItem) => f.name === func.name);
         if (f) {

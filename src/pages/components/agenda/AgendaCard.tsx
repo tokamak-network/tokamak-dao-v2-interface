@@ -29,10 +29,12 @@ export const AgendaCard = (args: AgendaCardProp) => {
     tCreationDate,
     voters,
     tx,
-    type
+    type,
+    onChainEffects
   } = data;
   const { CARD_STYLE } = useTheme()
-  console.log(data.onChainEffects)
+  console.log(type)
+  const numChainEffects = onChainEffects.length
   
   return (
     <Flex
@@ -42,16 +44,60 @@ export const AgendaCard = (args: AgendaCardProp) => {
       mb={'20px'}
     >
       <AgendaCardHeader 
-        index={agendaid}
+        index={`#${agendaid}`}
+        type={type}
       />
       <Text
         fontSize={'20px'}
         mt={'5px'}
         mb={'5px'}
       >
-        {data === 'Empty' ? '-' : `${name}`}  
+        {onChainEffects[0].title}  
       </Text>
-
+      <Text
+        color={'#86929d'}
+        fontSize={'14px'}
+      >
+        {`This agenda was made by ${trimAddress({
+          address: creator,
+          firstChar: 6,
+          lastChar: 4,
+          dots: '...'
+        })} on ${timeConverter(tCreationDate)}`}
+      </Text>
+      <Flex
+        flexDir={'row'}
+        my={'25px'}
+        h={'13px'}
+      >
+        <Image src={CLOCK} alt='' />
+        <Text
+          fontSize={'10px'}
+          color={'#86929d'}
+          ml={'7px'}
+        >
+          {data === 'Empty' ? '-' : fromNow(result)}
+        </Text>
+      </Flex>
+      <Flex
+        flexDir={'row'}
+        justifyContent={'space-between'}
+      >
+        <Flex>
+          {data === 'Empty' ? '' : 
+            <BasicButton 
+              type={'a'}
+              name={'View Details'}
+            />
+          }
+        </Flex>
+        <Flex>
+          <BasicButton 
+            type={'normal'}
+            name={'Challenge'}
+          />
+        </Flex>
+      </Flex>
     </Flex>
   )
 }

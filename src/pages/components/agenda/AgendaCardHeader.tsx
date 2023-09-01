@@ -8,7 +8,7 @@ type CardHeaderProp = {
 
 export const AgendaCardHeader = (args: CardHeaderProp) => {
   const { type, index } = args;
-
+  const color = type === 'A' ? 'A' : ''
   return (
     <Flex
       flexDir={'row'}
@@ -20,10 +20,12 @@ export const AgendaCardHeader = (args: CardHeaderProp) => {
       <SubText 
         title={'Agenda'}
         value={index}
+        type={color}
       />
       <SubText 
         title={'TYPE'}
-        value={'A'}
+        value={type}
+        type={color}
       />
     </Flex>
   )

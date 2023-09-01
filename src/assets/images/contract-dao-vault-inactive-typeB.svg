@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="propose_main_inactive_icon-09" width="50" height="50" viewBox="0 0 50 50">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke:#dfe4ee;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <path id="Base" fill="none" d="M0 0H50V50H0z"/>
+    <g id="icon" transform="translate(8 8)">
+        <path id="선_6" d="M0 33.6L33.6 0" class="cls-2" transform="rotate(180 16.8 16.8)"/>
+        <path id="패스_45" d="M28.8 28.8V0H0" class="cls-2" transform="rotate(180 14.4 16.8)"/>
+    </g>
+</svg>

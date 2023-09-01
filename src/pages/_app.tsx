@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 w={"100%"}
                 alignItems={"center"}
                 justifyContent={"space-between"}
-                bgColor={pathname === '/home' ? '#0062c2' : ''}
+                bgColor={pathname === '/home' ? '#0062c2' : '#fafbfc'}
                 fontFamily={'roboto'}
                 fontStyle={'normal'}
               >

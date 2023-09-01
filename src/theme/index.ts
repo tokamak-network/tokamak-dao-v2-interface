@@ -81,7 +81,7 @@ const CARD_STYLE = {
 const PAGE_STYLE = {
   layoutTheme: () => ({
     width: '1114px',
-    backgroundColor: '#fff',
+    backgroundColor: '#fafbfc',
     boxShadow: '0 1px 1px 0 rgba(96, 97, 112, 0.16)',
     borderRadius: '10px',
   }),
