@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react"
 import { useAgenda } from "@/hooks/agenda/useAgendas"
-import { AgendaList } from './components/agenda/AgendaList';
-import { AgendaSide } from "./components/agenda/AgendaSide";
+import { AgendaList } from './agenda/components/AgendaList';
+import { AgendaSide } from "./agenda/components/AgendaSide";
 
 function Agenda () {
   const agendas = useAgenda()

@@ -2,7 +2,6 @@ import { Flex, Grid, Text, useTheme } from "@chakra-ui/react"
 import { useState, useEffect, useCallback } from 'react';
 import { SelectContractType } from "./components/propose/SelectContractType";
 import { getAbiForAgenda } from '@/utils/getAbiForAgenda';
-import { AgendaCard } from "./components/agenda/AgendaCard";
 import { ProposeCard } from './components/propose/ProposeCard';
 import {
   daoCommitteeFunctionsOfTypeB,

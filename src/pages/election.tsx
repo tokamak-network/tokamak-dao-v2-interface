@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
-import { CandidateList } from "./components/election/CandidateList"
-import { ElectionSide } from "./components/election/ElectionSide";
+import { CandidateList } from "./election/components/CandidateList"
+import { ElectionSide } from "./election/components/ElectionSide";
 import { useCandidate } from "@/hooks/election/useCandidate"
 
 function Election () {
