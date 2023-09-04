@@ -1,9 +1,10 @@
-import { Flex, useTheme, Text } from '@chakra-ui/react';
+import { Flex, useTheme, Text, Button } from '@chakra-ui/react';
 import { MemberCard } from "./MemberCard"
 import { SubText } from './SubText';
 import { convertNumber } from '@/components/number';
 import { commify } from 'ethers/lib/utils';
 import { CardTitle } from 'common/card/CardTitle';
+import { useRouter } from 'next/router';
 
 type CandidateListProp = {
   memberList: any
@@ -13,6 +14,7 @@ type CandidateListProp = {
 export const CandidateList = (args: CandidateListProp) => {
   const { memberList, nonMemberList } = args
   const { CARD_STYLE } = useTheme()
+  const router = useRouter()
 
   return (
     <Flex
@@ -71,12 +73,18 @@ export const CandidateList = (args: CandidateListProp) => {
                 >
                   {name}
                 </Flex>
-                <Flex
+                <Button
                   fontSize={'13px'}
                   color={'#2a72e5'}
+                  onClick={() => {
+                    router.push({
+                      pathname: '/election/[l2address]',
+                      query: { l2address: candidateContract }
+                    })
+                  }}
                 >
                   View Details
-                </Flex>
+                </Button>
               </Flex>
             )
           }) : ''

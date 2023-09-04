@@ -6,6 +6,7 @@ import { timeConverter, fromNow } from '@/components/getDate';
 import Image from 'next/image';
 import CLOCK from '@/assets/images/poll-time-active-icon.png'
 import BasicButton from '@/common/button/BasicButton';
+import { useRouter } from 'next/router';
 
 type Member = {
   data: any;
@@ -17,7 +18,7 @@ export const MemberCard = (args: Member) => {
   // console.log(data)
   const { candidate, memberJoinedTime, name, candidateContract, updateCoinageTotalString } = data;
   const { CARD_STYLE } = useTheme()
-
+  const router = useRouter()
   const voted = convertNumber({
     amount: updateCoinageTotalString,
     type: 'ray'
@@ -75,8 +76,14 @@ export const MemberCard = (args: Member) => {
         <Flex>
           {data === 'Empty' ? '' : 
             <BasicButton 
-            type={'a'}
-            name={'View Details'}
+              type={'a'}
+              name={'View Details'}
+              onClick={() => {
+                router.push({
+                  pathname: '/election/[l2address]',
+                  query: { l2address: candidateContract }
+                })
+              }}
             />
           }
         </Flex>
