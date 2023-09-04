@@ -25,25 +25,26 @@ import {
 function Propose () {
   const theme = useTheme()
   const [contractType, setContractType] = useState('A')
-  const {
-    depositManagerA,
-    depositManagerB,
-    seigManagerA,
-    seigManagerB,
-    daoCommitteeB,
-    committeeProxyA,
-    committeeProxyB,
-    // powerTonLogicB,
-    powerTonProxyB,
-    daoVaultA,
-    daoVaultB,
-    layer2B,
-    tonB,
-    wtonB
-  } = getAbiForAgenda()
+  // const {
+  //   depositManagerA,
+  //   depositManagerB,
+  //   seigManagerA,
+  //   seigManagerB,
+  //   daoCommitteeB,
+  //   committeeProxyA,
+  //   committeeProxyB,
+  //   // powerTonLogicB,
+  //   powerTonProxyB,
+  //   daoVaultA,
+  //   daoVaultB,
+  //   layer2B,
+  //   tonB,
+  //   wtonB
+  // } = getAbiForAgenda()
   const [ typeA, setTypeA ] = useState<any[]>([])
   const [ typeB, setTypeB ] = useState<any[]>([])
   const [ selectedContract, setSelectedContract ] = useState('')
+  const [ functions, setFunctions ] = useState<any[]>([])
   
   useEffect(() => {
     async function fetch () {
@@ -117,7 +118,7 @@ function Propose () {
           imageInactive: require('@/assets/images/contract-dao-vault-inactive-typeB.svg')
         },
         {
-          contractName: 'DAO Committee Proxy Contract',
+          contractName: 'DAO Committee Contract',
           functions: daoCommitteeFunctionsOfTypeB,
           imageActive: require('@/assets/images/contract-dao-committee-proxy-active-typeB.svg'),
           imageInactive: require('@/assets/images/contract-dao-committee-proxy-inactive-typeB.svg')
@@ -138,6 +139,12 @@ function Propose () {
   const selectType = (type: string) => {
     setContractType(type)
     setSelectedContract('')
+    setFunctions([])
+  }
+
+  const selectContract = (content: any) => {
+    setSelectedContract(content.contractName)
+    setFunctions(content.functions)
   }
   
   return (
@@ -160,7 +167,7 @@ function Propose () {
         color={'#eff1f6'}
         mb={'30px'}
       >
-        Propose Contract
+        Propose Agenda
       </Flex>
       <Flex
         width={'212px'}
@@ -205,35 +212,66 @@ function Propose () {
           contractType === 'A' ?
           <>
             {typeA.map((content) => {
-              console.log(content)
               return [
                 <ProposeCard
                   content={content}
                   selected={selectedContract}
                   contractType={'A'}
-                  onClick={() => setSelectedContract(content.contractName)}
+                  onClick={() => selectContract(content)}
                 />
               ]
             })}
           </> : 
-          <>
+          <Grid
+            // maxW={'1200px'}
+            templateColumns={'repeat(4, 1fr)'}
+          >
             {typeB.map((content)=> {
               return [
-                <Grid
-                  w={'100%'}
-                >
-                  <ProposeCard
-                    content={content}
-                    selected={selectedContract}
-                    contractType={'B'}
-                    onClick={() => setSelectedContract(content.contractName)}
-                  />
-                </Grid>
+                <ProposeCard
+                  content={content}
+                  selected={selectedContract}
+                  contractType={'B'}
+                  onClick={() => selectContract(content)}
+                /> 
               ]
             })}
-          </>
+          </Grid>
         }
       </Flex>
+      {
+        functions ? 
+        <Grid
+          templateColumns={'repeat(6, 1fr)'}
+          gap={7}
+        >
+          {
+            functions.map((contractFunction) => {
+              return [
+                <Flex
+                  w={'174px'}
+                  h={'67px'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  borderRadius={'5px'}
+                  boxShadow={'0 0 10px 0 rgba(223, 228, 238, 0.35);'}
+                  bgColor={'#fff'}
+                  fontSize={'14px'}
+                  cursor={'pointer'}
+                >
+                  <Text
+                    w={'150px'}
+                    textAlign={'center'}
+                  >
+                    {contractFunction.name}
+                  </Text>
+                </Flex>
+              ]
+            })
+          }
+        </Grid> : 
+        <></>
+      }
     </Flex>
   )
 }

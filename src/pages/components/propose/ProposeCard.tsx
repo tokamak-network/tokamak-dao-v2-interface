@@ -16,19 +16,22 @@ export const ProposeCard = (args: ProposeCardTypeProp) => {
     imageInactive,
     imageActive,
   } = content
-  // console.log(contractName,functions)
+  const numFunc = functions.length.toString()
+  
   return (
     <Flex
       mx={'15px'}
       cursor={'pointer'}
+      mb={'30px'}
     >
       <Flex 
-        flexDir={'column'} 
+        flexDir={selected ? 'row-reverse' : 'column'} 
         w={'276px'}
-        h={'320px'}
+        h={ selected ? '124px' : '320px'}
         alignItems={'space-between'}
         justifyContent={'space-between'}  
         cursor={'pointer'}
+        color={ selected === contractName ? '#fff' :'#3e495c' }
         bgColor={ 
           selected === contractName && contractType === 'A' ?
           '#2a72e5' :
@@ -36,7 +39,17 @@ export const ProposeCard = (args: ProposeCardTypeProp) => {
           '#f7981c' :
           '#fff'
         }
-        p={'15px 25px 30px'}
+        _hover={
+          contractType === 'A' ? { 
+            bgColor: '#2a72e5',
+            color: '#fff'
+            
+          } : { 
+            bgColor: '#f7981c',
+            color: '#fff'
+          }
+        }
+        pb={'20px'}
         borderRadius={'15px'}
         boxShadow={'0 10px 15px 0 rbga(42, 114, 229, 0.25'}
         onClick={() => onClick()}
@@ -46,24 +59,37 @@ export const ProposeCard = (args: ProposeCardTypeProp) => {
           justifyContent={'space-between'}
           alignItems={'center'}
           h={'84px'}
-          w={'100%'}
+          // w={'100%'}
+          mr={'20px'}
+          mt={'15px'}
         >
-          <Flex
-            fontSize={'64px'}
-            fontWeight={100}
-            color={'#f4f6f9'}
-          >
-            {functions.length}
-          </Flex>
-          <Image src={imageInactive} alt=""/>
+          
+          {
+            selected ? 
+            <></> :
+            <Flex
+              fontSize={'64px'}
+              fontWeight={100}
+              color={'#f4f6f9'}
+              height={'70px'}
+              ml={'20px'}
+              mb={'20px'}
+            >
+              {numFunc.length === 1 ? `0${numFunc}` : numFunc}
+            </Flex>
+          }
+          <Image src={imageInactive} alt="" />
         </Flex>
         <Flex
           flexDir={'column'}
-          width={'185px'}
+          width={'200px'}
           fontSize={'24px'}
           textAlign={'left'}
-          color={ selected === contractName ? '#fff' : '#3e495c'}
           fontWeight={300}
+          mt={selected ? '20px' : ''}
+          justifyContent={'center'}
+          ml={'20px'}
+          mb={'5px'}
         >
           {contractName}
         </Flex>

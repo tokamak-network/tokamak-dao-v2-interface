@@ -89,7 +89,6 @@ export function abiFromSelector (selector: any, type: string) {
   let abi;
 
   if (type === 'A') {
-    console.log(depositManagerA)
     abi = depositManagerA?.find(abi => abi.selector === selector);
     if (abi) return abi;
 

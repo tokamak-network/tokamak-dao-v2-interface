@@ -67,7 +67,6 @@ export function getAbiForAgenda () {
 function set (functions: AbiFunctions, abi: AbiItem[]): AbiItem[] {
   // try {
     if (functions) {
-      console.log(functions)
       functions.forEach((func: AbiFunction) => {
         const f:AbiItem | undefined = abi.find((f: AbiItem) => f.name === func.name);
         if (f) {
