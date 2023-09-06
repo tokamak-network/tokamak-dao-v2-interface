@@ -1,20 +1,34 @@
 import { Flex } from "@chakra-ui/react"
+import { convertNumber } from '../../../utils/number';
+import { timeConverter } from '../../../utils/getDate';
 
 
 type InfoRowTypeProps = {
   title: string,
   description: string,
-  value: string,
-  type: string
+  value: string 
+  type: string 
 }
 
 export const InfoRow = (args: InfoRowTypeProps) => {
-  const {
+  let {
     description,
     title,
     value,
     type
   } = args
+  let values
+  if (type === 'TON') {
+    values = convertNumber({
+      amount: value,
+      type: 'ray'
+    })
+  } else if (type === 'date') {
+    values = timeConverter(Number(value) / 1000, 'time')
+  } else {
+    values = value
+  }
+  
   return (
     <Flex
       flexDir={'row'}
@@ -37,7 +51,8 @@ export const InfoRow = (args: InfoRowTypeProps) => {
         fontWeight={'normal'}
         color={'#818992'}
       >
-        {value}
+        {values}
+        {type === 'TON' ? ' TON' : ''}
       </Flex>
 
     </Flex>

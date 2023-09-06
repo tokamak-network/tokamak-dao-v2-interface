@@ -83,13 +83,14 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
         {
           tab === 'detail' ?
           <>
-            <CandidateInfo />
+            <CandidateInfo 
+              candidate={candidate}
+            />
           </> :
           tab === 'breakdown' ?
           <>
           </> :
           <>
-          
           </>
         } 
         

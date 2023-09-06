@@ -1,8 +1,15 @@
 import { Flex } from "@chakra-ui/react"
 import { InfoRow } from './InfoRow';
 
-export const CandidateInfo = () => {
-
+export const CandidateInfo = (args: any) => {
+  console.log(args)
+  const {
+    name,
+    candidate,
+    layer2,
+    updateCoinageTotalString,
+    updateCoinageTime
+  } = args.candidate
   return (
     <Flex
       flexDir={'column'}
@@ -10,8 +17,8 @@ export const CandidateInfo = () => {
       <InfoRow 
         title={'Name'}
         description={''}
-        value={'0xabcd'}
-        type={'address'}
+        value={name}
+        type={'text'}
       />
       <InfoRow 
         title={'Description'}
@@ -22,27 +29,28 @@ export const CandidateInfo = () => {
       <InfoRow 
         title={'Candidate Address'}
         description={''}
-        value={'0xabcd'}
+        value={candidate}
         type={'address'}
       />
       <InfoRow 
         title={'Candidate Contract'}
         description={''}
-        value={'0xabcd'}
+        value={layer2}
         type={'address'}
       />
       <InfoRow 
         title={'Total Vote'}
         description={''}
-        value={'0.00'}
+        value={updateCoinageTotalString}
         type={'TON'}
       />
       <InfoRow 
         title={'Last Reward Update'}
         description={''}
-        value={'0000000'}
+        value={updateCoinageTime}
         type={'date'}
       />
+      <Flex h={'20px'} />
       <InfoRow 
         title={'My Vote'}
         description={''}
