@@ -34,7 +34,7 @@ export const ElectionSide = (args: ElectionSideProp) => {
       },
     ], [],
   );
-  console.log(candidates)
+  
   return (
     <Flex 
       w={'378px'}

@@ -81,7 +81,9 @@ export const MemberCard = (args: Member) => {
               onClick={() => {
                 router.push({
                   pathname: '/election/[l2address]',
-                  query: { l2address: candidateContract }
+                  query: { 
+                    l2address: candidateContract,
+                  }
                 })
               }}
             />

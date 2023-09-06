@@ -47,7 +47,7 @@ export const CandidateList = (args: CandidateListProp) => {
         {
           nonMemberList ?
           nonMemberList.map((nonMember: any, i: any) => {
-            const { candidate, memberJoinedTime, name, candidateContract, updateCoinageTotalString } = nonMember;
+            const { name, candidateContract, updateCoinageTotalString } = nonMember;
             const voted = convertNumber({
               amount: updateCoinageTotalString,
               type: 'ray'
@@ -73,18 +73,21 @@ export const CandidateList = (args: CandidateListProp) => {
                 >
                   {name}
                 </Flex>
-                <Button
+                <Flex
                   fontSize={'13px'}
                   color={'#2a72e5'}
+                  cursor={'pointer'}
                   onClick={() => {
                     router.push({
                       pathname: '/election/[l2address]',
-                      query: { l2address: candidateContract }
+                      query: { 
+                        l2address: candidateContract,
+                      }
                     })
                   }}
                 >
                   View Details
-                </Button>
+                </Flex>
               </Flex>
             )
           }) : ''

@@ -2,7 +2,7 @@ import { getEvent, getCandidates, getMembers } from "@/api";
 import { useEffect, useState } from 'react';
 
 export function useCandidate() {
-  const [candidate, setCandidate] = useState(0);
+  const [candidate, setCandidate] = useState<any[]>([]);
   const [memberList, setMemberList] = useState<any[]>([]);
   const [nonMemberList, setNonMemberList] = useState<any[]>([]);
 

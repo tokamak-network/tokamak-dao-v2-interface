@@ -14,12 +14,11 @@ import { trimAddress } from '@/components/trimAddress';
 import { convertNumber } from '@/components/number';
 import { commify } from 'ethers/lib/utils';
 
-type ElectionSideTableProps = () => {
+type ElectionSideTableProps = {
   columns: Column[];
   data: any[];
   isLoading?: boolean;
 }
-
 
 export const ElectionSideTable: FC<ElectionSideTableProps> = ({
   columns,
