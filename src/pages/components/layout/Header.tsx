@@ -46,14 +46,22 @@ const NavItem = () => {
             <Flex
               alignItems="space-between"
               justifyContent={"center"}
-              color={
-                isHover === index
+              _hover={{
+                color: isHover === index
                   ? pathname === '/home' + item.link
-                    ? "#2a72e5"
-                    : "#3e495c"
+                    ? "#3e495c"
+                    : "#2a72e5"
                   : pathname === '/home' 
                     ? "#ffffff"
                     : "#3e495c"
+                
+              }}
+              color={
+                pathname === '/home' ?
+                '#fff' : 
+                pathname === item.link ?
+                '#2a72e5':
+                ''
               }
               fontSize={'16px'}
               cursor={"pointer"}
