@@ -1,11 +1,10 @@
 import { Box, Button, Tooltip, useColorMode, useTheme } from "@chakra-ui/react";
-import Image from "next/image";
-import { useCallback, useMemo } from "react";
-import QuestionIcon from "assets/icons/question.svg";
+// import Image from "next/image";
+// import { useCallback, useMemo } from "react";
+// import QuestionIcon from "assets/icons/question.svg";
 // import BasicTooltip from "common/tooltip/index";
 
-type ButtonIconNames = "Question" | undefined;
-
+// type ButtonIconNames = "Question" | undefined;
 type BasicButtonProp = {
   name: string;
   w?: number | string | string[];

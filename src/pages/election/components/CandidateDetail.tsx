@@ -2,6 +2,7 @@
 import { Flex } from "@chakra-ui/react"
 import { CandidateInfo } from "./Info"
 import { useState } from 'react';
+import { VoteBreakDown } from './VoteBreakdown';
 
 type CandidateDetailTypeProps = {
   candidate: any
@@ -89,6 +90,9 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
           </> :
           tab === 'breakdown' ?
           <>
+            <VoteBreakDown 
+              candidate={candidate}
+            />
           </> :
           <>
           </>

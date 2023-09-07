@@ -18,12 +18,9 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 type PaginationProps = {
-  columns: Column[];
-  data: any[];
   currentPage: any
   prevPage: any
   nextPage: any
-  visibleColumns: any
   canPreviousPage: any
   canNextPage: any
   pageOptions: any
@@ -31,63 +28,28 @@ type PaginationProps = {
 }
 
 export const Pagination: FC<PaginationProps> = ({
-  columns,
-  data,
   currentPage,
   prevPage,
   nextPage,
-  visibleColumns,
   canPreviousPage,
   canNextPage,
   pageOptions,
   pageIndex,
 }) => {
-  // const {
-  //   // visibleColumns,
-  //   // canPreviousPage,
-  //   // canNextPage,
-  //   // pageOptions,
-  //   state: {pageIndex, pageSize},
-  // } = useTable(
-  //   {columns, data, initialState: {pageIndex: 0}},
-  //   useSortBy,
-  //   useExpanded,
-  //   usePagination,
-  // );
-  const theme = useTheme();
-  // const [currentPage, setCurrentPage] = useState(0)
-  // const [buttonClick, setButtonClick] = useState(Boolean)
   
+  const theme = useTheme();
 
-  // useEffect(() => {
-  //   setPageSize(5)
-  // },[setPageSize])
-
-  // useEffect(() => {
-  //   if (pageIndex % 4 === 0 && buttonClick) setCurrentPage(pageIndex)
-  //   if (pageIndex % 4 === 3 && !buttonClick) setCurrentPage(pageIndex - 3)
-  // }, [buttonClick, pageIndex])
-
-  // const goPrevPage = () => {
-  //   previousPage();
-  //   setButtonClick(false)
-  // };
-
-  // const goNextPage = () => {
-  //   nextPage();
-  //   setButtonClick(true)
-  // };
   return (
-    <chakra.tr
+    <Flex
       w={'100%'}
       {...theme.STAKING_HISTORY_TABLE_STYLE.paginationTable()}
     >
-      <chakra.td
+      <Flex
         display={'flex'}
         w={'100%'}
         margin={0}
         justifyContent="center"
-        colSpan={visibleColumns.length}
+        // colSpan={visibleColumns.length}
       >
         <Flex justifyContent="flex-end" my={4} alignItems="center">
           <Flex>
@@ -144,7 +106,7 @@ export const Pagination: FC<PaginationProps> = ({
             </Tooltip>
           </Flex>
         </Flex> 
-      </chakra.td>
-    </chakra.tr>
+      </Flex>
+    </Flex>
   )
 }
