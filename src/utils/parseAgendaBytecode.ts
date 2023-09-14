@@ -23,7 +23,6 @@ export const parseAgendaBytecode = function (tx: any, type: string) {
     //@ts-ignore
     const selector = commands[i].slice(0, 10);
     let abi = abiFromSelector(selector, type);
-    console.log('abi', abi, selector, type)
     if (!abi) {
       abi = abiFromSelector(selector, type === 'A' ? 'B' : 'A');
     }

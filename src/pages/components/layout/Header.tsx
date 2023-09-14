@@ -42,7 +42,7 @@ const NavItem = () => {
       {navItemList.map((item, index) => {
         const capitalLinkName = item.link.charAt(0).toUpperCase() + item.link.slice(1)
         return (
-          <Link href={`${item.link}`} key={`nav-item-${index}`} passHref>
+          <Link href={`/${item.link}`} key={`nav-item-${index}`} passHref>
             <Flex
               alignItems="space-between"
               justifyContent={"center"}

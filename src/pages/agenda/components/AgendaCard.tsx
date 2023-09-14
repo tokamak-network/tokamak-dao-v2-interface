@@ -34,7 +34,7 @@ export const AgendaCard = (args: AgendaCardProp) => {
   } = data;
   const { CARD_STYLE } = useTheme()
   const numChainEffects = onChainEffects.length
-  
+
   return (
     <Flex
       {...CARD_STYLE.mainTheme()}
@@ -85,16 +85,10 @@ export const AgendaCard = (args: AgendaCardProp) => {
         <Flex>
           {data === 'Empty' ? '' : 
             <BasicButton 
-              type={'a'}
+              type={type.toLowerCase()}
               name={'View Details'}
             />
           }
-        </Flex>
-        <Flex>
-          <BasicButton 
-            type={'normal'}
-            name={'Challenge'}
-          />
         </Flex>
       </Flex>
     </Flex>
