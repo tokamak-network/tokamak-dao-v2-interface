@@ -6,7 +6,7 @@ import { timeConverter } from '../../../utils/getDate';
 type InfoRowTypeProps = {
   title: string,
   description: string,
-  value: string 
+  value: string | number
   type: string 
 }
 
@@ -19,10 +19,11 @@ export const InfoRow = (args: InfoRowTypeProps) => {
   } = args
   let values
   if (type === 'TON') {
-    values = convertNumber({
-      amount: value,
-      type: 'ray'
-    })
+    values = value ? convertNumber({
+      amount: value.toString(),
+      type: 'ray',
+      localeString: true
+    }) : ''
   } else if (type === 'date') {
     values = timeConverter(Number(value) / 1000, 'time')
   } else {

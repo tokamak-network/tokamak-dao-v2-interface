@@ -4,17 +4,16 @@ import { ElectionSide } from "./election/components/ElectionSide";
 import { useCandidate } from "@/hooks/election/useCandidate"
 import { useRecoilState } from 'recoil';
 import { candidateState } from "@/atom/election/candidate";
-import {useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 function Election () {
   const { candidate, nonMemberList, memberList } = useCandidate()
-  console.log(memberList)
-  // const [value, setValue] = useRecoilState(candidateState)
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   setValue({ candidate, nonMemberList, memberList })
-  // },[])
-  // console.log(value)
+  useEffect(() => {
+    candidate.length > 0 ? setIsLoading(false) : setIsLoading(true)
+  }, [candidate, isLoading])
+  
   return (
     <Flex
       minW={'1200px'}
@@ -25,13 +24,19 @@ function Election () {
       alignItems={'start'}
       my={'35px'}
     >
-      <CandidateList 
-        nonMemberList={nonMemberList}
-        memberList={memberList}
-      />
-      <ElectionSide
-        candidates={candidate}
-      />
+      {
+        isLoading ? '' :
+        <Flex>
+          <CandidateList 
+            nonMemberList={nonMemberList}
+            memberList={memberList}
+          />
+          <ElectionSide
+            candidates={candidate}
+          />
+
+        </Flex>
+      }
     </Flex>
   )
 }

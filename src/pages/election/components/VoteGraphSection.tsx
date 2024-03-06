@@ -37,6 +37,8 @@ export const VoterGraphSection = (args: VoterGraphSectionProps) => {
   const [currentPage, setCurrentPage] = useState(0)
   const [buttonClick, setButtonClick] = useState(Boolean)
 
+
+
   useEffect(() => {
     setPageSize(4)
   },[setPageSize])
@@ -67,13 +69,15 @@ export const VoterGraphSection = (args: VoterGraphSectionProps) => {
         <>
           {page ? page.map((row: any) => {
             const {
-              account,
-              balanceString,
+              id,
+              stakedAmount,
             } = row.original
+            const staked = id.indexOf('-')
+            const staker = id.slice(0,staked)
             return [
               <GuageGraph 
-                voter={account}
-                votingAmount={balanceString}
+                voter={staker}
+                votingAmount={stakedAmount}
                 totalVote={totalVote}
               />
             ]

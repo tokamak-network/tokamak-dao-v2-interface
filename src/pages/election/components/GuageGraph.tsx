@@ -36,10 +36,10 @@ export const GuageGraph = (args: GuageGraphProps) => {
         color={'#818992'}
       >
         <Flex>
-          {voter}
+          {/* {voter} */}
         </Flex>
         <Flex>
-          {`${Number(voting).toLocaleString(undefined, { maximumFractionDigits: 2 })} TON Voted`}
+          {`${Number(voting).toLocaleString(undefined, { maximumFractionDigits: 2 })} TON Staked`}
         </Flex>
       </Flex>
       <Flex

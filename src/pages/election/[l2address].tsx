@@ -6,30 +6,28 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
 import NextButton from "@/common/button/NextButton";
 
-
 export const CandidateDetails = (props: any) => {
-  const { nonMemberList, memberList, candidate } = useCandidate()
+  const { candidate } = useCandidate()
   const [ currentCandidate, setCurrentCandidate ] = useState({})
   const [ index, setIndex ] = useState<number>(0)
   const { query } = useRouter()
   const router = useRouter()
 
   useEffect(() => {
-    // console.log(memberList)
     async function fetch() {
-      const currentIndex = candidate.findIndex((candi: any) => candi.layer2 === query.l2address)
+      const currentIndex = candidate.findIndex((candi: any) => candi.candidateContract === query.l2address)
       setCurrentCandidate(candidate[currentIndex])
       setIndex(currentIndex)
     }
     fetch()
-  }, [currentCandidate, index, query])
+  }, [ candidate, query])
 
   const next = () => {
     if (index !== candidate.length - 1) {
       router.push({
         pathname: '/election/[l2address]',
         query: { 
-          l2address: candidate[index + 1].layer2,
+          l2address: candidate[index + 1].candidateContract,
         }
       })
     }
@@ -40,7 +38,7 @@ export const CandidateDetails = (props: any) => {
       router.push({
         pathname: '/election/[l2address]',
         query: { 
-          l2address: candidate[index - 1].layer2,
+          l2address: candidate[index - 1].candidateContract,
         }
       })
     }
@@ -51,6 +49,7 @@ export const CandidateDetails = (props: any) => {
       pathname:'/election'
     })
   }
+
   return (
     <Flex
       minW={'1200px'}

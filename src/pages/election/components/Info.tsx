@@ -2,13 +2,12 @@ import { Flex } from "@chakra-ui/react"
 import { InfoRow } from './InfoRow';
 
 export const CandidateInfo = (args: any) => {
-  console.log(args)
   const {
     name,
     candidate,
-    layer2,
-    updateCoinageTotalString,
-    updateCoinageTime
+    candidateContract,
+    stakedAmount,
+    asCommit
   } = args.candidate
   return (
     <Flex
@@ -35,46 +34,26 @@ export const CandidateInfo = (args: any) => {
       <InfoRow 
         title={'Candidate Contract'}
         description={''}
-        value={layer2}
+        value={candidateContract}
         type={'address'}
       />
       <InfoRow 
-        title={'Total Vote'}
+        title={'Total Staked'}
         description={''}
-        value={updateCoinageTotalString}
+        value={stakedAmount}
         type={'TON'}
       />
       <InfoRow 
         title={'Last Reward Update'}
         description={''}
-        value={updateCoinageTime}
+        value={asCommit ? (+asCommit[0].timestamp) * 1000 : ''}
         type={'date'}
       />
-      <Flex h={'20px'} />
-      <InfoRow 
-        title={'My Vote'}
-        description={''}
-        value={'0.00'}
-        type={'TON'}
-      />
-      <InfoRow 
-        title={'Revotable'}
-        description={''}
-        value={'0.00'}
-        type={'TON'}
-      />
-      <InfoRow 
-        title={'Withdrawable'}
-        description={''}
-        value={'0.00'}
-        type={'TON'}
-      />
-      <InfoRow 
-        title={'Not Withdrawable'}
-        description={''}
-        value={'0.00'}
-        type={'TON'}
-      />
+
+      <Flex mt={'20px'} fontFamily={'Roboto'} fontSize={'14px'}>
+        The three DAO candidates with the highest amount of staked TON are eligible to become DAO committee members and can vote on DAO agendas. Users can delegate their staking power by staking their TON (or WTON) to any DAO candidates. In return, they can earn TON staking rewards.
+      </Flex>
+      
     </Flex>
   )
 }

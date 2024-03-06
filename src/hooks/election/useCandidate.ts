@@ -32,20 +32,14 @@ export function useCandidate() {
         if (arrIndex !== -1) (membersAddress.splice(arrIndex, 1))
         membersAddress.push(fliterChangeMembers[i].data.newMember) 
       }
-      
+
       if (data) {
         const candidates = await Promise.all(
           data.candidates.map(async (obj: any, index: number) => {
-            const member = membersAddress.find(function (member: any) {
-              if (member.toLowerCase() === obj.candidate.toLowerCase()) return obj
-            })
-            // console.log(member)
-            if (member) {
-              members.push(obj)
-            } else {
-              nonMembers.push(obj)
-            }
-            
+            const member = membersAddress.find((member: any) => 
+              member.toLowerCase() === obj.candidate.toLowerCase()
+            )
+            member ? members.push(obj) : nonMembers.push(obj)
           })
         )
         
@@ -60,7 +54,8 @@ export function useCandidate() {
         setCandidate(data.candidates)
       }
     }
+
     fetchEvent()
-  }, [])
+  }, [data])
   return { candidate, memberList, nonMemberList };
 }

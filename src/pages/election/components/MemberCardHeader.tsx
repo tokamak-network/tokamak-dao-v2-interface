@@ -32,6 +32,7 @@ export const MemberCardHeader = (args: CardHeaderProp) => {
         <SubText 
           blue={'Total Staked'}
           black={comma}
+          type={'ton'}
         />
       </Flex>
       

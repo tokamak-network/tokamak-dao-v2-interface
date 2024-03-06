@@ -4,10 +4,11 @@ type SubTextProp = {
   blue: string,
   black: string,
   size?: string,
+  type?: string,
 }
 
 export const SubText = (args: SubTextProp) => {
-  const { blue, black, size } = args;
+  const { blue, black, size, type } = args;
   return (
     <Flex
       flexDir={size ? 'row-reverse' : 'row'}
@@ -24,10 +25,14 @@ export const SubText = (args: SubTextProp) => {
       </Text>
       <Text
         color={'#3e495c'}
-        mr={size ? '5px' : ''}
+        mr={size ? '5px' : type === 'ton' ? '3px' : ''}
       >
         {black}
       </Text>
+      {
+        type === 'ton' ?
+        'TON' : ''
+      }
 
     </Flex>
   )

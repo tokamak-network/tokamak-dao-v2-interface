@@ -42,13 +42,6 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
           >
             {name}
           </Flex>
-          <Flex
-            mb={'4px'}
-            ml={'3px'}
-            fontSize={'12px'}
-          >
-            - {kind}
-          </Flex>
         </Flex>
         <Flex
           flexDir={'row'}
@@ -70,14 +63,7 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
             cursor={'pointer'}
             onClick={() => { setTab('breakdown')}}
           >
-            Vote Breakdown
-          </Flex>
-          <Flex
-            color = {tab === 'vote' ? '#2a72e5' : '#86929d' }
-            cursor={'pointer'}
-            onClick={() => { setTab('vote')}}
-          >
-            Vote/Unvote
+            Top 100 Stakers
           </Flex>
         </Flex>
         <Flex w={'726px'} h={'1px'} bgColor={'#dfe4ee'} my={'10px'} />

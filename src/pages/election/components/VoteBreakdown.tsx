@@ -12,8 +12,11 @@ type VoteBreakDownTypeProps = {
 
 export const VoteBreakDown = (args: VoteBreakDownTypeProps) => {
   const { candidate } = args
-  console.log(candidate)
-  const voters = useVoters(candidate.layer2)
+  const {
+    stakedUserList,
+    stakedAmount
+  } = candidate
+  const voters = useVoters(candidate.candidateContract)
 
   const columns = useMemo(
     () => [
@@ -23,25 +26,15 @@ export const VoteBreakDown = (args: VoteBreakDownTypeProps) => {
       }
     ], [],
   );
-  
 
   return (
     <Flex
       flexDir={'column'}
     >
-      <Flex
-        color={'#3e495c'}
-        fontSize={'16px'}
-        fontWeight={500}
-        mt={'25px'}
-        mb={'7px'}
-      >
-        Review
-      </Flex>
       <VoterGraphSection 
         columns={columns}
-        data={voters}
-        totalVote={candidate.updateCoinageTotalString}
+        data={stakedUserList}
+        totalVote={stakedAmount}
       />
       <Flex
         flexDir={'column'}
@@ -51,7 +44,7 @@ export const VoteBreakDown = (args: VoteBreakDownTypeProps) => {
           fontWeight={500}
           mb={'15px'}
         >
-          Voting Stats
+          Summary
         </Flex>
         <Flex
           flexDir={'row'}
@@ -64,14 +57,15 @@ export const VoteBreakDown = (args: VoteBreakDownTypeProps) => {
           <Flex
             color={'#818992'}
           >
-            Total Vote
+            Total Staked
           </Flex>
           <Flex
             color={'#3e495c'}
           >
             {`${convertNumber({
-              amount: candidate.updateCoinageTotalString,
-              type: 'ray'
+              amount: candidate.stakedAmount,
+              type: 'ray',
+              localeString: true
             })} TON`}
           </Flex>
         </Flex>
@@ -86,12 +80,12 @@ export const VoteBreakDown = (args: VoteBreakDownTypeProps) => {
           <Flex
             color={'#818992'}
           >
-            Unique Voters
+            Number of Stakers
           </Flex>
           <Flex
             color={'#3e495c'}
           >
-            {voters.length}
+            {stakedUserList.length}
           </Flex>
         </Flex>
       </Flex>
