@@ -66,6 +66,10 @@ const CARD_STYLE = {
     height: '213px',
     padding: '22px 30px'
   }),
+  agendaCard: () => ({
+    width: '786px',
+    padding: '22px 30px'
+  }),
   nonMemberCard: () => ({
     width: '786px',
     height: '65px',

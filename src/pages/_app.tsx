@@ -11,6 +11,8 @@ import Entry from './entry';
 import HeadMeta from './Header';
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { useRouter } from 'next/router';
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from '../apollo';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { onOpen, isOpen: isModalOpen, onClose } = useDisclosure();
@@ -19,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = router;
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      {/* <ApolloProvider client={client}> */}
+      <ApolloProvider client={apolloClient}>
         <ColorModeScript initialColorMode={theme.initialColorMode} />
         <ChakraProvider resetCSS theme={theme}>
           <RecoilRoot>
@@ -67,7 +69,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Box>
           </RecoilRoot>
         </ChakraProvider>
-      {/* </ApolloProvider> */}
+      </ApolloProvider>
     </Web3ReactProvider>
   );
 }

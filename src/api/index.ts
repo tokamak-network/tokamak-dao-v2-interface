@@ -1,13 +1,15 @@
+import { API } from '@/constants';
 import axios from 'axios';
+import { CHAINID } from '../constants/index';
 
 function createInstance () {
   return axios.create({
-    baseURL: 'https://daoapi.tokamak.network/v1',
+    baseURL: API
     // baseURL: 'https://api-dev.tokamak.network/v1',
   });
 }
 const instance = createInstance();
-const chainId = 1;
+const chainId = CHAINID;
 
 export async function getRecentEvents () {
   const events = [
@@ -21,8 +23,6 @@ export async function getRecentEvents () {
     'Layer2Registered',
     'AgendaStatusChanged',
     'AgendaResultChanged',
-    // 'ApplyMemberSuccess', // NOT USED.
-
     'Deposited',
     'WithdrawalRequested',
     'WithdrawalProcessed',

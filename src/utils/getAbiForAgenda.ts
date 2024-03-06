@@ -68,7 +68,7 @@ function set (functions: AbiFunctions, abi: AbiItem[]): AbiItem[] {
   // try {
     if (functions) {
       functions.forEach((func: AbiFunction) => {
-        const f:AbiItem | undefined = abi.find((f: AbiItem) => f.name === func.name);
+        const f: AbiItem | undefined = abi.find((f: AbiItem) => f.name === func.name);
         if (f) {
           //@ts-ignore
           f.selector = web3EthABI.encodeFunctionSignature(f);

@@ -45,7 +45,7 @@ export const ElectionSideTable: FC<ElectionSideTableProps> = ({
   );
   const theme = useTheme()
   const CARD_STYLE = theme.CARD_STYLE
-    console.log(columns)
+
   const [currentPage, setCurrentPage] = useState(0)
   const [buttonClick, setButtonClick] = useState(Boolean)
 

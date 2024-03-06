@@ -22,7 +22,7 @@ export const CandidateList = (args: CandidateListProp) => {
       flexDir={'column'}
     >
       <CardTitle 
-        name={'Elected Candidates'}
+        name={'DAO Committee Members'}
         mb={'35px'}
       />
       {
@@ -40,7 +40,7 @@ export const CandidateList = (args: CandidateListProp) => {
         flexDir={'column'}
       >
         <CardTitle 
-          name={'Candidates'}
+          name={'Other DAO Candidates'}
           mb={'35px'}
           mt={'10px'}
         />

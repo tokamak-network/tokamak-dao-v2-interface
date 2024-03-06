@@ -8,6 +8,7 @@ import {useEffect} from 'react';
 
 function Election () {
   const { candidate, nonMemberList, memberList } = useCandidate()
+  console.log(memberList)
   // const [value, setValue] = useRecoilState(candidateState)
 
   // useEffect(() => {

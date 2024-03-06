@@ -93,7 +93,7 @@ export function abiFromSelector (selector: any, type: string) {
 
     abi = seigManagerA?.find(abi => abi.selector === selector);
     if (abi) return abi;
-
+    
     abi = committeeProxyA?.find(abi => abi.selector === selector);
     if (abi) return abi;
 

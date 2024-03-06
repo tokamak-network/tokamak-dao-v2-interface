@@ -3,6 +3,7 @@ import { getAgendas, getAgendaVotes, getAgendaContents } from "@/api";
 import { useEffect, useState } from 'react';
 import { useWeb3React } from "@web3-react/core";
 import Web3 from 'web3'
+import { INFURA_API } from '../../constants/index';
 
 export function useAgenda() {
   const [agendas, setAgendas] = useState<any[]>([]);
@@ -14,10 +15,11 @@ export function useAgenda() {
       let web3
       if (library) {
         web3 = library
-      } else {
-        web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/27113ffbad864e8ba47c7d993a738a10'));
+      } else if (INFURA_API) {
+        web3 = new Web3(new Web3.providers.HttpProvider(INFURA_API));
       }
       const agendas = await getAgendas()
+      console.log(agendas)
       const promAgendaTx = [];
       const promAgendaContents = [];
       for (let i = 0; i < agendas.length; i++) {

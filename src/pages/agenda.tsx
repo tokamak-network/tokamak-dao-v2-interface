@@ -142,7 +142,7 @@ function Agenda () {
             />
           </Flex>
           <AgendaList 
-            agendaList={filteredAgenda}
+            agendaList={agendas}
           />
         </Flex>
       </Flex>

@@ -16,11 +16,11 @@ type Member = {
 export const MemberCard = (args: Member) => {
   const { data, index } = args
   // console.log(data)
-  const { candidate, memberJoinedTime, name, candidateContract, updateCoinageTotalString } = data;
+  const { candidate, memberJoinedTime, name, candidateContract, stakedAmount } = data;
   const { CARD_STYLE } = useTheme()
   const router = useRouter()
   const voted = convertNumber({
-    amount: updateCoinageTotalString,
+    amount: stakedAmount,
     type: 'ray'
   })
 

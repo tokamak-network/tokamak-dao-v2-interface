@@ -7,6 +7,7 @@ import BasicButton from '@/common/button/BasicButton';
 import Image from 'next/image';
 import { AgendaCardHeader } from './AgendaCardHeader';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 type AgendaCardProp = {
   data: any;
@@ -34,11 +35,12 @@ export const AgendaCard = (args: AgendaCardProp) => {
   } = data;
   const { CARD_STYLE } = useTheme()
   const numChainEffects = onChainEffects.length
+  const router = useRouter()
 
   return (
     <Flex
       {...CARD_STYLE.mainTheme()}
-      {...CARD_STYLE.memberCard()}
+      {...CARD_STYLE.agendaCard()}
       flexDir={'column'}
       mb={'20px'}
     >
@@ -87,6 +89,14 @@ export const AgendaCard = (args: AgendaCardProp) => {
             <BasicButton 
               type={type.toLowerCase()}
               name={'View Details'}
+              onClick={() => {
+                router.push({
+                  pathname: '/agenda/[agendaid]',
+                  query: { 
+                    agendaid: agendaid,
+                  }
+                })
+              }}
             />
           }
         </Flex>

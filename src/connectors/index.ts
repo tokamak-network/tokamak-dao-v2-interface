@@ -10,6 +10,7 @@ const POLLING_INTERVAL = 12000;
 const RPC_URLS = {
   1: "https://mainnet.infura.io/v3/34448178b25e4fbda6d80f4da62afba2",
   5: "https://goerli.infura.io/v3/34448178b25e4fbda6d80f4da62afba2",
+  11155111: "https://sepolia.infura.io/v3/34448178b25e4fbda6d80f4da62afba2",
 };
 
 export const network = new NetworkConnector({

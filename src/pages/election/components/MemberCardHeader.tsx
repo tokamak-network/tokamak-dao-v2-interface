@@ -26,35 +26,15 @@ export const MemberCardHeader = (args: CardHeaderProp) => {
       h={'11px'}
       alignItems={'center'}
       w={'100%'}
-      justifyContent={'space-between'}
+      justifyContent={'start'}
     >
       <Flex>
         <SubText 
-          blue={'Status'}
-          black={voted === '0.00' ? 'Empty' :'Occupied'}
-        />
-        <Text fontSize={'9px'} mx={'5px'} color={'#c9d1d8'}>
-          |
-        </Text>
-        <SubText 
-          blue={'Elected'}
-          black={trimElected}
-        />
-        <Text fontSize={'9px'} mx={'5px'} color={'#c9d1d8'}>
-          |
-        </Text>
-        <SubText 
-          blue={'# of Votes'}
+          blue={'Total Staked'}
           black={comma}
         />
       </Flex>
-      <Flex>
-        <SubText 
-          blue={`#${index}`}
-          black={'Slot'}
-          size={'12px'}
-        />
-      </Flex>
+      
     </Flex>
   )
 }
