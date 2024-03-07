@@ -16,7 +16,7 @@ type Member = {
 export const MemberCard = (args: Member) => {
   const { data, index } = args
   // console.log(data)
-  const { candidate, memberJoinedTime, name, candidateContract, stakedAmount } = data;
+  const { candidate, elected, name, candidateContract, stakedAmount, asCommit } = data;
   const { CARD_STYLE } = useTheme()
   const router = useRouter()
   const voted = convertNumber({
@@ -53,7 +53,7 @@ export const MemberCard = (args: Member) => {
           firstChar: 6,
           lastChar: 4,
           dots: '...'
-        })} is elected to Committee member since ${timeConverter(memberJoinedTime)}`}
+        })} is elected to Committee member since ${timeConverter(elected)}`}
       </Text>
       <Flex
         flexDir={'row'}
@@ -66,7 +66,7 @@ export const MemberCard = (args: Member) => {
           color={'#86929d'}
           ml={'7px'}
         >
-          {data === 'Empty' ? '-' : fromNow(memberJoinedTime)}
+          {data === 'Empty' ? '-' : `Staking reward last updated ${fromNow(asCommit[0].timestamp)}`}
         </Text>
       </Flex>
       <Flex

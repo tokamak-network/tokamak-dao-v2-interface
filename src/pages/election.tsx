@@ -5,6 +5,8 @@ import { useCandidate } from "@/hooks/election/useCandidate"
 import { useRecoilState } from 'recoil';
 import { candidateState } from "@/atom/election/candidate";
 import { useState, useEffect } from 'react';
+import { ResourceCard } from "@/common/card/ResourceCard";
+import { CardTitle } from "@/common/card/CardTitle";
 
 function Election () {
   const { candidate, nonMemberList, memberList } = useCandidate()
@@ -13,6 +15,8 @@ function Election () {
   useEffect(() => {
     candidate.length > 0 ? setIsLoading(false) : setIsLoading(true)
   }, [candidate, isLoading])
+
+  console.log(candidate[0])
   
   return (
     <Flex
@@ -31,12 +35,22 @@ function Election () {
             nonMemberList={nonMemberList}
             memberList={memberList}
           />
-          <ElectionSide
-            candidates={candidate}
-          />
+          
 
         </Flex>
       }
+      <Flex 
+        ml={'30px'}
+        mt={'22px'}
+        w={'378px'}
+        flexDir={'column'}
+      >
+        <CardTitle 
+          name={'Resources'}
+          mb={'12px'}
+        />
+        <ResourceCard />
+      </Flex>
     </Flex>
   )
 }

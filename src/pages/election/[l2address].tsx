@@ -103,7 +103,7 @@ export const CandidateDetails = (props: any) => {
         }
       </Flex>
       <ElectionSide
-        candidates={candidate}
+        candidates={currentCandidate}
       />
     </Flex>
   )

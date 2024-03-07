@@ -14,10 +14,10 @@ export const ElectionSide = (args: ElectionSideProp) => {
   const { account } = useWeb3React();
   const columns = useMemo(
     () => [
-      {
-        Header: 'Rank',
-        accessor: 'rank',
-      },
+      // {
+      //   Header: 'Rank',
+      //   accessor: 'rank',
+      // },
       {
         Header: 'Candidate',
         accessor: 'candidiate',
@@ -34,7 +34,7 @@ export const ElectionSide = (args: ElectionSideProp) => {
       },
     ], [],
   );
-  
+  console.log(candidates)
   return (
     <Flex 
       w={'378px'}
@@ -44,32 +44,30 @@ export const ElectionSide = (args: ElectionSideProp) => {
       {account && candidates ?
         <Flex flexDir={'column'}>
           <CardTitle 
-            name={'Voted'}
+            name={'Your Staked'}
             mb={'35px'}
           />
-          <ElectionSideTable 
-            columns={columns}
-            data={candidates}
-          />
+          
         </Flex>
       : ''}
       <CardTitle 
-        name={'Rank'}
+        name={'List of Stakers'}
         mb={'35px'}
       />
-      {candidates ?
+      {candidates && candidates.staked ?
         <ElectionSideTable 
           columns={columns}
-          data={candidates}
+          data={candidates.stakedUserList}
+          stakedAmount={candidates.stakedAmount}
         />
        : ''}
-       <Flex flexDir={'column'}>
-        <CardTitle 
-          name={'Resources'}
-          mb={'12px'}
-        />
-        <ResourceCard />
-       </Flex>
+        <Flex flexDir={'column'}>
+          <CardTitle 
+            name={'Resources'}
+            mb={'12px'}
+          />
+          <ResourceCard />
+        </Flex>
     </Flex>
   )
 }

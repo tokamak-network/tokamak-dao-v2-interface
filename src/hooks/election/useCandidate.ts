@@ -30,15 +30,22 @@ export function useCandidate() {
       for (let i = fliterChangeMembers.length ; i-- ; i > 0) {
         const arrIndex = membersAddress.findIndex((address: any) => address === fliterChangeMembers[i].data.prevMember)
         if (arrIndex !== -1) (membersAddress.splice(arrIndex, 1))
-        membersAddress.push(fliterChangeMembers[i].data.newMember) 
+        membersAddress.push({
+          member: fliterChangeMembers[i].data.newMember,
+          elected: fliterChangeMembers[i].blockTimestamp
+        }) 
       }
 
       if (data) {
         const candidates = await Promise.all(
           data.candidates.map(async (obj: any, index: number) => {
             const member = membersAddress.find((member: any) => 
-              member.toLowerCase() === obj.candidate.toLowerCase()
+              member.member.toLowerCase() === obj.candidate.toLowerCase()
             )
+            obj = {
+              ...obj,
+              ...member
+            }
             member ? members.push(obj) : nonMembers.push(obj)
           })
         )

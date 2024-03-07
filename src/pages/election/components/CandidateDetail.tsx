@@ -3,6 +3,8 @@ import { Flex } from "@chakra-ui/react"
 import { CandidateInfo } from "./Info"
 import { useState } from 'react';
 import { VoteBreakDown } from './VoteBreakdown';
+import BasicButton from "@/common/button/BasicButton";
+import { useWeb3React } from '@web3-react/core';
 
 type CandidateDetailTypeProps = {
   candidate: any
@@ -11,6 +13,7 @@ type CandidateDetailTypeProps = {
 export const CandidateDetail = (args: CandidateDetailTypeProps) => {
   const { candidate } = args
   const [ tab, setTab ] = useState('detail')
+  const { account } = useWeb3React();
   
   const {
     name,
@@ -45,25 +48,49 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
         </Flex>
         <Flex
           flexDir={'row'}
-          justifyContent={'start'}
+          justifyContent={'space-between'}
           fontSize={'14px'}
           fontWeight={500}
         >
-          <Flex 
-            mr={'35px'}
-            color = {tab === 'detail' ? '#2a72e5' : '#86929d' }
-            cursor={'pointer'}
-            onClick={() => { setTab('detail')}}
-          >
-            Details
+          <Flex>
+            <Flex 
+              mr={'35px'}
+              color = {tab === 'detail' ? '#2a72e5' : '#86929d' }
+              cursor={'pointer'}
+              onClick={() => { setTab('detail')}}
+            >
+              Details
+            </Flex>
+            <Flex 
+              mr={'35px'}
+              color = {tab === 'breakdown' ? '#2a72e5' : '#86929d' }
+              cursor={'pointer'}
+              onClick={() => { setTab('breakdown')}}
+            >
+              Stakers
+            </Flex>
           </Flex>
-          <Flex 
-            mr={'35px'}
-            color = {tab === 'breakdown' ? '#2a72e5' : '#86929d' }
-            cursor={'pointer'}
-            onClick={() => { setTab('breakdown')}}
-          >
-            Top 100 Stakers
+          <Flex>
+            {
+              account ?
+              <Flex mr={'10px'}>
+                <BasicButton
+                  name={'Update Reward'}
+                  type={'inactive'}
+                  w={'100px'}
+                  h={'25px'}
+                  fontSize={'12px'}
+                /> 
+              </Flex> :
+              ''
+            }
+            <BasicButton
+              name={'Stake'}
+              type={'normal'}
+              w={'100px'}
+              h={'25px'}
+              fontSize={'12px'}
+            />
           </Flex>
         </Flex>
         <Flex w={'726px'} h={'1px'} bgColor={'#dfe4ee'} my={'10px'} />

@@ -16,7 +16,8 @@ type BasicButtonProp = {
   onClick?: () => void;
   tooltip?: string;
   isLoading?: boolean;
-  type: 'a' | 'b' | 'normal' | 'inactive';
+  type: 'a' | 'b' | 'normal' | 'inactive' | 'vote';
+  fontSize?: string
 };
 
 const BasicButton: React.FC<BasicButtonProp> = (props) => {
@@ -31,7 +32,8 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
     onClick,
     tooltip,
     isLoading,
-    type
+    type,
+    fontSize
   } = props;
   
   return (
@@ -55,7 +57,7 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
       //   cursor: "not-allowed",
       // }}
       // _active={{ backgroundColor: "transparent" }}
-      fontSize={13}
+      fontSize={fontSize ? fontSize : 13}
       fontWeight={'normal'}
       isLoading={isLoading}
       // {...theme.BUTTON_STYLE.basicButtonStyle(colorMode)}
@@ -67,10 +69,25 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
         : ''
       }
       color={
-        type === 'inactive' ? '#3e495c' : "#fff"
+        type === 'inactive' 
+        ? '#86929d' 
+        : type === 'vote'
+        ? '#2a72e5'
+        : "#fff"
+      }
+      border={
+        type === 'vote'
+        ? 'solid 1px #2a72e5'
+        : type === 'inactive'
+        ? 'solid 1px #dfe4ee'
+        : ''
       }
       borderColor={
-        type === 'inactive' ? '#a9c6f4' : 'none'
+        type === 'inactive' 
+        ? '#dfe4ee' 
+        : type === 'vote'
+        ? '#2a72e5'
+        : 'none'
       }
       background={
         type === 'a' 
@@ -80,6 +97,8 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
         : type === 'normal'
         ? '#257eee'
         : type === 'inactive'
+        ? '#fff'
+        : type === 'vote'
         ? '#fff'
         : ''
       }
