@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { VoteBreakDown } from './VoteBreakdown';
 import BasicButton from "@/common/button/BasicButton";
 import { useWeb3React } from '@web3-react/core';
+import { timeConverter } from "@/components/getDate";
 
 type CandidateDetailTypeProps = {
   candidate: any
@@ -19,9 +20,10 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
     name,
     kind,
     operator,
-    candidateContract
+    candidateContract,
+    elected
   } = candidate
-
+  console.log(candidate)
   return (
     <Flex>
       <Flex
@@ -33,6 +35,14 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
         bgColor={'#fff'}
         flexDir={'column'}
       >
+        {
+          elected ?
+          <Flex
+            fontSize={'10px'}
+          >
+            {`Become a DAO committee member on ${timeConverter(elected)}`}
+          </Flex> : ''
+        }
         <Flex
           fontSize={'20px'}
           mt={'20px'}

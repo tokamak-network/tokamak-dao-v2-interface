@@ -20,6 +20,7 @@ export function useCandidate() {
       let membersAddress: any[] = []
       let members: any[] = []
       let nonMembers: any[] = []
+      let candi: any[] = []
 
       const events = await getEvent('ChangedSlotMaximum')
       
@@ -47,6 +48,7 @@ export function useCandidate() {
               ...member
             }
             member ? members.push(obj) : nonMembers.push(obj)
+            candi.push(obj)
           })
         )
         
@@ -58,7 +60,7 @@ export function useCandidate() {
         
         setNonMemberList(nonMembers)
         setMemberList(members)
-        setCandidate(data.candidates)
+        setCandidate(candi)
       }
     }
 
