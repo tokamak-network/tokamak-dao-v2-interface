@@ -36,7 +36,3 @@ export function fromRay2 (amount?: string) {
   return amountBN ? commify(formatUnits(amountBN, 27)) : '';
 }
 
-export function date4 (timestamp?: number) {
-  if (!timestamp) return '';
-  return moment.utc(timestamp * 1000).local().format('MMM, DD');
-}

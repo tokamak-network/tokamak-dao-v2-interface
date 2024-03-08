@@ -19,7 +19,7 @@ export function useAgenda() {
         web3 = new Web3(new Web3.providers.HttpProvider(INFURA_API));
       }
       const agendas = await getAgendas()
-      console.log(agendas)
+      console.log(agendas[0].agendaid)
       const promAgendaTx = [];
       const promAgendaContents = [];
       for (let i = 0; i < agendas.length; i++) {

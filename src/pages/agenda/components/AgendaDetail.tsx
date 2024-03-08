@@ -1,90 +1,111 @@
+import { AGENDA_INFOS } from "@/constants";
 import { Flex } from "@chakra-ui/react"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { date3 } from '../../../utils/getDate';
+import { AgendaDetailTab } from "./AgendaDetailTab";
+import { AgendaInfo } from "./AgendaInfo";
 
-export const AgendaDetail = () => {
+type AgendaDetailTypeProps = {
+  agenda: any
+}
+
+export const AgendaDetail = (args: AgendaDetailTypeProps) => {
+  const { agenda } = args;
+  const {
+    type,
+    agendaid,
+    onChainEffects,
+    tCreationDate
+  } = agenda
+
   const [ tab, setTab ] = useState('info')
+  const [color, setColor] = useState('')
+
+  useEffect(() => {
+    setColor(type === 'A' ? '#2a72e5' : '#ff7800')
+  }, [type])
 
   return (
     <Flex>
-      <Flex
-        w={'786px'}
-        // h={'869px'}
-        p={'25px 29px 30px 30px'}
-        borderRadius={'10px'}
-        boxShadow={'0 1px 1px 0 rbga(96, 97, 112, 0.16)'}
-        bgColor={'#fff'}
-        flexDir={'column'}
-      >
+      {
+        agenda ?
         <Flex
-          fontSize={'20px'}
-          mt={'20px'}
-          mb={'30px'}
-          flexDir={'row'}
-          alignItems={'end'}
+          w={'786px'}
+          // h={'869px'}
+          p={'25px 29px 30px 30px'}
+          borderRadius={'10px'}
+          boxShadow={'0 1px 1px 0 rbga(96, 97, 112, 0.16)'}
+          bgColor={'#fff'}
+          flexDir={'column'}
         >
           <Flex
-            fontWeight={500}
+            fontSize={'20px'}
+            // mt={'20px'}
+            mb={'30px'}
+            flexDir={'column'}
+            alignItems={'start'} 
           >
-            {/* {name} */}
+            <Flex
+              fontSize={'10px'}
+              mb={'5px'}
+            >
+              <span
+                style={{
+                  marginRight: '3px',
+                  color:`${color}`
+                }}
+              >
+                #{agendaid}
+              </span>
+              Type 
+              <span 
+                style={{
+                  marginRight:'3px',
+                  marginLeft:'3px',
+                  color:`${color}`
+                }}
+              >
+                {type}
+              </span> Posted {date3(tCreationDate)}
+            </Flex>
+            <Flex
+              fontWeight={500}
+            >
+              { onChainEffects ? onChainEffects[0].title : '' }
+            </Flex>
+            
           </Flex>
+          <AgendaDetailTab 
+            color={color}
+            setTab={setTab}
+            tab={tab}
+          />
+          <Flex w={'726px'} h={'1px'} bgColor={'#dfe4ee'} my={'10px'} />
+          {
+            tab === 'info' ?
+            <>
+              <AgendaInfo 
+                infos={AGENDA_INFOS(agenda)}
+              />
+            </> :
+            tab === 'description' ?
+            <>
+              
+            </> :
+            tab === 'effect' ?
+            <>
+              
+            </> :
+            tab === 'comment' ?
+            <>
+              
+            </> :
+            <>
+            </>
+          } 
           
-        </Flex>
-        <Flex
-          flexDir={'row'}
-          justifyContent={'start'}
-          fontSize={'14px'}
-          fontWeight={500}
-        >
-          <Flex 
-            mr={'35px'}
-            color = {tab === 'info' ? '#2a72e5' : '#86929d' }
-            cursor={'pointer'}
-            onClick={() => { setTab('info')}}
-          >
-            Info
-          </Flex>
-          <Flex 
-            mr={'35px'}
-            color = {tab === 'description' ? '#2a72e5' : '#86929d' }
-            cursor={'pointer'}
-            onClick={() => { setTab('description')}}
-          >
-            Description
-          </Flex>
-          <Flex
-            color = {tab === 'effects' ? '#2a72e5' : '#86929d' }
-            cursor={'pointer'}
-            onClick={() => { setTab('effects')}}
-          >
-            On-Chain Effects
-          </Flex>
-          <Flex
-            color = {tab === 'comments' ? '#2a72e5' : '#86929d' }
-            cursor={'pointer'}
-            onClick={() => { setTab('comments')}}
-          >
-            {`Comments`}
-          </Flex>
-        </Flex>
-        <Flex w={'726px'} h={'1px'} bgColor={'#dfe4ee'} my={'10px'} />
-        {
-          tab === 'detail' ?
-          <>
-            {/* <CandidateInfo 
-              candidate={candidate}
-            /> */}
-          </> :
-          tab === 'breakdown' ?
-          <>
-            {/* <VoteBreakDown 
-              candidate={candidate}
-            /> */}
-          </> :
-          <>
-          </>
-        } 
-        
-      </Flex>
+        </Flex> : ''
+      }
     </Flex>
   )
 }

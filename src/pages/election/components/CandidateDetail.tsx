@@ -23,7 +23,7 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
     candidateContract,
     elected
   } = candidate
-  console.log(candidate)
+  
   return (
     <Flex>
       <Flex

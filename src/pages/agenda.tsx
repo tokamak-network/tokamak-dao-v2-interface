@@ -5,6 +5,7 @@ import { AgendaSide } from "./agenda/components/AgendaSide";
 import { AgendaFilter } from "./agenda/components/AgendaFilter";
 import { useState, useEffect } from 'react';
 import { agendaStatus, agendaResult } from '@/utils/agendaFilter';
+import { useWeb3React } from '@web3-react/core';
 
 function Agenda () {
   const agendas = useAgenda()
@@ -15,7 +16,8 @@ function Agenda () {
   const [vote, setVote] = useState('Vote')
   const [proposal, setProposal] = useState('Proposal')
   const [filteredAgenda, setFilteredAgenda] = useState(agendas)
-  console.log(agendas)
+  const { account } = useWeb3React();
+  
   useEffect(() => {
     const filter = agendas.filter((agenda: any) => 
       status === 'All' || 'Status' ? true : agendaStatus(agenda.status) === status.toUpperCase()
@@ -86,7 +88,7 @@ function Agenda () {
   //   })
   //   setFilteredAgenda(filter)
   // },[vote])
-  console.log(filteredAgenda)
+  // console.log(filteredAgenda)
   return (
     <Flex
       minW={'1200px'}
@@ -128,18 +130,23 @@ function Agenda () {
               width={'120px'}
               selectOptions={setExecution}
             />
-            <AgendaFilter 
-              placeholder={vote}
-              options={['All', 'Yes', 'No', 'Abstain', 'Not Voted']}
-              width={'120px'}
-              selectOptions={setVote}
-            />
-            <AgendaFilter 
-              placeholder={proposal}
-              options={['All', 'Mine']}
-              width={'120px'}
-              selectOptions={setProposal}
-            />
+            {
+              account ?
+              <>
+                <AgendaFilter 
+                  placeholder={vote}
+                  options={['All', 'Yes', 'No', 'Abstain', 'Not Voted']}
+                  width={'120px'}
+                  selectOptions={setVote}
+                />
+                <AgendaFilter 
+                  placeholder={proposal}
+                  options={['All', 'Mine']}
+                  width={'120px'}
+                  selectOptions={setProposal}
+                />
+              </> : ''
+            }
           </Flex>
           <AgendaList 
             agendaList={agendas}

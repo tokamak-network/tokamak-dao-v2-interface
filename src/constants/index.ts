@@ -85,3 +85,74 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     type: "TREZOR",
   },
 };
+
+export const AGENDA_DETAIL_TAB = [
+  {
+    id: 'info',
+    name: 'Info',
+  },
+  {
+    id: 'description',
+    name: 'Description',
+  },
+  {
+    id: 'effects',
+    name: 'On-Chain Effects',
+  },
+  {
+    id: 'comments',
+    name: 'Comments',
+  },
+]
+
+export const AGENDA_INFOS = (agenda: any) => [
+  {
+    title: 'Agenda Creator',
+    content: agenda.creator,
+    type: 'address'
+  },
+  {
+    title: 'Agenda Creation Time',
+    content: agenda.tCreationDate,
+    type: 'time'
+  },
+  {
+    title: 'Notice End Time',
+    content: agenda.tNoticeEndTime,
+    type: 'time'
+  },
+  {
+    title: 'Voting Start Time',
+    content: agenda.tVotingStartTime,
+    type: 'time'
+  },
+  {
+    title: 'Voting End Time',
+    content: agenda.tVotingEndTime,
+    type: 'time'
+  },
+  {
+    title: 'Agenda Status',
+    content: agenda.status,
+    type: 'status'
+  },
+  {
+    title: 'Agenda Result',
+    content: agenda.result,
+    type: 'result'
+  },
+  {
+    title: 'Agenda Execution Time Limit',
+    content: agenda.tExecutableLimitTimestamp,
+    type: 'time'
+  },
+  {
+    title: 'Executed Time',
+    content: agenda.tExecTime,
+    type: 'time'
+  },
+]
+
+export const CANDIDATE_DETAIL_TAB = [
+
+]

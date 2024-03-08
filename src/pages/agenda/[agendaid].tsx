@@ -3,11 +3,26 @@ import { useAgenda } from "@/hooks/agenda/useAgendas";
 import { Flex } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
+import { AgendaDetail } from "./components/AgendaDetail";
+import { AgendaSide } from "./components/AgendaSide";
 
-function AgendaDetail () {
+function AgendaDetails () {
   const agendas = useAgenda()
   const router = useRouter()
   const [ index, setIndex ] = useState<number>(0)
+  const [ currentAgenda, setCurrentAgenda ] = useState({})
+  const { query } = useRouter()
+
+  useEffect(() => {
+    async function fetch() {
+      const currentIndex = agendas.findIndex((agenda: any) => agenda.agendaid.toString() === query.agendaid)
+      console.log(currentIndex, agendas[currentIndex])
+      setCurrentAgenda(agendas[currentIndex])
+      setIndex(currentIndex)
+    }
+    fetch()
+  }, [agendas, query])
+  console.log(currentAgenda)
 
   const next = () => {
     if (index !== agendas.length - 1) {
@@ -81,17 +96,20 @@ function AgendaDetail () {
           </Flex>
         </Flex>
         {
-          // currentCandidate ? 
-          // <CandidateDetail
-          //   candidate={currentCandidate}
-          // />
-          // : 
-          // <></>
+          currentAgenda ? 
+          <AgendaDetail
+            agenda={currentAgenda}
+          />
+          : 
+          ''
         }
       </Flex>
+      <AgendaSide 
+        agendaList={agendas}
+      />
 
     </Flex>
   )
 }
 
-export default AgendaDetail
+export default AgendaDetails

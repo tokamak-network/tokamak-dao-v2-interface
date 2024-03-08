@@ -1,4 +1,5 @@
-import {hexSlicer, truncate, fromRay2, date4} from '@/utils/trimAddress';
+import {hexSlicer, truncate, fromRay2} from '@/utils/trimAddress';
+import { date4 } from '@/utils/getDate'
 
 
 type EventProp = {
