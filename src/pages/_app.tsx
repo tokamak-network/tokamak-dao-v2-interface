@@ -13,6 +13,7 @@ import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { useRouter } from 'next/router';
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from '../apollo';
+import '@fontsource/roboto';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { onOpen, isOpen: isModalOpen, onClose } = useDisclosure();
@@ -44,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 alignItems={"center"}
                 justifyContent={"space-between"}
                 bgColor={pathname === '/home' ? '#0062c2' : '#fafbfc'}
-                fontFamily={'roboto'}
+                fontFamily={'Roboto'}
                 fontStyle={'normal'}
               >
                 <Header />

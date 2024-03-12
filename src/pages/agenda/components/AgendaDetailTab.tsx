@@ -5,15 +5,17 @@ type AgendaDetailTabProps = {
   color: string,
   setTab: any,
   tab: string,
+  comment: number,
 }
 
 export const AgendaDetailTab = (args: AgendaDetailTabProps) => {
   const {
     color,
     setTab,
-    tab
+    tab,
+    comment
   } = args
- 
+
   return (
     <Flex
       flexDir={'row'}
@@ -30,7 +32,7 @@ export const AgendaDetailTab = (args: AgendaDetailTabProps) => {
               cursor={'pointer'}
               onClick={() => { setTab(tabContent.id)}}
             >
-              {tabContent.name}
+              {`${tabContent.name} ${tabContent.name === 'Comments' ? `(${comment})` : ''}`}
             </Flex>
           )
         })

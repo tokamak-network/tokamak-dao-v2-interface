@@ -21,6 +21,14 @@ export type AbiFunctions = AbiFunction[]
 export type StateMutabilityType = 'pure' | 'view' | 'nonpayable' | 'payable';
 export type AbiType = 'function' | 'constructor' | 'event' | 'fallback' | 'receive';
 
+export type onChainEffect = {
+  name: string,
+  target: string,
+  title: string,
+  types: [],
+  values: Object
+}
+
 export type AbiFunction = {
   params?: string,
   name?: string | any,

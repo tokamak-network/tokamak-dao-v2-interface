@@ -1,5 +1,6 @@
 import NextButton from "@/common/button/NextButton";
 import { useAgenda } from "@/hooks/agenda/useAgendas";
+import { useVotingDetails } from "@/hooks/agenda/useVotingDetails";
 import { Flex } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
@@ -11,18 +12,30 @@ function AgendaDetails () {
   const router = useRouter()
   const [ index, setIndex ] = useState<number>(0)
   const [ currentAgenda, setCurrentAgenda ] = useState({})
+  const [comment, setComment] = useState<any[]>([])
+
   const { query } = useRouter()
+  const votingDetail = useVotingDetails()
 
   useEffect(() => {
     async function fetch() {
       const currentIndex = agendas.findIndex((agenda: any) => agenda.agendaid.toString() === query.agendaid)
-      console.log(currentIndex, agendas[currentIndex])
       setCurrentAgenda(agendas[currentIndex])
       setIndex(currentIndex)
     }
     fetch()
   }, [agendas, query])
-  console.log(currentAgenda)
+
+  useEffect(() => {
+    function fetch () {
+      if (votingDetail) {
+        //@ts-ignore
+        const comments = votingDetail.filter((v: any) => v.agendaid === Number(currentAgenda.agendaid))
+        setComment(comments)
+      }
+    }
+    fetch()
+  }, [votingDetail, currentAgenda])
 
   const next = () => {
     if (index !== agendas.length - 1) {
@@ -99,6 +112,7 @@ function AgendaDetails () {
           currentAgenda ? 
           <AgendaDetail
             agenda={currentAgenda}
+            comment={comment}
           />
           : 
           ''

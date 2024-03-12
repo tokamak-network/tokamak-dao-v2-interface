@@ -12,16 +12,13 @@ export function useAgenda() {
 
   useEffect(() => {
     async function fetchAgenda () {
-      let web3
-      if (library) {
-        web3 = library
-      } else if (INFURA_API) {
-        web3 = new Web3(new Web3.providers.HttpProvider(INFURA_API));
-      }
+      const web3 = library ? library : INFURA_API ? new Web3(new Web3.providers.HttpProvider(INFURA_API)) : ''
+
       const agendas = await getAgendas()
-      console.log(agendas[0].agendaid)
+      
       const promAgendaTx = [];
       const promAgendaContents = [];
+      
       for (let i = 0; i < agendas.length; i++) {
         const txHash = agendas[i].transactionHash;
         promAgendaTx.push(web3.eth.getTransaction(txHash));
@@ -38,6 +35,7 @@ export function useAgenda() {
           agendas[i].onChainEffects = await parseAgendaBytecode(agendaTxs[i], agendas[i].type);
         }
       }
+
       setAgendas(agendas)
     }
     fetchAgenda()

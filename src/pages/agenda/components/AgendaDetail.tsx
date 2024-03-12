@@ -2,22 +2,29 @@ import { AGENDA_INFOS } from "@/constants";
 import { Flex } from "@chakra-ui/react"
 import { useEffect, useState } from 'react';
 import { date3 } from '../../../utils/getDate';
+import { AgendaDescription } from "./AgendaDescription";
 import { AgendaDetailTab } from "./AgendaDetailTab";
 import { AgendaInfo } from "./AgendaInfo";
+import { AgendaOnchain } from "./AgendaOnChain";
+import { useVotingDetails } from '../../../hooks/agenda/useVotingDetails';
+import { AgendaComments } from "./AgendaComments";
 
 type AgendaDetailTypeProps = {
   agenda: any
+  comment: any
 }
 
 export const AgendaDetail = (args: AgendaDetailTypeProps) => {
-  const { agenda } = args;
+  const { agenda, comment } = args;
   const {
     type,
     agendaid,
     onChainEffects,
-    tCreationDate
+    tCreationDate,
+    contents,
+    
   } = agenda
-
+  // console.log(onChainEffects)
   const [ tab, setTab ] = useState('info')
   const [color, setColor] = useState('')
 
@@ -79,6 +86,7 @@ export const AgendaDetail = (args: AgendaDetailTypeProps) => {
             color={color}
             setTab={setTab}
             tab={tab}
+            comment={comment.length}
           />
           <Flex w={'726px'} h={'1px'} bgColor={'#dfe4ee'} my={'10px'} />
           {
@@ -88,19 +96,23 @@ export const AgendaDetail = (args: AgendaDetailTypeProps) => {
                 infos={AGENDA_INFOS(agenda)}
               />
             </> :
-            tab === 'description' ?
+            tab === 'description' && contents ?
             <>
-              
+              <AgendaDescription 
+                description={contents}
+              />
             </> :
-            tab === 'effect' ?
+            tab === 'effects' ?
             <>
-              
+              <AgendaOnchain
+                onChainEffects={onChainEffects}
+                type={type}
+              />
             </> :
-            tab === 'comment' ?
             <>
-              
-            </> :
-            <>
+              <AgendaComments 
+                comments={comment}
+              />
             </>
           } 
           
