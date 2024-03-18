@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import { trimAddress } from '@/utils/trimAddress';
 import { useState } from 'react';
 import useModal from '@/hooks/useModal';
-// import WalletModal from '@/common/modal/Wallet/index';
+import WalletModal from '@/common/wallet';
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -13,6 +13,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import TOKAMAK_ICON_WHITE from '@/assets/images/tndao-wm-logo.svg';
 import TOKAMAK_ICON from '@/assets/images/tndao-w-logo.svg';
 import { useRecoilValue } from 'recoil';
+import { txStatusState } from '@/atom/global/transaction';
 // import { txStatusState } from '@/atom/global/transaction';
 
 type MenuLinksProps = {
@@ -41,6 +42,7 @@ const NavItem = () => {
     <>
       {navItemList.map((item, index) => {
         const capitalLinkName = item.link.charAt(0).toUpperCase() + item.link.slice(1)
+
         return (
           <Link href={`/${item.link}`} key={`nav-item-${index}`} passHref>
             <Flex
@@ -48,7 +50,7 @@ const NavItem = () => {
               justifyContent={"center"}
               _hover={{
                 color: isHover === index
-                  ? pathname === '/home' + item.link
+                  ? pathname === '/' + item.link
                     ? "#3e495c"
                     : "#2a72e5"
                   : pathname === '/home' 
@@ -59,7 +61,7 @@ const NavItem = () => {
               color={
                 pathname === '/home' ?
                 '#fff' : 
-                pathname === item.link ?
+                pathname === '/' + item.link ?
                 '#2a72e5':
                 ''
               }
@@ -79,8 +81,7 @@ const NavItem = () => {
 
 const MenuLinks: React.FC<MenuLinksProps> = ({ account, walletopen }) => {
   const theme = useTheme();
-  // const txPending = useRecoilValue(txStatusState);
-  const txPending = false
+  const txPending = useRecoilValue(txStatusState);
   const router = useRouter();
   const { pathname } = router;
 
@@ -197,7 +198,7 @@ export const Header = () => {
           <MenuLinks account={account} walletopen={openModal} />
         </Flex>
       </Flex>
-      {/* <WalletModal /> */}
+      <WalletModal />
     </Flex>
   );
 };

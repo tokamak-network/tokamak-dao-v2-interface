@@ -18,21 +18,23 @@ export function useAgenda() {
       
       const promAgendaTx = [];
       const promAgendaContents = [];
-      
+
       for (let i = 0; i < agendas.length; i++) {
         const txHash = agendas[i].transactionHash;
-        promAgendaTx.push(web3.eth.getTransaction(txHash));
-        promAgendaContents.push(getAgendaContents(agendas[i].agendaid));
+        promAgendaTx.push(library ? await web3.getTransaction(txHash) : await web3.eth.getTransaction(txHash));
+        promAgendaContents.push(await getAgendaContents(agendas[i].agendaid));
       }
+
       const agendaTxs = await Promise.all(promAgendaTx);
       const agendaContents = await Promise.all(promAgendaContents);
+
       for (let i = 0; i < agendas.length; i++) {
         if (agendaContents[i] != null) {
           agendas[i].contents = agendaContents[i].contents;
           agendas[i].creator = agendaContents[i].creator;
           agendas[i].type = agendaContents[i].type ? agendaContents[i].type : 'B';
           agendas[i].tx = agendaTxs[i]
-          agendas[i].onChainEffects = await parseAgendaBytecode(agendaTxs[i], agendas[i].type);
+          agendas[i].onChainEffects = parseAgendaBytecode(agendaTxs[i], agendas[i].type);
         }
       }
 

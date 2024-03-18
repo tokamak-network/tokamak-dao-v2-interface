@@ -42,12 +42,12 @@ export const AgendaDescription = (args: AgendaDescriptionType) => {
       mt={'15px'}
       whiteSpace={'pre-wrap'}
     >
-      {description}
+      {/* {description} */}
       {/* {content} */}
-      {/* <ReactMarkdown
+      <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         children={description}
-      /> */}
+      />
         
     </Flex>
   )

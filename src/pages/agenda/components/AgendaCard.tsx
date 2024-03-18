@@ -2,12 +2,15 @@ import { Flex, useTheme, Text } from '@chakra-ui/react';
 import { trimAddress } from '@/components/trimAddress';
 import { convertNumber } from '../../../utils/number';
 import { timeConverter, fromNow } from '@/components/getDate';
-import CLOCK from '@/assets/images/poll-time-active-icon.png'
+import CLOCKA from '@/assets/images/poll-time-active-icon.svg'
+import INACTIVE_CLOCK from '@/assets/images/poll-time-inactive-icon.svg';
+import CLOCKB from '@/assets/images/poll-time-active-icon-typeB.svg'
 import BasicButton from '@/common/button/BasicButton';
 import Image from 'next/image';
 import { AgendaCardHeader } from './AgendaCardHeader';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { votingTime } from '../../../utils/getDate';
 
 type AgendaCardProp = {
   data: any;
@@ -33,9 +36,17 @@ export const AgendaCard = (args: AgendaCardProp) => {
     type,
     onChainEffects
   } = data;
+  
   const { CARD_STYLE } = useTheme()
   const numChainEffects = onChainEffects.length
   const router = useRouter()
+
+  const [isActive, setIsActive] = useState<boolean>()
+
+  useEffect(() => {
+    const active = votingTime(data) != 'POLL ENDED'
+    setIsActive(active)
+  }, [])
 
   return (
     <Flex
@@ -71,13 +82,13 @@ export const AgendaCard = (args: AgendaCardProp) => {
         my={'25px'}
         h={'13px'}
       >
-        <Image src={CLOCK} alt='' />
+        <Image src={!isActive ? INACTIVE_CLOCK : type === 'A' ? CLOCKA : CLOCKB} alt='' />
         <Text
           fontSize={'10px'}
           color={'#86929d'}
           ml={'7px'}
         >
-          {data === 'Empty' ? '-' : fromNow(result)}
+          {data === 'Empty' ? '-' : votingTime(data)}
         </Text>
       </Flex>
       <Flex

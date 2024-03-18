@@ -9,14 +9,14 @@ import { ResourceCard } from "@/common/card/ResourceCard";
 import { CardTitle } from "@/common/card/CardTitle";
 
 function Election () {
-  const { candidate, nonMemberList, memberList } = useCandidate()
+  const { candidate, nonMemberList, memberList, isCandidate } = useCandidate()
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     candidate.length > 0 ? setIsLoading(false) : setIsLoading(true)
   }, [candidate, isLoading])
 
-  console.log(candidate[0])
+  
   
   return (
     <Flex
@@ -34,6 +34,7 @@ function Election () {
           <CandidateList 
             nonMemberList={nonMemberList}
             memberList={memberList}
+            isCandidate={isCandidate}
           />
           
 

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#c9d1d8;stroke-linecap:round;stroke-linejoin:round}
+        </style>
+    </defs>
+    <g id="poll_time_inactive_icon" transform="translate(-89 -89)">
+        <circle id="타원_5" cx="6.5" cy="6.5" r="6.5" class="cls-1" transform="translate(89.5 89.5)"/>
+        <path id="패스_35" d="M96 91.97V96h4.03" class="cls-1"/>
+    </g>
+</svg>

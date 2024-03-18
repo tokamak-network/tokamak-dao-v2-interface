@@ -4,26 +4,39 @@ import { trimAddress } from '@/components/trimAddress';
 import { convertNumber } from '../../../utils/number';
 import { timeConverter, fromNow } from '@/components/getDate';
 import Image from 'next/image';
-import CLOCK from '@/assets/images/poll-time-active-icon.png'
+import CLOCK from '@/assets/images/poll-time-active-icon.svg'
 import BasicButton from '@/common/button/BasicButton';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import { useWeb3React } from '@web3-react/core';
 
 type Member = {
   data: any;
+  isCandidate: boolean
   index: number;
 }
 
 export const MemberCard = (args: Member) => {
-  const { data, index } = args
+  const { data, index, isCandidate } = args
   // console.log(data)
   const { candidate, elected, name, candidateContract, stakedAmount, asCommit } = data;
   const { CARD_STYLE } = useTheme()
   const router = useRouter()
+  const { account, library } = useWeb3React();
+  const [canRetire, setCanRetire] = useState<boolean>()
+
+  useEffect(() => {
+    if (account) {
+      const isMember = candidate.toLowerCase() === account.toLowerCase()
+      setCanRetire(isMember)
+    }
+  }, [])
+
   const voted = convertNumber({
     amount: stakedAmount,
     type: 'ray'
   })
-
+  console.log(isCandidate)
   return (
     <Flex
       {...CARD_STYLE.mainTheme()}
@@ -66,7 +79,7 @@ export const MemberCard = (args: Member) => {
           color={'#86929d'}
           ml={'7px'}
         >
-          {data === 'Empty' ? '-' : `Staking reward last updated ${fromNow(asCommit[0].timestamp)}`}
+          {data === 'Empty' ? '-' : asCommit[0] ? `Staking reward last updated ${fromNow(asCommit[0].timestamp)}` : ''}
         </Text>
       </Flex>
       <Flex
@@ -90,10 +103,15 @@ export const MemberCard = (args: Member) => {
           }
         </Flex>
         <Flex>
-          <BasicButton 
-          type={'normal'}
-          name={'Challenge'}
-          />
+          {
+            account ?
+            <BasicButton 
+              type={isCandidate && !canRetire ? 'disable' : 'a'}
+              name={canRetire ? 'Retire' : 'Challenge'}
+              isDisabled={isCandidate && !canRetire ? true : false }
+            /> : ''
+
+          }
         </Flex>
       </Flex>
     </Flex>

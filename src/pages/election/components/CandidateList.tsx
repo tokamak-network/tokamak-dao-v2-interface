@@ -9,10 +9,11 @@ import { useRouter } from 'next/router';
 type CandidateListProp = {
   memberList: any
   nonMemberList: any
+  isCandidate: boolean
 }
 
 export const CandidateList = (args: CandidateListProp) => {
-  const { memberList, nonMemberList } = args
+  const { memberList, nonMemberList, isCandidate } = args
   const { CARD_STYLE } = useTheme()
   const router = useRouter()
 
@@ -26,11 +27,12 @@ export const CandidateList = (args: CandidateListProp) => {
         mb={'35px'}
       />
       {
-        memberList ? 
+        memberList && memberList.length > 0 ? 
         memberList.map((member: any, i: any) => {
           return (
             <MemberCard 
               data={member}
+              isCandidate={isCandidate}
               index={i}
             />  
           )
@@ -47,12 +49,13 @@ export const CandidateList = (args: CandidateListProp) => {
         {
           nonMemberList ?
           nonMemberList.map((nonMember: any, i: any) => {
-            const { name, candidateContract, updateCoinageTotalString } = nonMember;
+            const { name, candidateContract, stakedAmount } = nonMember;
             const voted = convertNumber({
-              amount: updateCoinageTotalString,
-              type: 'ray'
+              amount: stakedAmount,
+              type: 'ray',
+              localeString: true
             })
-            const comma = voted ? commify(voted) : '0.00'
+            const comma = voted ? voted : '0.00'
             return (
               <Flex
                 {...CARD_STYLE.mainTheme()}
@@ -62,7 +65,7 @@ export const CandidateList = (args: CandidateListProp) => {
               >
                 <Flex w={'160px'}>
                   <SubText 
-                    blue={'# of Votes'}
+                    blue={'Total Staked'}
                     black={`${comma} TON`}
                   />
                 </Flex>

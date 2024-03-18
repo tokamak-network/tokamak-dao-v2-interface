@@ -5,6 +5,7 @@ import { Flex } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
 import { AgendaDetail } from "./components/AgendaDetail";
+import { AgendaDetailSide } from "./components/AgendaDetailSide";
 import { AgendaSide } from "./components/AgendaSide";
 
 function AgendaDetails () {
@@ -64,7 +65,8 @@ function AgendaDetails () {
       pathname:'/agenda'
     })
   }
-
+  console.log(currentAgenda)
+  console.log(comment)
   return (
     <Flex
       minW={'1200px'}
@@ -118,8 +120,9 @@ function AgendaDetails () {
           ''
         }
       </Flex>
-      <AgendaSide 
-        agendaList={agendas}
+      <AgendaDetailSide 
+        currentAgenda={currentAgenda}
+        comment={comment}
       />
 
     </Flex>

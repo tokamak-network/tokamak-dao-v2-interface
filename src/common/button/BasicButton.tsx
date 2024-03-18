@@ -16,7 +16,7 @@ type BasicButtonProp = {
   onClick?: () => void;
   tooltip?: string;
   isLoading?: boolean;
-  type: 'a' | 'b' | 'normal' | 'inactive' | 'vote';
+  type: 'a' | 'b' | 'normal' | 'inactive' | 'vote' | 'disable';
   fontSize?: string
 };
 
@@ -73,6 +73,8 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
         ? '#86929d' 
         : type === 'vote'
         ? '#2a72e5'
+        : type === 'disable'
+        ? '#86929d'
         : "#fff"
       }
       border={
@@ -100,6 +102,8 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
         ? '#fff'
         : type === 'vote'
         ? '#fff'
+        : type === 'disable'
+        ? '#e9edf1'
         : ''
       }
       {...style}
