@@ -8,5 +8,6 @@ export type StakeModalType =
   | 'calculator'
   | 'layer2'
   | 'wallet'
+  | 'reward'
 
 export type ModalType = GlobalType | StakeModalType;

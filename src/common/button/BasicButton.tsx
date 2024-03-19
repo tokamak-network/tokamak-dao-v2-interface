@@ -44,19 +44,33 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
       h={h || '32px'}
       isDisabled={isDisabled}
       borderRadius={'4px'}
-      _hover={isDisabled ? {} : 
-         type === 'normal'
-        ? '#2a72e5'
-        : type === 'inactive'
-        ? '#3e495c' : '#ccc'
+      _hover={
+        type === 'a' ? {
+          boxShadow: '0 1px 4px 0 rgba(49, 127, 203, 0.25)',
+          backgroundImage: 'linear-gradient(to bottom, #1f8efa, #2a72e5)'
+        } : type === 'b' ? {
+          boxShadow: '0 1px 4px 0 rgba(247, 152, 28, 0.15)',
+          backgroundImage: 'linear-gradient(to bottom, #f7981c, #ff7800)'
+        } : type === 'vote' ? {
+          bgColor: '#2a72e5',
+          color: '#fff'
+        } : type === 'inactive' ? {
+
+        } : type === 'normal' ? {
+          bgColor: '#2a72e5'
+        } : ''
       }
-      _focus={{ backgroundColor: "transparent" }}
+      _ac
+      _focus={
+        type === 'a' ? { 
+          backgroundColor: "transparent" 
+        } : ''}
       // _disabled={{
       //   border: "1px solid #c6cbd9",
       //   color:  "#c6cbd9",
       //   cursor: "not-allowed",
       // }}
-      // _active={{ backgroundColor: "transparent" }}
+      // _active={{ bgColor: "#111" }}
       fontSize={fontSize ? fontSize : 13}
       fontWeight={'normal'}
       isLoading={isLoading}
@@ -84,6 +98,7 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
         ? 'solid 1px #dfe4ee'
         : ''
       }
+      
       borderColor={
         type === 'inactive' 
         ? '#dfe4ee' 

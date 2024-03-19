@@ -95,10 +95,11 @@ export const ElectionSideTable: FC<ElectionSideTableProps> = ({
                   const {id, stakedAmount} = cell.row.original
                   const voted = convertNumber({
                     amount: stakedAmount,
-                    type: 'ray'
+                    type: 'ray',
+                    
                   })
                   const percentage = Number(voted) / Number(total) * 100
-                  const comma = voted 
+                  const comma = voted
                   //@ts-ignore
                     ? voted.toLocaleString(undefined, {
                       maximumFractionDigits: 2, 

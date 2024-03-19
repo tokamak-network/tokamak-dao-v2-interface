@@ -1,11 +1,18 @@
 
 import { Flex } from "@chakra-ui/react"
 import { CandidateInfo } from "./Info"
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { VoteBreakDown } from './VoteBreakdown';
 import BasicButton from "@/common/button/BasicButton";
 import { useWeb3React } from '@web3-react/core';
 import { timeConverter } from "@/components/getDate";
+import useModal from '@/hooks/useModal';
+import { useRecoilState } from 'recoil';
+import { modalData, modalState } from '@/atom/global/modal';
+import { ModalType } from '@/types/modal';
+import { useExpectedSeig } from '../../../hooks/election/useCalculateExpSeigs';
+import { RewardModal } from "./RewardModal";
+import { STAKING } from "@/constants";
 
 type CandidateDetailTypeProps = {
   candidate: any
@@ -15,6 +22,26 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
   const { candidate } = args
   const [ tab, setTab ] = useState('detail')
   const { account } = useWeb3React();
+  const { openModal } = useModal('reward');
+
+  const [selectedModal, setSelectedModal] = useRecoilState(modalState);
+  const [, setSelectedModalData] = useRecoilState(modalData);
+
+  const expectedSeig = useExpectedSeig(candidate.candidateContract, candidate.stakedAmount ,candidate.candidate)
+
+  const modalContent = {
+    expectedSeig: expectedSeig,
+    contractInfo: candidate.candidateContract
+  }
+
+  const modalButton = useCallback(async (modalType: ModalType, data: any) => {
+    setSelectedModal(modalType);
+    setSelectedModalData(data);
+  }, []);
+
+  const linkToStake = useCallback(() => {
+    window.open(`${STAKING}#${candidateContract}`, '_blank')
+  }, [])
   
   const {
     name,
@@ -86,10 +113,11 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
               <Flex mr={'10px'}>
                 <BasicButton
                   name={'Update Reward'}
-                  type={'inactive'}
+                  type={'vote'}
                   w={'100px'}
                   h={'25px'}
                   fontSize={'12px'}
+                  onClick={() => modalButton('reward', modalContent)}
                 /> 
               </Flex> :
               ''
@@ -100,6 +128,7 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
               w={'100px'}
               h={'25px'}
               fontSize={'12px'}
+              onClick={() => linkToStake()}
             />
           </Flex>
         </Flex>
@@ -122,6 +151,7 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
         } 
         
       </Flex>
+      <RewardModal />
     </Flex>
   )
 }

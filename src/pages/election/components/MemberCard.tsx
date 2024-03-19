@@ -7,7 +7,7 @@ import Image from 'next/image';
 import CLOCK from '@/assets/images/poll-time-active-icon.svg'
 import BasicButton from '@/common/button/BasicButton';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useWeb3React } from '@web3-react/core';
 
 type Member = {
@@ -36,7 +36,7 @@ export const MemberCard = (args: Member) => {
     amount: stakedAmount,
     type: 'ray'
   })
-  console.log(isCandidate)
+  
   return (
     <Flex
       {...CARD_STYLE.mainTheme()}
@@ -79,7 +79,7 @@ export const MemberCard = (args: Member) => {
           color={'#86929d'}
           ml={'7px'}
         >
-          {data === 'Empty' ? '-' : asCommit[0] ? `Staking reward last updated ${fromNow(asCommit[0].timestamp)}` : ''}
+          {data === 'Empty' ? '-' : asCommit[0] ? `Staking reward last updated ${fromNow(asCommit[0].timestamp)}` : 'No Staking reward update history'}
         </Text>
       </Flex>
       <Flex
