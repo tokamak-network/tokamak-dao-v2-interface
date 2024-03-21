@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react"
 import { convertNumber } from '../../../utils/number';
-import { timeConverter } from '../../../utils/getDate';
+import { date2 } from '../../../utils/getDate';
 
 
 type InfoRowTypeProps = {
@@ -25,7 +25,7 @@ export const InfoRow = (args: InfoRowTypeProps) => {
       localeString: true
     }) : ''
   } else if (type === 'date') {
-    values = timeConverter(Number(value) / 1000, 'time')
+    values = date2(Number(value) / 1000)
   } else {
     values = value
   }

@@ -130,7 +130,7 @@ const MenuLinks: React.FC<MenuLinksProps> = ({ account, walletopen }) => {
           _hover={{}}
         >
           {account ? (
-            txPending === true ? (
+            txPending ? (
               <Text fontFamily={theme.fonts.roboto} fontWeight={100} fontSize={'14px'} ml={'18px'} pt={'1px'}>
                 Tx PENDING
               </Text>

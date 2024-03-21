@@ -28,6 +28,7 @@ export function useCandidate() {
       const checkSlot = events.filter((event: any) => event.eventName === 'ChangedSlotMaximum')
       const slotNumber = checkSlot[0] ? checkSlot[0].data.slotMax : 3
       const fliterChangeMembers = events.filter((event: any) => event.eventName === 'ChangedMember')
+      console.log(fliterChangeMembers)
       
       for (let i = fliterChangeMembers.length ; i-- ; i > 0) {
         const arrIndex = membersAddress.findIndex((address: any) => {

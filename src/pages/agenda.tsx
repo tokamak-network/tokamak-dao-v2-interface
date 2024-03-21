@@ -9,7 +9,6 @@ import { useWeb3React } from '@web3-react/core';
 
 function Agenda () {
   const agendas = useAgenda()
-  // console.log(agendas)
   const [status, setStatus] = useState('Status')
   const [result, setResult] = useState('Result')
   const [execution, setExecution] = useState('Execution')

@@ -9,6 +9,10 @@ import BasicButton from '@/common/button/BasicButton';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useCallback } from 'react';
 import { useWeb3React } from '@web3-react/core';
+import Candidate from "services/abi/Candidate.json"
+import { getContract } from '@/components/getContract';
+import { useRecoilState } from 'recoil';
+import { txState } from '@/atom/global/transaction';
 
 type Member = {
   data: any;
@@ -19,16 +23,36 @@ type Member = {
 export const MemberCard = (args: Member) => {
   const { data, index, isCandidate } = args
   // console.log(data)
-  const { candidate, elected, name, candidateContract, stakedAmount, asCommit } = data;
+  const { candidate, elected, name, candidateContract, stakedAmount, asCommit, slot } = data;
   const { CARD_STYLE } = useTheme()
   const router = useRouter()
   const { account, library } = useWeb3React();
   const [canRetire, setCanRetire] = useState<boolean>()
-
+  const [, setTx] = useState();
+  const [, setTxPending] = useRecoilState(txState);
+  console.log(data)
   useEffect(() => {
     if (account) {
-      const isMember = candidate.toLowerCase() === account.toLowerCase()
+      const isMember = candidate ? candidate.toLowerCase() === account.toLowerCase() : false
       setCanRetire(isMember)
+    }
+  }, [])
+
+  const retire = useCallback(async () => {
+    if (account && library) {
+      const Candidate_CONTRACT = getContract(candidateContract, Candidate.abi, library, account)
+      const tx = await Candidate_CONTRACT.retireMember()
+      setTx(tx);
+      setTxPending(true);
+    }
+  }, [])
+
+  const challenge = useCallback(async () => {
+    if (account && library) {
+      const Candidate_CONTRACT = getContract(candidateContract, Candidate.abi, library, account)
+      const tx = await Candidate_CONTRACT.changeMember(slot)
+      setTx(tx);
+      setTxPending(true);
     }
   }, [])
 
@@ -87,10 +111,11 @@ export const MemberCard = (args: Member) => {
         justifyContent={'space-between'}
       >
         <Flex>
-          {data === 'Empty' ? '' : 
+          
             <BasicButton 
               type={'a'}
               name={'View Details'}
+              isDisabled={data === 'Empty' ? true : false}
               onClick={() => {
                 router.push({
                   pathname: '/election/[l2address]',
@@ -100,15 +125,16 @@ export const MemberCard = (args: Member) => {
                 })
               }}
             />
-          }
+          
         </Flex>
         <Flex>
           {
             account ?
             <BasicButton 
-              type={isCandidate && !canRetire ? 'disable' : 'a'}
+              type={isCandidate && canRetire ? 'disable' : 'a'}
               name={canRetire ? 'Retire' : 'Challenge'}
-              isDisabled={isCandidate && !canRetire ? true : false }
+              isDisabled={isCandidate && canRetire ? true : false }
+              onClick={() => canRetire ? retire() : challenge()}
             /> : ''
 
           }

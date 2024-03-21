@@ -15,7 +15,6 @@ export function useAgenda() {
       const web3 = library ? library : INFURA_API ? new Web3(new Web3.providers.HttpProvider(INFURA_API)) : ''
 
       const agendas = await getAgendas()
-      
       const promAgendaTx = [];
       const promAgendaContents = [];
 
@@ -37,7 +36,7 @@ export function useAgenda() {
           agendas[i].onChainEffects = parseAgendaBytecode(agendaTxs[i], agendas[i].type);
         }
       }
-
+      console.log(agendas)
       setAgendas(agendas)
     }
     fetchAgenda()
