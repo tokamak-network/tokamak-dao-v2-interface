@@ -5,6 +5,8 @@ import { convertNumber } from '@/components/number';
 import { commify } from 'ethers/lib/utils';
 import { CardTitle } from 'common/card/CardTitle';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useWeb3React } from '@web3-react/core';
 
 type CandidateListProp = {
   memberList: any
@@ -16,6 +18,15 @@ export const CandidateList = (args: CandidateListProp) => {
   const { memberList, nonMemberList, isCandidate } = args
   const { CARD_STYLE } = useTheme()
   const router = useRouter()
+  const { account, library } = useWeb3React();
+  const [ myCandidate, setMyCandidate ] = useState();
+
+  useEffect(() => {
+    if (account) {
+      const myCandi = nonMemberList.find((member: any) => member.candidate.toLowerCase() === account.toLowerCase())
+      myCandi ? setMyCandidate(myCandi) : setMyCandidate(undefined)
+    }
+  }, [account, myCandidate])
 
   return (
     <Flex
@@ -33,6 +44,7 @@ export const CandidateList = (args: CandidateListProp) => {
             <MemberCard 
               data={member}
               isCandidate={isCandidate}
+              myCandidate={myCandidate}
               index={i}
             />  
           )

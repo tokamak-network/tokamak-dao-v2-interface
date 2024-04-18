@@ -13,33 +13,47 @@ import Candidate from "services/abi/Candidate.json"
 import { getContract } from '@/components/getContract';
 import { useRecoilState } from 'recoil';
 import { txState } from '@/atom/global/transaction';
+import { BigNumber } from 'ethers'
 
 type Member = {
   data: any;
   isCandidate: boolean
+  myCandidate: any
   index: number;
 }
 
 export const MemberCard = (args: Member) => {
-  const { data, index, isCandidate } = args
+  const { data, index, isCandidate, myCandidate } = args
   // console.log(data)
   const { candidate, elected, name, candidateContract, stakedAmount, asCommit, slot } = data;
   const { CARD_STYLE } = useTheme()
   const router = useRouter()
   const { account, library } = useWeb3React();
   const [canRetire, setCanRetire] = useState<boolean>()
+  const [ canChallenge, setCanChallenge] = useState<boolean>()
   const [, setTx] = useState();
   const [, setTxPending] = useRecoilState(txState);
-  console.log(data)
+  
   useEffect(() => {
     if (account) {
       const isMember = candidate ? candidate.toLowerCase() === account.toLowerCase() : false
       setCanRetire(isMember)
+    } else {
+      setCanRetire(false)
     }
-  }, [])
+  }, [account, myCandidate])
+
+  useEffect(() => {
+    if (account && myCandidate) {
+      const challengeable = BigNumber.from(myCandidate.stakedAmount).gt(BigNumber.from(data.stakedAmount))
+      setCanChallenge(challengeable)
+    } else {
+      setCanChallenge(false)
+    }
+  }, [account, myCandidate, canChallenge])
 
   const retire = useCallback(async () => {
-    if (account && library) {
+    if (account && library ) {
       const Candidate_CONTRACT = getContract(candidateContract, Candidate.abi, library, account)
       const tx = await Candidate_CONTRACT.retireMember()
       setTx(tx);
@@ -48,8 +62,8 @@ export const MemberCard = (args: Member) => {
   }, [])
 
   const challenge = useCallback(async () => {
-    if (account && library) {
-      const Candidate_CONTRACT = getContract(candidateContract, Candidate.abi, library, account)
+    if (account && library && myCandidate) {
+      const Candidate_CONTRACT = getContract(myCandidate.candidateContract, Candidate.abi, library, account)
       const tx = await Candidate_CONTRACT.changeMember(slot)
       setTx(tx);
       setTxPending(true);
@@ -129,7 +143,7 @@ export const MemberCard = (args: Member) => {
         </Flex>
         <Flex>
           {
-            account ?
+            account && (canChallenge || canRetire) ?
             <BasicButton 
               type={isCandidate && canRetire ? 'disable' : 'a'}
               name={canRetire ? 'Retire' : 'Challenge'}

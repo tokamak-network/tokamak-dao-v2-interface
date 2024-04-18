@@ -34,6 +34,7 @@ export function useCandidate() {
         const arrIndex = membersAddress.findIndex((address: any) => {
           return address.member.toLowerCase() === fliterChangeMembers[i].data.prevMember.toLowerCase()
         })
+        console.log(arrIndex)
         
         if (arrIndex !== -1) (membersAddress.splice(arrIndex, 1))
         

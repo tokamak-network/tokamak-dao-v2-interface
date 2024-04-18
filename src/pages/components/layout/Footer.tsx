@@ -36,27 +36,27 @@ function Footer() {
     },
     {
       icon: pathname ==='/home' ? GITHUB_ICON_WHITE : GITHUB_ICON,
-      url: 'https://github.com/Onther-Tech/',
+      url: 'https://github.com/tokamak-network/',
     },
-    {
-      icon: pathname ==='/home' ? FACEBOOK_ICON_WHITE : FACEBOOK_ICON,
-      url: 'https://www.facebook.com/OntherInc/',
-    },
+    // {
+    //   icon: pathname ==='/home' ? FACEBOOK_ICON_WHITE : FACEBOOK_ICON,
+    //   url: 'https://www.facebook.com/OntherInc/',
+    // },
     // {
     //   icon: INSTAGRAM_ICON,
     //   url: '',
     // },
-    {
-      icon: pathname ==='/home' ? YOUTUBE_ICON_WHITE : YOUTUBE_ICON,
-      url: 'https://www.youtube.com/channel/UCF6vtIKF_0QQVRG983czVEQ/',
-    },
+    // {
+    //   icon: pathname ==='/home' ? YOUTUBE_ICON_WHITE : YOUTUBE_ICON,
+    //   url: 'https://www.youtube.com/channel/UCF6vtIKF_0QQVRG983czVEQ/',
+    // },
     {
       icon: pathname ==='/home' ? TWITTER_ICON_WHITE : TWITTER_ICON,
       url: 'https://twitter.com/tokamak_network/',
     },
     {
       icon: pathname ==='/home' ? LINKEDIN_ICON_WHITE : LINKEDIN_ICON,
-      url: 'https://www.linkedin.com/company/onther-tech/',
+      url: 'https://www.linkedin.com/company/tokamaknetwork/',
     },
     {
       icon: pathname ==='/home' ? MEDIUM_ICON_WHITE : MEDIUM_ICON,
