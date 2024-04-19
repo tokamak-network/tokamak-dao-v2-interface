@@ -1,9 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
 import { CandidateList } from "./election/components/CandidateList"
-import { ElectionSide } from "./election/components/ElectionSide";
 import { useCandidate } from "@/hooks/election/useCandidate"
-import { useRecoilState } from 'recoil';
-import { candidateState } from "@/atom/election/candidate";
 import { useState, useEffect } from 'react';
 import { ResourceCard } from "@/common/card/ResourceCard";
 import { CardTitle } from "@/common/card/CardTitle";
@@ -15,8 +12,6 @@ function Election () {
   useEffect(() => {
     candidate.length > 0 ? setIsLoading(false) : setIsLoading(true)
   }, [candidate, isLoading])
-
-  
   
   return (
     <Flex
@@ -36,8 +31,6 @@ function Election () {
             memberList={memberList}
             isCandidate={isCandidate}
           />
-          
-
         </Flex>
       }
       <Flex 

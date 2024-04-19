@@ -42,6 +42,7 @@ const NavItem = () => {
     <>
       {navItemList.map((item, index) => {
         const capitalLinkName = item.link.charAt(0).toUpperCase() + item.link.slice(1)
+        const urlRegexp = /./
 
         return (
           <Link href={`/${item.link}`} key={`nav-item-${index}`} passHref>
@@ -61,7 +62,7 @@ const NavItem = () => {
               color={
                 pathname === '/home' ?
                 '#fff' : 
-                pathname === '/' + item.link ?
+                pathname === '/' + item.link || pathname === `/${item.link}/${urlRegexp}` ?
                 '#2a72e5':
                 ''
               }

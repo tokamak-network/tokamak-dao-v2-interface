@@ -145,9 +145,9 @@ export const MemberCard = (args: Member) => {
           {
             account && (canChallenge || canRetire) ?
             <BasicButton 
-              type={isCandidate && canRetire ? 'disable' : 'a'}
+              type={isCandidate && canRetire ? 'a' : 'a'}
               name={canRetire ? 'Retire' : 'Challenge'}
-              isDisabled={isCandidate && canRetire ? true : false }
+              isDisabled={canChallenge || canRetire ? false : true }
               onClick={() => canRetire ? retire() : challenge()}
             /> : ''
 

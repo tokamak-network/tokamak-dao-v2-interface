@@ -76,21 +76,30 @@ export const CandidateDetails = (props: any) => {
             type={'prev'}
           />
           <Flex>
-            <NextButton 
-              setCurrentPage={() => prev()}
-              currentPage={index}
-              pageSize={candidate.length}
-              name={'PREVIOUS CANDIDATE'}
-              type={'prev'}
-            />
+            {
+              index === 0 ?
+              '' :
+              <NextButton 
+                setCurrentPage={() => prev()}
+                currentPage={index}
+                pageSize={candidate.length}
+                name={'PREVIOUS CANDIDATE'}
+                type={'prev'}
+              />
+              
+            }
             <Flex w={'10px'}/>
-            <NextButton 
-              setCurrentPage={() => next()}
-              currentPage={index}
-              pageSize={candidate.length}
-              name={'NEXT CANDIDATE'}
-              type={'next'}
-            />
+            {
+              index === candidate.length -1 ?
+              '':
+              <NextButton 
+                setCurrentPage={() => next()}
+                currentPage={index}
+                pageSize={candidate.length}
+                name={'NEXT CANDIDATE'}
+                type={'next'}
+              />
+            }
           </Flex>
         </Flex>
         {

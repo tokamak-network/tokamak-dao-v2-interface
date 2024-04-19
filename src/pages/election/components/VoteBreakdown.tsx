@@ -38,6 +38,10 @@ export const VoteBreakDown = (args: VoteBreakDownTypeProps) => {
       />
       <Flex
         flexDir={'column'}
+        borderTop={'1px'}
+        borderColor={'#dfe4ee'}
+        pt={'25px'}
+        mt={'20px'}
       >
         <Flex
           fontSize={'16px'}

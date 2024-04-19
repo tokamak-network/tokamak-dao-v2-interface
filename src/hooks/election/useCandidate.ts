@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from "@apollo/client";
 import { GET_CANDIDATE } from "@/graphql/getCandidates";
 import { useWeb3React } from "@web3-react/core";
-import {BigNumber} from "ethers";
+import { useChangedMembers } from "./useChangedMembers";
 
 export function useCandidate() {
   const [candidate, setCandidate] = useState<any[]>([]);
@@ -11,6 +11,7 @@ export function useCandidate() {
   const [nonMemberList, setNonMemberList] = useState<any[]>([]);
   const [isCandidate, setIsCandidate] = useState<boolean>(false);
   const { library, account } = useWeb3React();
+  const { memberAddresses } = useChangedMembers();
 
   const { data } = useQuery(GET_CANDIDATE, {
     pollInterval: 10000
@@ -18,7 +19,6 @@ export function useCandidate() {
 
   useEffect(() => {
     async function fetchEvent () {
-      let membersAddress: any[] = []
       let members: any[] = []
       let nonMembers: any[] = []
       let candi: any[] = []
@@ -27,27 +27,11 @@ export function useCandidate() {
       
       const checkSlot = events.filter((event: any) => event.eventName === 'ChangedSlotMaximum')
       const slotNumber = checkSlot[0] ? checkSlot[0].data.slotMax : 3
-      const fliterChangeMembers = events.filter((event: any) => event.eventName === 'ChangedMember')
-      console.log(fliterChangeMembers)
       
-      for (let i = fliterChangeMembers.length ; i-- ; i > 0) {
-        const arrIndex = membersAddress.findIndex((address: any) => {
-          return address.member.toLowerCase() === fliterChangeMembers[i].data.prevMember.toLowerCase()
-        })
-        console.log(arrIndex)
-        
-        if (arrIndex !== -1) (membersAddress.splice(arrIndex, 1))
-        
-        membersAddress.push({
-          member: fliterChangeMembers[i].data.newMember,
-          elected: fliterChangeMembers[i].blockTimestamp,
-          slot: fliterChangeMembers[i].data.slotIndex
-        }) 
-      }
-      if (data) {
+      if (data && memberAddresses) {
         const candidates = await Promise.all(
           data.candidates.map(async (obj: any, index: number) => {
-            const member = membersAddress.find((member: any) => 
+            const member = memberAddresses.find((member: any) => 
               member.member.toLowerCase() === obj.candidate.toLowerCase()
             )
             obj = {
@@ -68,7 +52,6 @@ export function useCandidate() {
             }
             if (account) {
               obj.candidate.toLowerCase() === account.toLowerCase() ? setIsCandidate(true) : ''
-              
             }
           })
         )
@@ -86,6 +69,7 @@ export function useCandidate() {
     }
 
     fetchEvent()
-  }, [data, account])
+    
+  }, [data, account, memberAddresses])
   return { candidate, memberList, nonMemberList, isCandidate };
 }

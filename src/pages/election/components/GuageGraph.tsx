@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react"
 import { convertNumber } from '../../../utils/number';
+import { trimAddress } from '../../../utils/trimAddress';
 
 type GuageGraphProps = {
   voter: string,
@@ -35,11 +36,18 @@ export const GuageGraph = (args: GuageGraphProps) => {
         fontWeight={500}
         color={'#818992'}
       >
-        <Flex>
-          {/* {voter} */}
+        <Flex
+          color={'#2a72e5'}
+        >
+          {trimAddress({
+            address: voter,
+            firstChar: 7,
+            lastChar: 4,
+            dots:'...'
+          })}
         </Flex>
         <Flex>
-          {`${Number(voting).toLocaleString(undefined, { maximumFractionDigits: 2 })} TON Staked`}
+          {`${percentage.toLocaleString(undefined, {maximumFractionDigits: 2})} % (${Number(voting).toLocaleString(undefined, { maximumFractionDigits: 2 })} TON)`}
         </Flex>
       </Flex>
       <Flex
@@ -62,7 +70,7 @@ export const GuageGraph = (args: GuageGraphProps) => {
           justifyContent={'center'}
           overflowX={'visible'}
         >
-          {`${percentage.toLocaleString(undefined, {maximumFractionDigits: 2})} %`}
+          {/* {`${percentage.toLocaleString(undefined, {maximumFractionDigits: 2})} %`} */}
         </Flex>
       </Flex>
     </Flex>

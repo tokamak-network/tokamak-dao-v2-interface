@@ -61,9 +61,10 @@ export const VoterGraphSection = (args: VoterGraphSectionProps) => {
   return (
     <Flex
       flexDir={'column'}
+      mt={'25px'}
     >
       <Flex
-        h={'246px'}
+        h={'254px'}
         flexDir={'column'}
       >
         <>

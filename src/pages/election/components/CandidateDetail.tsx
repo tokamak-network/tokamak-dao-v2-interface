@@ -72,7 +72,7 @@ export const CandidateDetail = (args: CandidateDetailTypeProps) => {
         }
         <Flex
           fontSize={'20px'}
-          mt={'20px'}
+          mt={elected ? '5px' : '20px'}
           mb={'30px'}
           flexDir={'row'}
           alignItems={'end'}
