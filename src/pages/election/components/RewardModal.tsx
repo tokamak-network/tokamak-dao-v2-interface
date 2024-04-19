@@ -20,12 +20,26 @@ export function RewardModal() {
 
   const updateSeig = useCallback(async () => {
     if (account && library) {
-      //@ts-ignore
-      const Candidate_CONTRACT = getContract(selectedModalData.contractInfo, Candidate.abi, library, account)
-      const tx = await Candidate_CONTRACT.updateSeigniorage()
-      setTx(tx);
-      setTxPending(true);
-      closeModal()
+      try {
+        //@ts-ignore
+        const Candidate_CONTRACT = getContract(selectedModalData.contractInfo, Candidate.abi, library, account)
+        const tx = await Candidate_CONTRACT.updateSeigniorage()
+        setTx(tx);
+        setTxPending(true);
+        closeModal()
+
+        if (tx) {
+          await tx.wait().then((receipt: any) => {
+            if (receipt.status) {
+              setTxPending(false);
+              setTx(undefined);
+            }
+          });
+        }
+      } catch (e) {
+        setTxPending(false);
+        setTx(undefined);
+    }
     }
   }, [])
   

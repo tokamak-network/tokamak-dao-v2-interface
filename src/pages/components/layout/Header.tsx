@@ -23,12 +23,15 @@ type MenuLinksProps = {
 
 const navItemList = [
   {
+    name: 'DAO Candidates',
     link: "election",
   },
   {
+    name: 'Propose',
     link: "propose",
   },
   {
+    name: 'Agenda',
     link: "agenda",
   },
 ];
@@ -71,7 +74,7 @@ const NavItem = () => {
               onMouseEnter={() => setIsHover(index)}
               onMouseLeave={() => setIsHover(undefined)}
             >
-              {capitalLinkName}
+              {item.name}
             </Flex>
           </Link>
         )

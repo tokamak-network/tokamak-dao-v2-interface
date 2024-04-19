@@ -1,4 +1,5 @@
-import { Text } from "@chakra-ui/react"
+import { Text, Flex } from '@chakra-ui/react';
+import BasicTooltip from "../tooltip"
 
 type CardTitleProp = {
   name: string
@@ -12,7 +13,7 @@ export const CardTitle = (args: CardTitleProp) => {
   const { name, mt, mb } = args
 
   return (
-    <Text
+    <Flex
       h={'32px'}
       fontSize={'24px'}
       color={'#3e495c'}
@@ -20,8 +21,15 @@ export const CardTitle = (args: CardTitleProp) => {
       textAlign={'left'}
       mt={mt || 0}
       w={'780px'}
+      alignItems='center'
     >
-      {name}
-    </Text>
+      <Text mr={'6px'}>
+        {name}
+      </Text>
+      <BasicTooltip 
+        label={name === 'DAO Committee Members' ? 'members' : 'others'}
+        placement={'right'}
+      />
+    </Flex>
   )
 }

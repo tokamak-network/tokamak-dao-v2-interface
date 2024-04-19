@@ -14,6 +14,7 @@ import { getContract } from '@/components/getContract';
 import { useRecoilState } from 'recoil';
 import { txState } from '@/atom/global/transaction';
 import { BigNumber } from 'ethers'
+import { ZERO_ADDRESS } from '@/constants';
 
 type Member = {
   data: any;
@@ -32,7 +33,8 @@ export const MemberCard = (args: Member) => {
   const [canRetire, setCanRetire] = useState<boolean>()
   const [ canChallenge, setCanChallenge] = useState<boolean>()
   const [, setTx] = useState();
-  const [, setTxPending] = useRecoilState(txState);
+  const [txPending, setTxPending] = useRecoilState(txState);
+  // console.log(data)
   
   useEffect(() => {
     if (account) {
@@ -41,32 +43,60 @@ export const MemberCard = (args: Member) => {
     } else {
       setCanRetire(false)
     }
-  }, [account, myCandidate])
+  }, [account, myCandidate, txPending])
 
   useEffect(() => {
-    if (account && myCandidate) {
-      const challengeable = BigNumber.from(myCandidate.stakedAmount).gt(BigNumber.from(data.stakedAmount))
+    if (account && myCandidate && data ) {
+      const challengeable = data.stakedAmount ? BigNumber.from(myCandidate.stakedAmount).gt(BigNumber.from(data.stakedAmount)) : true
       setCanChallenge(challengeable)
     } else {
       setCanChallenge(false)
     }
-  }, [account, myCandidate, canChallenge])
+  }, [account, myCandidate, canChallenge, data, txPending])
 
   const retire = useCallback(async () => {
     if (account && library ) {
-      const Candidate_CONTRACT = getContract(candidateContract, Candidate.abi, library, account)
-      const tx = await Candidate_CONTRACT.retireMember()
-      setTx(tx);
-      setTxPending(true);
+      try {
+        const Candidate_CONTRACT = getContract(candidateContract, Candidate.abi, library, account)
+        const tx = await Candidate_CONTRACT.retireMember()
+        setTx(tx);
+        setTxPending(true);
+
+        if (tx) {
+          await tx.wait().then((receipt: any) => {
+            if (receipt.status) {
+              setTxPending(false);
+              setTx(undefined);
+            }
+          });
+        }
+      } catch (e) {
+        setTxPending(false);
+        setTx(undefined);
+      }
     }
   }, [])
 
   const challenge = useCallback(async () => {
     if (account && library && myCandidate) {
-      const Candidate_CONTRACT = getContract(myCandidate.candidateContract, Candidate.abi, library, account)
-      const tx = await Candidate_CONTRACT.changeMember(slot)
-      setTx(tx);
-      setTxPending(true);
+      try {
+        const Candidate_CONTRACT = getContract(myCandidate.candidateContract, Candidate.abi, library, account)
+        const tx = await Candidate_CONTRACT.changeMember(slot)
+        setTx(tx);
+        setTxPending(true);
+
+        if (tx) {
+          await tx.wait().then((receipt: any) => {
+            if (receipt.status) {
+              setTxPending(false);
+              setTx(undefined);
+            }
+          });
+        }
+      } catch (e) {
+        setTxPending(false);
+        setTx(undefined);
+      }
     }
   }, [])
 
@@ -74,7 +104,7 @@ export const MemberCard = (args: Member) => {
     amount: stakedAmount,
     type: 'ray'
   })
-  
+
   return (
     <Flex
       {...CARD_STYLE.mainTheme()}
@@ -92,13 +122,13 @@ export const MemberCard = (args: Member) => {
         mt={'5px'}
         mb={'5px'}
       >
-        {data === 'Empty' ? '-' : `${name}`}  
+        {data === 'Empty' || candidateContract === ZERO_ADDRESS ? '-' : `${name}`}  
       </Text>
       <Text
         color={'#86929d'}
         fontSize={'14px'}
       >
-        {data === 'Empty' ? '-' : 
+        {data === 'Empty' || candidateContract === ZERO_ADDRESS ? '-' : 
         `${trimAddress({
           address: candidateContract,
           firstChar: 6,
@@ -117,7 +147,7 @@ export const MemberCard = (args: Member) => {
           color={'#86929d'}
           ml={'7px'}
         >
-          {data === 'Empty' ? '-' : asCommit[0] ? `Staking reward last updated ${fromNow(asCommit[0].timestamp)}` : 'No Staking reward update history'}
+          {(data === 'Empty' || candidateContract === ZERO_ADDRESS) ? '-' : asCommit[0] ? `Staking reward last updated ${fromNow(asCommit[0].timestamp)}` : 'No Staking reward update history'}
         </Text>
       </Flex>
       <Flex
@@ -129,7 +159,7 @@ export const MemberCard = (args: Member) => {
             <BasicButton 
               type={'a'}
               name={'View Details'}
-              isDisabled={data === 'Empty' ? true : false}
+              isDisabled={data === 'Empty' || candidateContract === ZERO_ADDRESS ? true : false}
               onClick={() => {
                 router.push({
                   pathname: '/election/[l2address]',

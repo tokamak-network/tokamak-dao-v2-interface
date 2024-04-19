@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { GET_CANDIDATE } from "@/graphql/getCandidates";
 import { useWeb3React } from "@web3-react/core";
 import { useChangedMembers } from "./useChangedMembers";
+import { ZERO_ADDRESS } from '../../constants/index';
 
 export function useCandidate() {
   const [candidate, setCandidate] = useState<any[]>([]);
@@ -24,7 +25,7 @@ export function useCandidate() {
       let candi: any[] = []
 
       const events = await getEvent('ChangedSlotMaximum')
-      
+      console.log(memberAddresses)
       const checkSlot = events.filter((event: any) => event.eventName === 'ChangedSlotMaximum')
       const slotNumber = checkSlot[0] ? checkSlot[0].data.slotMax : 3
       
@@ -32,13 +33,13 @@ export function useCandidate() {
         const candidates = await Promise.all(
           data.candidates.map(async (obj: any, index: number) => {
             const member = memberAddresses.find((member: any) => 
-              member.member.toLowerCase() === obj.candidate.toLowerCase()
+              member.member.toLowerCase() === obj.candidate.toLowerCase() 
             )
             obj = {
               ...obj,
               ...member
             }
-            
+            console.log(obj)
             const selfStake = obj.staked.filter((stake: any) => stake.sender === obj.candidate)
             // TODO: Calculate as BigNumber
             let selfStakeAmount = 0
@@ -53,9 +54,17 @@ export function useCandidate() {
             if (account) {
               obj.candidate.toLowerCase() === account.toLowerCase() ? setIsCandidate(true) : ''
             }
+            
           })
         )
-        
+        if (memberAddresses.find((member: any) => member.member === ZERO_ADDRESS)) {
+          const zero = memberAddresses.find((member: any) => member.member === ZERO_ADDRESS)
+          members.push({
+            candidateContract: zero.member,
+            slot: zero.slot,
+          })
+        }
+
         if (slotNumber > members.length) {
           for (let i = 0 ; i< slotNumber - members.length ; i++ ) {
             members.push('Empty')

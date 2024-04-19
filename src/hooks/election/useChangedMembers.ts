@@ -18,6 +18,7 @@ export function useChangedMembers() {
 
       if (data) {
         const { changedMembers } = data
+        console.log(changedMembers)
         for (let i = 0; i < slotNumber; i ++ ) {
           const slotOccupied = changedMembers.filter((changedMember: any) => Number(changedMember.slotIndex) === i)
           membersAddress.push({
@@ -26,11 +27,12 @@ export function useChangedMembers() {
             slot: slotOccupied[0].slotIndex
           })
         }
+        console.log(membersAddress)
       }
+
       setMemberAddresses(membersAddress)
     }
     fetchEvent()
-    console.log(memberAddresses)
   }, [data])
 
   return { memberAddresses };
