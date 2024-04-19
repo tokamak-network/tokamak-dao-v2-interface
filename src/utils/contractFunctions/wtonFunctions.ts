@@ -7,6 +7,7 @@ export const wtonFunctionsOfTypeB = [
     'name': 'addMinter',
     'title': '(WTON)WTON Minter authority will be given.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `Through this function, you can give a specific account permission to create WTON.
 Enter the account to be granted permission into Parma1.`,
@@ -19,6 +20,7 @@ Enter the account to be granted permission into Parma1.`,
     'name': 'enableCallback',
     'title': '(WTON)When WTON moves, it will be decided whether part of the seigniorage will be distributed to DAO and PowerTON.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `When Layer 2 commits, part of the seigniorage is distributed to DAO and PowerTON.
 In addition, when WTON is transferred (incineration, issuance, transmission, etc.), some of the seigniorage can be distributed to DAO and PowerTON depending on the value of Param1.
@@ -37,6 +39,7 @@ If the value is True, part of the seigniorage will be distributed to DAO and Pow
     'name': 'mint',
     'title': '(WTON)WTON balance will increase.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function exists because TON needs the authority to issue WTON.
 Through this function, you can add a specific amount of balance to a specific account.
@@ -47,18 +50,21 @@ Enter 'address account' in the first parameter (Param1) and 'amount' in the seco
   //   'name': 'renounceMinter',
   //   'title': '',
   //   'prettyName': '',
+  // 'disabled': false,
   //   'explanation': '',
   // },
   // {
   //   'name': 'renounceOwnership',
   //   'title': '',
   //   'prettyName': '',
+  //'disabled': false,
   //   'explanation': '',
   // },
   // {
   //   'name': 'renouncePauser',
   //   'title': '',
   //   'prettyName': '',
+  // 'disabled': false,
   //   'explanation': '',
   // },
   {
@@ -69,6 +75,7 @@ Enter 'address account' in the first parameter (Param1) and 'amount' in the seco
     'name': 'setSeigManager',
     'title': '(WTON)Seigmanager will be updated.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function allows you to update SeigManager WTON has. SeigManager is a contract that manages the seigniorage.
 Enter the seigniorage contract to be changed in the first parameter (Param1).`,
@@ -85,6 +92,7 @@ Enter the seigniorage contract to be changed in the first parameter (Param1).`,
     'name': 'transferFrom',
     'title': '(WTON)WTON will be transferred to another address.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function allows you to transfer WTON.
 Through this function, WTON in Param1 can be transferred to Param2 as much as the amount in Param3.
@@ -100,6 +108,7 @@ Enter the account of Sender in the first parameter (Param1), the account of Reci
     'name': 'transferOwnership',
     'title': '(WTON)DAO\'s owner rights for WTON will be transferred.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'This function allows you to update DAO (contract update). Through this function, owner rights for WTON held by DAO can be transferred to param1. Enter the contract to be changed in the first parameter (Param1).',
   },
@@ -113,6 +122,7 @@ Enter the account of Sender in the first parameter (Param1), the account of Reci
     'name': 'burnFrom',
     'title': '(WTON)Certain amount of WTON will be burned.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function allows you to incinerate a certain amount of WTON held by a certain account.
 Enter the address acount in the first parameter (Param1) and the amount to be burned in the second parameter (Param2).`,

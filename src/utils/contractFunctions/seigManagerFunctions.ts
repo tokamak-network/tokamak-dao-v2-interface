@@ -9,6 +9,7 @@ export const seigManagerFunctionsOfTypeA = [
     'name': 'setPowerTONSeigRate',
     'title': '(Seig Manager)The proportion of the newly issued TON accumulated for PowerTON will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `Currently, TON seigniorage is issued each time a Ethereum block is created.
 
@@ -25,6 +26,7 @@ This function allows you to determine the ratio of the newly issued TON accumula
     'name': 'setDaoSeigRate',
     'title': '(Seig Manager)The proportion of the newly issued TON accumulated for DAO will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `Currently, TON seigniorage is issued each time a Ethereum block is created.
 
@@ -41,6 +43,7 @@ This function allows you to determine the ratio of the newly issued TON accumula
     'name': 'setPseigRate',
     'title': '(Seig Manager)The proportion of TON issued by seigiorage will be changed by the staking rate.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `Currently, TON seigniorage is issued each time a Ethereum block is created.
 
@@ -55,6 +58,7 @@ This function allows you to determine the ratio of the newly issued TON accumula
     'name': 'setAdjustDelay',
     'title': '(Seig Manager)The grace period for applying the commission rate will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `TON operator can set the commission rate deducted from the delegator.
 However, certain period is required to apply the changed commission rate. The period is measured in blocks.
@@ -69,6 +73,7 @@ This function allows you to set a grace period for commission rate change applic
     'name': 'setMinimumAmount',
     'title': '(Seig Manager)The minimum amount of TON a operator (Layer 2 block creator) must deposit will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `TON operators must deposit and stake a minimum amount to operate Layer 2 chain of TON.
 
@@ -87,6 +92,7 @@ export const seigManagerFunctionsOfTypeB = [
     'name': 'addPauser',
     'title': '(Seig Manager)Permission to stop issuing seigniorage will be granted.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'This function allows you to grant permission to stop issuing seigniorage. Enter the address account to be authorized in the first parameter (Param1).',
   },
@@ -98,6 +104,7 @@ export const seigManagerFunctionsOfTypeB = [
     'name': 'renounceMinter',
     'title': '(Seig Manager)Seigmanager\'s Minter rights for the first parameter (Param1) will be removed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
     'This function allows you to remove the Minter rights for the first parameter (Param1) held by the existing Seigmanger (seigniorage managing contract). It will be used when Seigmanger (the seigniorage managing contract) is updated.',
   },
@@ -109,6 +116,7 @@ export const seigManagerFunctionsOfTypeB = [
     'name': 'renounceOwnership',
     'title': '(Seig Manager)DAO\'s owner rights for Seigmanager will be removed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
     'This function allows you to remove the Owner rights for the first parameter (Param1) held by the existing Seigmanger (seigniorage managing contract). It will be used when Seigmanger (the seigniorage managing contract) is updated.',
   },
@@ -120,6 +128,7 @@ export const seigManagerFunctionsOfTypeB = [
     'name': 'renouncePauser',
     'title': '(Seig Manager)Seigmanager\'s Pauser rights for the first parameter(Param1) will be removed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
     'This function removes the Pauser permission for the first parameter (Param1) held by the existing Seigmanger when Seigmanger (seigniorage managing contract) is updated.',
   },
@@ -131,6 +140,7 @@ export const seigManagerFunctionsOfTypeB = [
     'name': 'transferOwnership',
     'title': '(Seig Manager)First parameter\'s(Param1) owner rights of Seigmanager will be transferred.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function allows you to change the owner of the first parameter (Param1) held by Seigmanager (seigniorage managing contract) to the second parameter (Param2).
 It will be used when Seigmanager (seigniorage managing contract) is updated.`,
@@ -139,12 +149,14 @@ It will be used when Seigmanager (seigniorage managing contract) is updated.`,
     'name': 'pause',
     'title': '(Seig Manager)Seigniorage issuance will be stopped.',
     'prettyName': '',
+    'disabled': false,
     'explanation': 'This function allows you to stop issuing seigniorage.',
   },
   {
     'name': 'unpause',
     'title': '(Seig Manager)Seigniorage issuance will be resumed.',
     'prettyName': '',
+    'disabled': false,
     'explanation': 'This function allows you to resume issuance of seigniorage.',
   },
   {
@@ -155,6 +167,7 @@ It will be used when Seigmanager (seigniorage managing contract) is updated.`,
     'name': 'setPowerTON',
     'title': '(Seig Manager)PowerTON contract will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'This function allows you to set the new PowerTON contract as the first parameter (Param1). This function will be used when PowerTON is updated.',
   },
@@ -166,6 +179,7 @@ It will be used when Seigmanager (seigniorage managing contract) is updated.`,
     'name': 'setDao',
     'title': '(Seig Manager)Seigmanager\'s DAO Vault contract will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'This function allows you to set the new DAO contract as the first parameter (Param1). This function will be used when DAO Vault is updated.',
   },
@@ -177,6 +191,7 @@ It will be used when Seigmanager (seigniorage managing contract) is updated.`,
     'name': 'setCoinageFactory',
     'title': '(Seig Manager)CoinageFactory address will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'CoinageFactory is where the seigniorage management contracts are distributed for each layer 2. This function will be used when the seigniorage management method is upgraded.',
   },
@@ -188,6 +203,7 @@ It will be used when Seigmanager (seigniorage managing contract) is updated.`,
     'name': 'addChallenger',
     'title': '(Seig Manager)The Challenger authority will be transferred.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'This function allows you to grant the Challenger authority to a specific Address account. Enter the Address account to receive the authority into the first parameter (Param1).',
   },
@@ -201,6 +217,7 @@ It will be used when Seigmanager (seigniorage managing contract) is updated.`,
     'name': 'transferCoinageOwnership',
     'title': '(Seig Manager)Seigmanager will be updated.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'This function is used when Seigmanager (seigniorage managing contract) is updated.',
   },
@@ -212,6 +229,7 @@ It will be used when Seigmanager (seigniorage managing contract) is updated.`,
     'name': 'renounceWTONMinter',
     'title': '(Seig Manager)Seigmanager\'s WTON Minter function will be removed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `Seigmanger (seigniorage managing contract) has a Minter function for WTON.
 Seigmanager's MInter function for WTON can be removed through this function. It will be used when Seigmanger is updated.`,
@@ -226,6 +244,7 @@ Seigmanager's MInter function for WTON can be removed through this function. It 
     'name': 'slash',
     'title': '(Seig Manager)Layer2 operator will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'This function allows you to take action when an operator\'s cheating occurs. You can forcibly change the operator of the first parameter (Param1) layer 2 to the second parameter (Param2).',
   },

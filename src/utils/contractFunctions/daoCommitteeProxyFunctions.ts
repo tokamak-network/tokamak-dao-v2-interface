@@ -7,6 +7,7 @@ export const daoCommitteeProxyFunctionsOfTypeA = [
     'name': 'setActivityRewardPerSecond',
     'title': '(DAO Committee)Committee\'s subsidies for DAO activities will be determined.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
 `In Tokamak DAO, DAO pays a reward (activity subsidy) to encourage the sincere activities of committees that review major governance issues.
 
@@ -22,6 +23,7 @@ This activity subsidy is paid per second, and through this function, the amount 
     'name': 'increaseMaxMember',
     'title': '(DAO Committee)The number of Committee members active in DAO will increase.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function allows you to increase the number of active committee members in Tokamak DAO.
 
@@ -39,6 +41,7 @@ For example, if there are 3 committee members currently and a function 'increase
     'name': 'decreaseMaxMember',
     'title': '(DAO Committee)The number of Committee members active in the DAO will decrease.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function allows to reduce the number of active committee members in Tokamak DAO.
 
@@ -54,6 +57,7 @@ Each committee member is assigned with an index. Through this function, you can 
     'name': 'setQuorum',
     'title': '(DAO Committee)The minimum number of votes for an agenda to pass will be determined.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function sets the minimum number of votes for a single item to pass.
 
@@ -67,6 +71,7 @@ If you record less than the minimum number of votes set here, the agenda will no
     'name': 'setCreateAgendaFees',
     'title': '(DAO Committee)The amount of TON to be burned to make an agenda will be determined.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
 `In order for an agenda to be made, a certain amount of TON must be incinerated.
 
@@ -80,6 +85,7 @@ This function sets the amount of TON to be burned to make an agenda.`,
     'name': 'setMinimumNoticePeriodSeconds',
     'title': '(DAO Committee)Minimum disclosure period of an agenda will be determined.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
 `The agenda will be published for a period of time before it is passed.
 
@@ -95,6 +101,7 @@ The actual disclosure period for each agenda can be set at the time of creation 
     'name': 'setMinimumVotingPeriodSeconds',
     'title': '(DAO Committee)Minimum voting period of an agenda will be determined.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
 `This function allows you to set the minimum voting period, and the unit is in seconds.
 
@@ -113,6 +120,7 @@ export const daoCommitteeProxyFunctionsOfTypeB = [
     'name': 'grantRole',
     'title': '(DAO Committee Proxy)Owner rights for DAO will be granted.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function allows you to grant owner rights (owner rights are displayed as 0) for DAO. You can give the DAO owner rights to the second parameter (Param2).
 If you want to grant owner rights, enter 0 in the first parameter (Param1).`,
@@ -127,6 +135,7 @@ If you want to grant owner rights, enter 0 in the first parameter (Param1).`,
     'name': 'renounceRole',
     'title': '(DAO Committee Proxy)Owner rights for DAO will be removed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function allows you to remove owner rights (owner rights are marked as 0) for the DAO.
 If you want to remove the owner's authority, you can enter authority (the owner's authority is displayed as 0) in the first parameter (Param1) and your own address in the second parameter (Param2).`,
@@ -141,6 +150,7 @@ If you want to remove the owner's authority, you can enter authority (the owner'
     'name': 'revokeRole',
     'title': '(DAO Committee Proxy)Authority of a specific address will be removed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'This function allows you to remove someone else\'s authority. If you want to remove the owner authority, enter the authority (owner authority is displayed as 0) in param1 and the address of the target whose authority you want to remove in param2.',
   },
@@ -152,6 +162,7 @@ If you want to remove the owner's authority, you can enter authority (the owner'
     'name': 'setProxyPause',
     'title': '(DAO Committee Proxy)It will be decided whether to stop DAO.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `Owners have the right to stop DAO. This function allows the owner to decide whether to stop DAO.
 If the first Param1 value is true, DAO stops, and if it is false, it operates normally.`,
@@ -164,9 +175,9 @@ If the first Param1 value is true, DAO stops, and if it is false, it operates no
     'name': 'upgradeTo',
     'title': '(DAO Committee Proxy)Address of the DAO contract will be upgraded. ',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `This function sets the new address of the DAO contract to be upgraded. Enter the DAO contract address to be upgraded in the first parameter (Param1).
 It will be used when the DAO is upgraded.`,
   },
 ];
-

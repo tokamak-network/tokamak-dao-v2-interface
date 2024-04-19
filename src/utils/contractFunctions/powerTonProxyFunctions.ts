@@ -7,6 +7,7 @@ export const powerTonProxyFunctionsOfTypeB = [
     'name': 'upgradeTo',
     'title': '(PowerTON Proxy) PowerTON logic contract will be updated',
     'prettyName': '',
+    'disabled': false,
     'explanation':
       'This function sets the new address of the logic contract for PowerTONProxy to be upgraded. Enter the logic contract for PowerTONProxy address to be upgraded in the first parameter (Param1). It will be used when the PowerTON is upgraded.',
   },

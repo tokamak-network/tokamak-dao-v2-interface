@@ -7,6 +7,7 @@ export const layer2RegistryFunctionsOfTypeB = [
     'name': 'renounceOwnership',
     'title': '(Layer2 Registry)DAO\'s owner rights will be removed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'DAO has owner rights for Layer2Registry (a registry for Layer 2 into Seigmanager). Sender\'s owner rights can be removed through this function. It will be used when the DAO is updated.',
   },
@@ -18,6 +19,7 @@ export const layer2RegistryFunctionsOfTypeB = [
     'name': 'transferOwnership',
     'title': '(Layer2 Registry)DAO\'s owner rights will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'DAO has ownership rights to Layer2Registry (a registry for Layer 2 into Seigmanager). This function allows you to pass the Sender\'s owner rights to the first parameter (Param1). It will be used when the DAO is updated.',
   },

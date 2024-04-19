@@ -93,7 +93,6 @@ export const ProposeCard = (args: ProposeCardTypeProp) => {
         >
           {contractName}
         </Flex>
-
       </Flex>
     </Flex>
   )

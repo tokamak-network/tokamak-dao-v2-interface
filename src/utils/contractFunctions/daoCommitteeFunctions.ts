@@ -9,6 +9,7 @@ export const daoCommitteeFunctionsOfTypeB = [
   //     'name': 'grantRole',
   //     'title': '',
   //     'prettyName': '',
+// 'disabled': false,
   //     'explanation':
   // `This function allows you to grant owner rights (owner rights are displayed as 0) for DAO. You can give the DAO owner rights to the second parameter (Param2).
   // If you want to grant owner rights, enter 0 in the first parameter (Param1).`,
@@ -23,6 +24,7 @@ export const daoCommitteeFunctionsOfTypeB = [
   //     'name': 'renounceRole',
   //     'title': '',
   //     'prettyName': '',
+// 'disabled': false,
   //     'explanation':
   // `This function allows you to remove owner rights (owner rights are marked as 0) for the DAO.
   // If you want to remove the owner's authority, you can enter authority (the owner's authority is displayed as 0) in the first parameter (Param1) and your own address in the second parameter (Param2).`,
@@ -37,6 +39,7 @@ export const daoCommitteeFunctionsOfTypeB = [
   //     'name': 'revokeRole',
   //     'title': '',
   //     'prettyName': '',
+// 'disabled': false,
   //     'explanation':
   // 'This function allows you to remove someone else\'s authority. If you want to remove the owner authority, enter the authority (owner authority is displayed as 0) in param1 and the address of the target whose authority you want to remove in param2.',
   //   },
@@ -48,6 +51,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setSeigManager',
     'title': '(DAO Committee)DAO\'s Seigmanager contract will be upgraded.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
   'This function is used when upgrading the Seigmanager contract (seigniorage managing contract) owned by DAO. Enter the Seigmanager contract address to be upgraded in the first parameter (Param1). It will be used when Seigmanager is upgraded.',
   },
@@ -61,6 +65,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setCandidatesSeigManager',
     'title': '(DAO Committee)Seigmanager contract of candidate\'s contract will be upgraded.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
   'This function is used when upgrading the Seigmanager contract (seigniorage managing contract) held by the candidate. Enter the candidate in the first parameter (Param1) and the Seigmanager contract address to be upgraded in the second parameter (Param2).',
   },
@@ -74,6 +79,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setCandidatesCommittee',
     'title': '(DAO Committee)DAO contract of candidate\'s contract will be upgraded.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
   'This function is used when upgrading the Seigmanager contract (seigniorage managing contract) held by the candidate. Enter the candidate in the first parameter (Param1) and the DAO contract address to be upgraded in the second parameter (Param2).',
   },
@@ -85,6 +91,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setDaoVault',
     'title': '(DAO Committee)DAO Vault will be upgraded.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
   'This function is used when the DAO Vault is upgraded. Enter the DAO contract address to be upgraded in the first parameter (Param1).',
   },
@@ -96,6 +103,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setLayer2Registry',
     'title': '(DAO Committee)Layer2Registry will be upgraded.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
   'This function is used when Layer2Registry (registry for Layer 2 into Seigmanager) is upgraded. Enter the DAO contract address to be upgraded in the first parameter (Param1).',
   },
@@ -107,6 +115,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setAgendaManager',
     'title': '(DAO Committee)DAO AgendaManager will be upgraded.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
   'This function is used when the DAO AgendaManager is upgraded. Enter the DAO contract address to be upgraded in the first parameter (Param1).',
   },
@@ -118,6 +127,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setCandidateFactory',
     'title': '(DAO Committee)CandidateFactory will be upgraded.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
   'This function is used when CandidateFactory is upgraded. Enter the DAO contract address to be upgraded in the first parameter (Param1).',
   },
@@ -129,6 +139,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setTon',
     'title': '(DAO Committee)TON will be upgraded.',
     'prettyName': '',
+    'disabled': true,
     'explanation':
   'This function is used when TON is upgraded. Enter the DAO contract address to be upgraded in param1.',
   },
@@ -140,6 +151,7 @@ export const daoCommitteeFunctionsOfTypeB = [
   //   'name': 'registerOperatorByOwner',
   //   'title': '',
   //   'prettyName': '',
+  // 'disabled': false,
   //   'explanation': '',
   // },
   {
@@ -150,6 +162,7 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'endAgendaVoting',
     'title': '(DAO Committee)If an agenda is rejected, it will be finally closed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
   'This function finally closes an agenda if the agenda is rejected.',
   },
@@ -165,8 +178,10 @@ export const daoCommitteeFunctionsOfTypeB = [
     'name': 'setAgendaStatus',
     'title': '(DAO Committee)The DAO will change the outcome of an agenda regardless of the result of the vote on the agenda.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
   'This function allows the DAO to change the outcome of the agenda regardless of the vote result.',
   },
 ];
 
+// module.exports.daoCommitteeFunctionsOfTypeB = daoCommitteeFunctionsOfTypeB;

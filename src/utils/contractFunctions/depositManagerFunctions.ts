@@ -7,6 +7,7 @@ export const depositManagerFunctionsOfTypeA = [
     'name': 'setGlobalWithdrawalDelay',
     'title': '(Deposit Manager)Global withdrawal delay will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `Tokamak Network Layer 2 staking has a global withdrawal delay.
 
@@ -25,6 +26,7 @@ export const depositManagerFunctionsOfTypeB = [
     'name': 'transferOwnership',
     'title': '(Deposit Manager)DAO\'s owner rights for WTON will be transferred.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 'DAO has owner rights for Depositmanager (user deposit and withdrawal process management during staking). This function allows you to change the authority, and you can enter the address to which the authority will be transferred in the first parameter (Param1). It will be used when the DAO is updated.',
   },
@@ -36,6 +38,7 @@ export const depositManagerFunctionsOfTypeB = [
     'name': 'setSeigManager',
     'title': '(Deposit Manager)Seigniorage Manage Contract of Depositmanager will be changed.',
     'prettyName': '',
+    'disabled': false,
     'explanation':
 `Deposit Manager (user deposit and withdrawal process management during staking) holds a contract to manage seigniorage.
 This function allows you to change the contract, and you can enter the contract address to be changed in the first parameter (Parma1). It will be used when the seigniorage management contract is updated.`,
@@ -52,7 +55,9 @@ This function allows you to change the contract, and you can enter the contract 
 //     'name': 'slash',
 //     'title': '',
 //     'prettyName': '',
+// 'disabled': false,
 //     'explanation':
 // 'This function allows you to change the operator of Layer 2. Since the operator can be forcibly changed, it can be used in the event of malicious act.',
 //   },
 ];
+
