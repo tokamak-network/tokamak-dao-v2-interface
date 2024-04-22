@@ -50,25 +50,30 @@ const BasicTooltip: React.FC<tooltipProps> = (props) => {
       label={
         label === 'member'
           ? members()
+          : label === 'propose'
+          ? label2
           : others() 
       }
       borderRadius={"3px"}
       color={'#fff'}
       fontSize="12px"
-      maxW={'230px'}
+      maxW={label === 'propose' ? '400px' : '230px'}
       px={'10px'}
       py={'6px'}
       bgColor={'#353c48'}
       boxShadow={'0px 4px 4px 0px rgba(0, 0, 0, 0.25)'}
       hasArrow
+      whiteSpace={'pre-wrap'}
       isOpen={isLabelOpen}
       border={'0px'}
+      
     >
       <QuestionOutlineIcon
         display={label?.length === 0 ? "none" : ""}
+        ml={'3px'}
         h={"12px"}
         w={"12px"}
-        color={'#333'}
+        color={label === 'propose' ? '#86929d' : '#333'}
         onMouseLeave={() => setIsLabelOpen(false)}
         onMouseEnter={() =>  setIsLabelOpen(true)}
         // onClick={() => tooltipControl()}

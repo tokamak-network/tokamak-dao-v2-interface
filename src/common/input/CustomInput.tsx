@@ -1,4 +1,4 @@
-import { InputGroup, useColorMode, NumberInput, Text, NumberInputField, Button, Flex, useTheme, Input } from '@chakra-ui/react';
+import { InputGroup, useColorMode, NumberInput, Text, NumberInputField, Button, Flex, useTheme, Input, Textarea } from '@chakra-ui/react';
 import { inputState } from '@/atom/global/input';
 import React from 'react';
 import { useRecoilState } from 'recoil';
@@ -51,30 +51,48 @@ function TextInput(props: InputProp) {
   const {inputValue, value, setValue} = useProposeInput(index)
   const theme = useTheme()
   const {INPUT_STYLE} = theme
-  console.log(placeHolder)
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { target } = event;
     const { value } = target;
     return setValue(value);
   }
   
   return (
-    <Input
-      isInvalid={isError}
-      w={'736px'}
-      h={type === 'description' ? '180px' : '32px'}
-      // focusBorderColor={'#fff'}
-      placeholder={placeHolder}
-      _placeholder={{
-        color: '#86929d',
-        fontSize: '13px'
-      }}
-      border={type === 'staking' ? 'none' : '1px solid #dfe4ee'}
-      borderRadius={'4px'}
-      value={value}
-      onChange={onChange}
-    />
+    <>
+    {
+      type === 'description' ?
+      <Textarea 
+        isInvalid={isError}
+        w={'736px'}
+        h={'139px'}
+        placeholder={placeHolder}
+        _placeholder={{
+          color: '#86929d',
+          fontSize: '13px'
+        }}
+        border={'1px solid #dfe4ee'}
+        borderRadius={'4px'}
+        value={value}
+        onChange={onChange}
+      /> :
+      <Input
+        isInvalid={isError}
+        w={'736px'}
+        h={'32px'}
+        // focusBorderColor={'#fff'}
+        placeholder={placeHolder}
+        _placeholder={{
+          color: '#86929d',
+          fontSize: '13px'
+        }}
+        border={type === 'description' ? 'none' : '1px solid #dfe4ee'}
+        borderRadius={'4px'}
+        value={value}
+        onChange={onChange}
+      />
+    }
+    </>
   )
 }
 
