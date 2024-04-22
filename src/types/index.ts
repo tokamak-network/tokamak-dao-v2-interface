@@ -3,7 +3,7 @@
 export type TokenTypes = 'ETH' | 'TON' | 'WTON';
 
 export type Pages = 'Home' | 'Election' | 'Propose' | 'Agenda';
-export type PageKey = 'Staking_screen' | 'Wallet_screen';
+export type PageKey = number | 'description';
 
 export type CheckBoxValueType = {
   page: Pages;

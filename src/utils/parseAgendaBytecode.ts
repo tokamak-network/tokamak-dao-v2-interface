@@ -4,6 +4,7 @@ import { getAbiForAgenda } from './getAbiForAgenda';
 
 export const parseAgendaBytecode = function (tx: any, type: string) {
   // TODO: to fix case of using mixed type with 'A' and 'B'
+  console.log(tx.input)
   const params1 = marshalString(unmarshalString(tx.input).substring(8));
   const decodedParams1 = decodeParameters(['address', 'uint256', 'bytes'], params1);
   const params2 = decodedParams1[2];

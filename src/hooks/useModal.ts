@@ -2,16 +2,16 @@ import { inputState } from "atom/global/input";
 import { modalData, modalLoadingState, modalState } from "atom/global/modal";
 import React, { SetStateAction, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { ModalType } from "types/modal";
+import { ModalDataType, ModalType } from "types/modal";
 
 function useModal<T>(
   modalType?: ModalType,
-  modalDataObj?: T | undefined,
+  modalDataObj?: T | ModalDataType | undefined,
   setInitialValue?: React.Dispatch<SetStateAction<any>>
 ) {
   const [selectedModal, setSelectedModal] = useRecoilState(modalState);
   const [selectedModalData, setSelectedModalData] = useRecoilState<
-    T | undefined
+    T | undefined | ModalDataType
   >(modalData);
   const [value, setValue] = useRecoilState(inputState);
   const [isModalLoading, setIsModalLoading] = useRecoilState(modalLoadingState);

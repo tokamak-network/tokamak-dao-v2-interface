@@ -1,10 +1,12 @@
 import { Tooltip, Flex, Text } from "@chakra-ui/react"
 import { useState } from "react"
 
+
 export const FunctionCard = (args: any) => {
-  const { disabled, name, contractType } = args
+  const { disabled, name, contractType, contractFunction } = args
   const [isLabelOpen, setIsLabelOpen] = useState(false)
   
+
   return (
     <Tooltip 
       display={"flex"}
@@ -44,7 +46,7 @@ export const FunctionCard = (args: any) => {
         }
         _disabled={disabled}
         onMouseLeave={() => setIsLabelOpen(false)}
-        onMouseEnter={() =>  setIsLabelOpen(true)}
+        onMouseEnter={() =>  setIsLabelOpen(true)}   
       >
         <Text
           w={'150px'}
@@ -52,6 +54,7 @@ export const FunctionCard = (args: any) => {
         >
           {name}
         </Text>
+      
       </Flex>
     </Tooltip>
   )

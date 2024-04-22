@@ -21,6 +21,12 @@ import {
   wtonFunctionsOfTypeB,
 } from "@/utils/contractFunctions/index"
 import { contract } from "web3/lib/commonjs/eth.exports";
+import { useRecoilState } from "recoil"
+
+import { modalData, modalState } from "@/atom/global/modal"
+import { ModalType } from "@/types/modal"
+import { ProposeModal } from "./components/propose/ProposeModal";
+import { getContractABI } from '../utils/getContractInfo';
 
 
 function Propose () {
@@ -45,6 +51,7 @@ function Propose () {
   const [ typeA, setTypeA ] = useState<any[]>([])
   const [ typeB, setTypeB ] = useState<any[]>([])
   const [ selectedContract, setSelectedContract ] = useState('')
+  const [ selectedABI, setSelectedABI ] = useState<any[]>([])
   const [ functions, setFunctions ] = useState<any[]>([])
 
   
@@ -138,6 +145,22 @@ function Propose () {
     fetch()
   }, [])
 
+  const [selectedModal, setSelectedModal] = useRecoilState(modalState);
+  const [, setSelectedModalData] = useRecoilState(modalData);
+
+  const modalButton = useCallback(async (modalType: ModalType, data: any, abis: any) => {
+    setSelectedModal(modalType);
+    
+    const functions = abis.find((abi: any) => abi.name === data.name)
+    if (functions) {
+      setSelectedModalData({
+        ...data,
+        inputs: functions.inputs
+      });
+
+    }
+  }, [functions]);
+
   const selectType = (type: string) => {
     setContractType(type)
     setSelectedContract('')
@@ -147,6 +170,11 @@ function Propose () {
   const selectContract = (content: any) => {
     setSelectedContract(content.contractName)
     setFunctions(content.functions)
+    const sliceIndex = content.contractName.indexOf('Contract') - 1
+    const contractName = content.contractName.slice(0, sliceIndex)
+    const contractABI = getContractABI(contractName.replaceAll(' ', ''), contractType)
+    setSelectedABI(contractABI)
+    
   }
   
   return (
@@ -252,65 +280,27 @@ function Propose () {
               const { disabled, name } = contractFunction
               
               return [
-                <FunctionCard 
-                  name={name}
-                  disabled={disabled}
-                  contractType={contractType}
-                />
-                // <Tooltip 
-                //   display={"flex"}
-                //   placement={"bottom"}
-                //   pointerEvents={"all"}
-                //   label={'This function will become available after the DAO contract is upgraded.'}
-                //   borderRadius={"3px"}
-                //   color={'#fff'}
-                //   fontSize="12px"
-                //   maxW={'230px'}
-                //   px={'10px'}
-                //   py={'6px'}
-                //   bgColor={'#353c48'}
-                //   boxShadow={'0px 4px 4px 0px rgba(0, 0, 0, 0.25)'}
-                //   hasArrow
-                //   isOpen={disabled && isLabelOpen ? true : false}
-                //   border={'0px'}
-                // >
-                //   <Flex
-                //     w={'174px'}
-                //     h={'67px'}
-                //     justifyContent={'center'}
-                //     alignItems={'center'}
-                //     borderRadius={'5px'}
-                //     boxShadow={'0 0 10px 0 rgba(223, 228, 238, 0.35);'}
-                //     bgColor={'#fff'}
-                //     fontSize={'14px'}
-                //     cursor={'pointer'}
-                //     color={disabled ? '#bdc0c2' : ''}
-                //     _hover={
-                //       disabled ? {} : 
-                //       {
-                //         color: contractType === 'A' ? '#2a72e5' : '#f7981c',
-                //         border:'1px',
-                //         borderColor: contractType === 'A' ? '#2a72e5' : '#f7981c'
-                //       }
-                //     }
-                //     _disabled={disabled}
-                //     onMouseLeave={() => setIsLabelOpen(false)}
-                //     onMouseEnter={() =>  setIsLabelOpen(true)}
-                //   >
-                //     <Text
-                //       w={'150px'}
-                //       textAlign={'center'}
-                //     >
-                //       {name}
-                //     </Text>
-                //   </Flex>
-                // </Tooltip>
+                <Flex
+                  onClick={() => {
+                  disabled ? 
+                  '' :
+                  modalButton('propose', contractFunction, selectedABI)
+                }}
+                >
+                  <FunctionCard 
+                    name={name}
+                    disabled={disabled}
+                    contractType={contractType}
+                    contractFunction={contractFunction}
+                  />
+                </Flex>
               ]
             })
           }
         </Grid> : 
         <></>
       }
+      <ProposeModal />
     </Flex>
   )
 }

@@ -1,6 +1,7 @@
 import { atom, selector } from 'recoil';
 import { ModalType } from 'types/modal';
 import { v1 } from 'uuid';
+import { ModalDataType } from '../../types/modal';
 
 const modalState = atom<ModalType | undefined>({
   key: `modalType/${v1()}`,
@@ -9,7 +10,7 @@ const modalState = atom<ModalType | undefined>({
 
 const modalData = atom({
   key: `modalData/${v1()}`,
-  default: {} as any | [] as any,
+  default: {} as any | [] as any | {} as ModalDataType,
 });
 
 const selectedModalState = selector({
