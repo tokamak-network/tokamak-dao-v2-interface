@@ -10,8 +10,12 @@ import { useWeb3React } from '@web3-react/core';
 import useUserBalance from "@/hooks/useUserBalance";
 import useCallContract from "@/hooks/useCallContract";
 import { convertNumber } from '../../../utils/number';
-import { Tooltip } from 'chart.js';
 import BasicTooltip from "@/common/tooltip";
+import { getFunctionSelector, encoded, encodeParameters, getContractAddress } from "@/components/getContractInfo";
+import { unmarshalString } from "@/components/marshalString";
+import CONTRACT_ADDRESS from '@/services/addresses/contract';
+import { txState } from "@/atom/global/transaction";
+import { createAgenda } from "@/api";
 
 export function ProposeModal () {
   const { selectedModalData, selectedModal, closeModal, isModalLoading } = useModal<ProposeModalProps>();
@@ -19,12 +23,14 @@ export function ProposeModal () {
   const [param2Value, setParam2Value] = useRecoilState(propose_param2_input);
   const [param3Value, setParam3Value] = useRecoilState(propose_param3_input);
   const [descriptionValue, setDescriptionValue] = useRecoilState(propose_description_input);
+  const [, setTx] = useState();
+  const [txPending, setTxPending] = useRecoilState(txState);
 
   const [createAgendaFee, setCreateAgendaFee] = useState<string | undefined>('')
 
   const { account } = useWeb3React();
   const { userTonBalance } = useUserBalance(account)
-  const { AgendaManager_Contract } = useCallContract()
+  const { AgendaManager_Contract, DAOCommitteeProxy_Contract, TON_CONTRACT } = useCallContract()
 
   useEffect(() => {
     async function fetch () {
@@ -49,6 +55,93 @@ export function ProposeModal () {
     setDescriptionValue('');
     closeModal();
   }, [closeModal]);
+
+  const propose = useCallback(async () => {
+    if (account && AgendaManager_Contract && DAOCommitteeProxy_Contract && TON_CONTRACT) {
+      if (Number(createAgendaFee) > Number(userTonBalance)) alert('Please check your TON amount.');
+      
+      const {
+        inputs,
+        contract,
+        name,
+        type
+      } = selectedModalData
+
+      const { DAOCommitteeProxy_ADDRESS } = CONTRACT_ADDRESS
+
+      const numOfInputs = inputs.length
+
+      let setParams = true
+      const types = [];
+      const values = [];
+
+      for (let i = 0; i < numOfInputs; i ++) {
+        const type = inputs[i].type;
+        const value = i === 0 ? param1Value : i === 1 ? param2Value : param3Value
+        const encodedValue = encoded(type, value);
+
+        if (encodedValue === -1) {
+          console.log('bug', 'failed to encode value'); // eslint-disable-line
+          alert('Please check the input value.');
+          return;
+        }
+        if (!value) {
+          setParams = false;
+        }
+        types.push(type);
+        values.push(encodedValue);
+      }
+      if (!setParams) alert('The parameter value must be set.');
+
+      if (name == 'setSeigRates') proposeSetSeigRates()
+
+      const [
+        noticePeriod,
+        votingPeriod,
+        fee,
+      ] = await Promise.all([
+        AgendaManager_Contract.minimumNoticePeriodSeconds(),
+        AgendaManager_Contract.minimumVotingPeriodSeconds(),
+        AgendaManager_Contract.createAgendaFees(),
+      ]);
+
+      const selector = getFunctionSelector(contract, name, type);
+
+      const params = encodeParameters(types, values);
+      const data = unmarshalString(params);
+
+      const bytecode = selector ? selector.concat(data) : ''
+      const target = getContractAddress(contract);
+      
+      const param = encodeParameters(
+        ['address[]', 'uint256', 'uint256', 'bool', 'bytes[]'],
+        [[target], noticePeriod.toString(), votingPeriod.toString(), true, [bytecode]],
+      );
+
+      const tx = await TON_CONTRACT.approveAndCall(DAOCommitteeProxy_ADDRESS, fee, param)
+
+      setTx(tx);
+      setTxPending(true);
+      closeThisModal();
+
+      
+      if (tx) {
+        await createAgenda(account, tx.hash, type, descriptionValue);
+        await tx.wait().then((receipt: any) => {
+          if (receipt.status) {
+            setTxPending(false);
+            setTx(undefined);
+          }
+        });
+      }
+    }
+  }, [selectedModalData, param1Value, param2Value, param3Value, descriptionValue])
+
+  const proposeSetSeigRates = useCallback(async () => {
+
+  }, [])
+  
+
   return (
     <Modal
       isOpen={
@@ -190,6 +283,7 @@ export function ProposeModal () {
                       name={'Propose'}
                       type={'a'}
                       w={'160px'}
+                      onClick={()=> propose()}
                     /> :
                     <BasicButton 
                       name={"Please Connect Wallet"} 
@@ -203,7 +297,8 @@ export function ProposeModal () {
                   <BasicButton 
                     name={"Close"} 
                     type={"inactive"}  
-                    w={'160px'}                  
+                    w={'160px'}      
+                    onClick={() => closeThisModal()}            
                   />
                 </Flex>
               </Flex>
@@ -212,7 +307,6 @@ export function ProposeModal () {
           </ModalBody>
         </ModalContent>
       </ModalOverlay>
-
     </Modal>
   )
 

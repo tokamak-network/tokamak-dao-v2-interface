@@ -92,7 +92,7 @@ export const getContractABIFromAddress = function (address: string, type: any) {
 
 export const getContractAddress = function (target: string) {
   //@ts-ignore
-  const address = CONTRACT_ADDRESS[target];
+  const address = CONTRACT_ADDRESS[`${target}_ADDRESS`];
   if (!address) {
     console.log('bug'); // eslint-disable-line
   }

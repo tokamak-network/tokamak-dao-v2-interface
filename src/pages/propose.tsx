@@ -153,9 +153,13 @@ function Propose () {
     
     const functions = abis.find((abi: any) => abi.name === data.name)
     if (functions) {
+      const sliceIndex = selectedContract.indexOf('Contract') - 1
+      const contractName = selectedContract.slice(0, sliceIndex)
       setSelectedModalData({
         ...data,
-        inputs: functions.inputs
+        inputs: functions.inputs,
+        contract: contractName.replaceAll(' ', ''),
+        type: contractType
       });
 
     }
