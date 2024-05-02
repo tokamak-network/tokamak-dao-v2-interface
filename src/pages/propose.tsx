@@ -130,7 +130,7 @@ function Propose () {
           imageInactive: require('@/assets/images/contract-dao-committee-proxy-inactive-typeB.svg')
         },
         {
-          contractName: 'PowerTon Proxy Contract',
+          contractName: 'PowerTON Proxy Contract',
           functions: powerTonProxyFunctionsOfTypeB,
           imageActive: require('@/assets/images/contract-seig-manager-active-typeB.svg'),
           imageInactive: require('@/assets/images/contract-seig-manager-inactive-typeB.svg')
@@ -147,7 +147,8 @@ function Propose () {
 
   const modalButton = useCallback(async (modalType: ModalType, data: any, abis: any) => {
     setSelectedModal(modalType);
-
+    console.log(abis)
+    console.log(data)
     const functions = abis.find((abi: any) => abi.name === data.name)
 
     if (functions) {
