@@ -16,8 +16,9 @@ export const ProposeCard = (args: ProposeCardTypeProp) => {
     imageInactive,
     imageActive,
   } = content
-  const numFunc = functions.length.toString()
   
+  const numFunc = functions.length.toString()
+
   return (
     <Flex
       mx={'15px'}

@@ -1,7 +1,6 @@
 import { Flex, Grid, Text, useTheme, Tooltip } from "@chakra-ui/react"
 import { useState, useEffect, useCallback } from 'react';
 import { SelectContractType } from "./components/propose/SelectContractType";
-import { getAbiForAgenda } from '@/utils/getAbiForAgenda';
 import { ProposeCard } from './components/propose/ProposeCard';
 import { FunctionCard } from './components/propose/FunctionCard';
 import {
@@ -20,9 +19,7 @@ import {
   tonFunctionsOfTypeB,
   wtonFunctionsOfTypeB,
 } from "@/utils/contractFunctions/index"
-import { contract } from "web3/lib/commonjs/eth.exports";
 import { useRecoilState } from "recoil"
-
 import { modalData, modalState } from "@/atom/global/modal"
 import { ModalType } from "@/types/modal"
 import { ProposeModal } from "./components/propose/ProposeModal";
@@ -150,11 +147,13 @@ function Propose () {
 
   const modalButton = useCallback(async (modalType: ModalType, data: any, abis: any) => {
     setSelectedModal(modalType);
-    
+
     const functions = abis.find((abi: any) => abi.name === data.name)
+
     if (functions) {
       const sliceIndex = selectedContract.indexOf('Contract') - 1
       const contractName = selectedContract.slice(0, sliceIndex)
+
       setSelectedModalData({
         ...data,
         inputs: functions.inputs,
@@ -174,9 +173,11 @@ function Propose () {
   const selectContract = (content: any) => {
     setSelectedContract(content.contractName)
     setFunctions(content.functions)
+  
     const sliceIndex = content.contractName.indexOf('Contract') - 1
     const contractName = content.contractName.slice(0, sliceIndex)
     const contractABI = getContractABI(contractName.replaceAll(' ', ''), contractType)
+
     setSelectedABI(contractABI)
     
   }

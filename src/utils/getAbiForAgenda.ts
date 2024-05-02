@@ -35,7 +35,7 @@ export function getAbiForAgenda () {
   const seigManagerA = set(seigManagerFunctionsOfTypeA, seigManager)
   const seigManagerB = set(seigManagerFunctionsOfTypeB, seigManager)
   const daoCommitteeB = set(daoCommitteeFunctionsOfTypeB, committee)
-  const committeeProxyA = set(daoCommitteeProxyFunctionsOfTypeA, committeeProxy)
+  const committeeProxyA = set(daoCommitteeProxyFunctionsOfTypeA, committee)
   const committeeProxyB = set(daoCommitteeProxyFunctionsOfTypeB, committeeProxy)
   const powerTonLogicB = set(powerTonLogicFunctionsOfTypeB, powerTONLogic)
   const powerTonProxyB = set(powerTonProxyFunctionsOfTypeB, powerTONProxy)
