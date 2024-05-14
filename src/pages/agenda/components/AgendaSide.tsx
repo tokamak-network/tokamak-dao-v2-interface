@@ -22,7 +22,7 @@ export const AgendaSide = (args: AgendaSideProp) => {
       mt={'100px'}
     >
       <CardTitle 
-        name={'Voters'}
+        name={'Statistics'}
         mb={'12px'}
       />
       <CommitteeStatsCard 

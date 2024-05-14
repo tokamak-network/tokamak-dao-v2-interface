@@ -1,13 +1,16 @@
 import { AGENDA_INFOS } from "@/constants";
 import { Flex } from "@chakra-ui/react"
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { date3 } from '../../../utils/getDate';
+import { date3, votingTime } from '../../../utils/getDate';
 import { AgendaDescription } from "./AgendaDescription";
 import { AgendaDetailTab } from "./AgendaDetailTab";
 import { AgendaInfo } from "./AgendaInfo";
 import { AgendaOnchain } from "./AgendaOnChain";
 import { useVotingDetails } from '../../../hooks/agenda/useVotingDetails';
 import { AgendaComments } from "./AgendaComments";
+import CLOCKA from '@/assets/images/poll-time-active-icon.svg'
+import CLOCKB from '@/assets/images/poll-time-active-icon-typeB.svg'
 
 type AgendaDetailTypeProps = {
   agenda: any
@@ -54,26 +57,36 @@ export const AgendaDetail = (args: AgendaDetailTypeProps) => {
           >
             <Flex
               fontSize={'10px'}
-              mb={'5px'}
+              mb={'25px'}
+              w={'100%'}
+              justifyContent={'space-between'}
             >
-              <span
-                style={{
-                  marginRight: '3px',
-                  color:`${color}`
-                }}
-              >
-                #{agendaid}
-              </span>
-              Type 
-              <span 
-                style={{
-                  marginRight:'3px',
-                  marginLeft:'3px',
-                  color:`${color}`
-                }}
-              >
-                {type}
-              </span> Posted {date3(tCreationDate)}
+              <Flex>
+                <span
+                  style={{
+                    marginRight: '3px',
+                    color:`${color}`
+                  }}
+                >
+                  #{agendaid}
+                </span>
+                Type 
+                <span 
+                  style={{
+                    marginRight:'3px',
+                    marginLeft:'3px',
+                    color:`${color}`
+                  }}
+                >
+                  {type}
+                </span> Posted {date3(tCreationDate)}
+              </Flex>
+              <Flex>
+                <Image src={type === 'A' ? CLOCKA : CLOCKB} alt={''}/>
+                <Flex ml={'7px'}>
+                  {votingTime(agenda)}
+                </Flex>
+              </Flex>
             </Flex>
             <Flex
               fontWeight={500}

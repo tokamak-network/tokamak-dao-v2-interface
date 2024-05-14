@@ -26,10 +26,13 @@ export const CardTitle = (args: CardTitleProp) => {
       <Text mr={'6px'}>
         {name}
       </Text>
-      <BasicTooltip 
-        label={name === 'DAO Committee Members' ? 'members' : 'others'}
-        placement={'right'}
-      />
+      {
+        name === 'DAO Committee Members' || name === 'Other DAO Candidates' ?
+        <BasicTooltip 
+          label={name === 'DAO Committee Members' ? 'members' : 'others'}
+          placement={'right'}
+        /> : ''
+      }
     </Flex>
   )
 }

@@ -15,10 +15,11 @@ import { votingTime } from '../../../utils/getDate';
 type AgendaCardProp = {
   data: any;
   index: number;
+  member: any;
 }
 
 export const AgendaCard = (args: AgendaCardProp) => {
-  const { data, index } = args
+  const { data, index, member } = args
   const { 
     blockNumber,
     agendaid, 
@@ -47,6 +48,9 @@ export const AgendaCard = (args: AgendaCardProp) => {
     const active = votingTime(data) != 'POLL ENDED'
     setIsActive(active)
   }, [])
+
+  const voted = voters.find((voter: string) => voter.toLowerCase() === member.member)
+
 
   return (
     <Flex
@@ -95,7 +99,7 @@ export const AgendaCard = (args: AgendaCardProp) => {
         flexDir={'row'}
         justifyContent={'space-between'}
       >
-        <Flex>
+        <Flex justifyContent={'space-between'} w={'100%'}>
           {data === 'Empty' ? '' : 
             <BasicButton 
               type={type.toLowerCase()}
@@ -109,6 +113,14 @@ export const AgendaCard = (args: AgendaCardProp) => {
                 })
               }}
             />
+          }
+          { 
+            member ? 
+            <BasicButton 
+              type={voted ? 'inactive' : 'vote'}
+              name={'Vote'}
+              isDisabled={voted ? true : false}
+            /> : ''
           }
         </Flex>
       </Flex>

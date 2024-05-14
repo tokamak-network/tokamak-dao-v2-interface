@@ -17,7 +17,17 @@ export const VotersCard = ({
       justifyContent={'space-between'}
     >
       {
-        voteResult.map((voteRes: any, index: number) => {
+        typeof voteResult === 'string' ?
+          <Flex 
+            justifyContent={'center'}
+            alignItems={'center'}
+            h={'100%'}
+            fontSize={'30px'}
+            fontWeight={'600'}
+          >
+            {voteResult}
+          </Flex>
+        : voteResult.map((voteRes: any, index: number) => {
           return (
             <StatsCardRow 
               title={voteRes.result}

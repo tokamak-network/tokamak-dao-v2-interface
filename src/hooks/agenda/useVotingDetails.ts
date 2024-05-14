@@ -15,22 +15,25 @@ export function useVotingDetails() {
       const web3 = library ? library : INFURA_API ? new Web3(new Web3.providers.HttpProvider(INFURA_API)) : ''
 
       const votes = await getAgendaVotes();
-      
-
-      votes.forEach(async function (vote: any) {
-        const block = await web3.eth.getBlock(vote.blockNumber);
-        votingDetails.push({
-          agendaid: vote.agendaid,
-          timestamp: block.timestamp,
-          chainId: vote.chainId,
-          comment: vote.comment,
-          hasVoted: vote.hasVoted,
-          transactionHash: vote.transactionHash,
-          vote: vote.vote,
-          voter: vote.voter,
+      try {
+        votes.forEach(async function (vote: any) {
+          const block = await web3.getBlock(vote.blockNumber);
+          votingDetails.push({
+            agendaid: vote.agendaid,
+            timestamp: block.timestamp,
+            chainId: vote.chainId,
+            comment: vote.comment,
+            hasVoted: vote.hasVoted,
+            transactionHash: vote.transactionHash,
+            vote: vote.vote,
+            voter: vote.voter,
+          });
         });
-      });
-     setVotingDetail(votingDetails)
+       setVotingDetail(votingDetails)
+
+      } catch (e) {
+        console.log(e)
+      }
     }
     fetch()
   }, [])

@@ -39,7 +39,7 @@ export function useCandidate() {
               ...obj,
               ...member
             }
-            console.log(obj)
+
             const selfStake = obj.staked.filter((stake: any) => stake.sender === obj.candidate)
             // TODO: Calculate as BigNumber
             let selfStakeAmount = 0

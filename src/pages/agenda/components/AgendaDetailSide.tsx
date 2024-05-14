@@ -9,6 +9,7 @@ import { VotersCard } from "./VotersCard";
 import { INFURA_API } from "@/constants";
 import Web3 from "web3";
 import useCallContract from 'hooks/useCallContract';
+import { YourVoteCard } from "./YourVoteCard";
 
 type AgendaSideProp = {
   currentAgenda: any
@@ -18,28 +19,31 @@ type AgendaSideProp = {
 export const AgendaDetailSide = (args: AgendaSideProp) => {
   const { currentAgenda, comment } = args;
   const { account, library } = useWeb3React();
-  const [voters, setVoters] = useState<any[]>([]);
+  const [voters, setVoters] = useState<any[] | string>([]);
   const { AgendaManager_Contract } = useCallContract()
-  
-  // const isMember = currentAgenda.voters.find((voter: any) => voter.toLowerCase() === account?.toLowerCase())
-  // console.log(currentAgenda.voters)
 
   useEffect(() => {
     let voteObj: any[] = []
     
     async function fetch () {
       if (currentAgenda && AgendaManager_Contract) {
-        for (let v of currentAgenda.voters) {
-          // const result = await AgendaManager_Contract.getVoteStatus(currentAgenda.agendaid, v)
-          let voter = {
-            voter: v,
-            result: 'Not Voted'
+        if (currentAgenda.voters.length > 0) {
+          try {
+            for (let v of currentAgenda.voters) {
+              const result = await AgendaManager_Contract.getVoteStatus(currentAgenda.agendaid, v)
+              let voter = {
+                voter: v,
+                result: result[0] ? result[1].toString() === '1' ? 'Yes' : 'NO' : 'Not Voted'
+              }
+              voteObj.push(voter)
+            }
+            setVoters(voteObj)
+          } catch (e) {
+            console.log(e)
           }
-          voteObj.push(voter)
+        } else {
+          setVoters('Not Decided Yet')
         }
-        
-        
-        setVoters(voteObj)
       }
     }
     fetch()
@@ -52,15 +56,18 @@ export const AgendaDetailSide = (args: AgendaSideProp) => {
       flexDir={'column'}
       mt={'10px'}
     >
-      {/* {
-        isMember ?
+      {
+        account ?
         <>
           <CardTitle 
             name={'Your Vote'}
             mb={'12px'}
           />
+          <YourVoteCard 
+            agenda={currentAgenda}
+          />
         </> : ''
-      } */}
+      }
       <CardTitle 
         name={'Voters'}
         mb={'12px'}

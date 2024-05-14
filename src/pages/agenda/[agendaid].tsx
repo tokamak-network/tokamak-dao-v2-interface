@@ -93,6 +93,9 @@ function AgendaDetails () {
             type={'prev'}
           />
           <Flex>
+          {
+              index === 0 ?
+              '' :
             <NextButton 
               setCurrentPage={() => prev()}
               currentPage={index}
@@ -100,7 +103,11 @@ function AgendaDetails () {
               name={'PREVIOUS AGENDA'}
               type={'prev'}
             />
+          }
             <Flex w={'10px'}/>
+          {
+            index === agendas.length -1 ?
+            '' : 
             <NextButton 
               setCurrentPage={() => next()}
               currentPage={index}
@@ -108,6 +115,7 @@ function AgendaDetails () {
               name={'NEXT AGENDA'}
               type={'next'}
             />
+          }
           </Flex>
         </Flex>
         {

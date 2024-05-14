@@ -13,26 +13,15 @@ export const ResourceCard = () => {
     <Flex
       {...CARD_STYLE.mainTheme()}
       {...CARD_STYLE.resourceCard()}
+      h={'100px'}
       flexDir={'column'}
     >
       <ResourceCardLink 
         title={'DAO User Guide'}
-        link={'https://docs.google.com/presentation/d/1d1YrughbLXeQafNmWrjjz2dl9IjREe_bNIckQIMFLo8/edit?usp=sharing'}
+        link={'https://docs.tokamak.network/home/service-guide/staking-and-dao/tokamak-network-dao'}
       />
       <ResourceCardLink 
-        title={'DAO Discussion (Discrod)'}
-        link={'https://discord.gg/SZw2WSR'}
-      />
-      <ResourceCardLink 
-        title={'Tokamak Network'}
-        link={'https://tokamak.network'}
-      />
-      <ResourceCardLink 
-        title={'Candidate Registration'}
-        link={'https://docs.tokamak.network/docs/en/guides/ton-staking/how-to-set-candidate'}
-      />
-      <ResourceCardLink 
-        title={'Governance FAQs'}
+        title={'FAQs'}
         link={'https://www.notion.so/onther/FAQ-27a7fcfaed5047b895169930b5912cab'}
       />
 
