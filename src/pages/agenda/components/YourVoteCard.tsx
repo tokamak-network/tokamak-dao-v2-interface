@@ -22,7 +22,7 @@ export const YourVoteCard = ({
       mb={'30px'}
     >
       {
-        agenda ?
+        agenda && agenda.onChainEffects ?
         <Flex flexDir={'column'}>
           <Flex mb={'10px'}>
             {agenda.onChainEffects[0].title} 

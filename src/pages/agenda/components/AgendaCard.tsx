@@ -1,7 +1,7 @@
 import { Flex, useTheme, Text } from '@chakra-ui/react';
 import { trimAddress } from '@/components/trimAddress';
 import { convertNumber } from '../../../utils/number';
-import { timeConverter, fromNow } from '@/components/getDate';
+import { timeConverter, fromNow, agendaResult } from '@/components/getDate';
 import CLOCKA from '@/assets/images/poll-time-active-icon.svg'
 import INACTIVE_CLOCK from '@/assets/images/poll-time-inactive-icon.svg';
 import CLOCKB from '@/assets/images/poll-time-active-icon-typeB.svg'
@@ -10,16 +10,19 @@ import Image from 'next/image';
 import { AgendaCardHeader } from './AgendaCardHeader';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { votingTime } from '../../../utils/getDate';
+import { votingTime, agendaStatus } from '../../../utils/getDate';
+import { INFURA_API } from '@/constants';
+import Web3 from 'web3';
 
 type AgendaCardProp = {
   data: any;
   index: number;
   member: any;
+  blockTime: number;
 }
 
 export const AgendaCard = (args: AgendaCardProp) => {
-  const { data, index, member } = args
+  const { data, index, member, blockTime } = args
   const { 
     blockNumber,
     agendaid, 
@@ -29,6 +32,9 @@ export const AgendaCard = (args: AgendaCardProp) => {
     creator,
     executed,
     noticePeriodSeconds,
+    tNoticeEndTime,
+    tVotingEndTime,
+    tExecutableLimitTimestamp,
     result,
     status,
     tCreationDate,
@@ -43,13 +49,43 @@ export const AgendaCard = (args: AgendaCardProp) => {
   const router = useRouter()
 
   const [isActive, setIsActive] = useState<boolean>()
+  const [voteAction, setVoteAction] = useState<string>('')
+  const [voted, setVoted] = useState()
 
   useEffect(() => {
     const active = votingTime(data) != 'POLL ENDED'
     setIsActive(active)
   }, [])
 
-  const voted = voters.find((voter: string) => voter.toLowerCase() === member.member)
+  useEffect(() => {
+    async function fetch () {
+      if (agendaStatus(status) === 'NOTICE' && blockTime >= tNoticeEndTime) {
+        setVoteAction(member ? 'VOTE' : '');
+      } else if (agendaStatus(status) === 'VOTING' && blockTime <= tVotingEndTime) {
+        setVoteAction(member ? 'VOTE' : '');
+      } else if (agendaStatus(status) === 'WAITING_EXEC' &&
+                 agendaResult(result) === 'ACCEPT' &&
+                 blockTime >= tVotingEndTime &&
+                 blockTime <= tExecutableLimitTimestamp &&
+                 !executed) {
+                  setVoteAction('EXECUTE');
+      } else if (agendaStatus(status) === 'VOTING' &&
+                 blockTime >= tVotingEndTime) {
+                  setVoteAction('END AGENDA');
+      } else {
+        setVoteAction('');
+      }
+    }
+    fetch()
+  }, [])
+  
+
+  useEffect(() => {
+    if (member) {
+      const voted = voters.find((voter: string) => voter.toLowerCase() === member.member)
+      setVoted(voted)
+    }
+  })
 
 
   return (
@@ -115,10 +151,10 @@ export const AgendaCard = (args: AgendaCardProp) => {
             />
           }
           { 
-            member ? 
+            member && voteAction ? 
             <BasicButton 
               type={voted ? 'inactive' : 'vote'}
-              name={'Vote'}
+              name={voteAction}
               isDisabled={voted ? true : false}
             /> : ''
           }
