@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react"
-import { trimAddress } from '../../../utils/trimAddress';
+import { trimAddress } from '../../../../utils/trimAddress';
 
 type StatsCardRowProps = {
   title: string,

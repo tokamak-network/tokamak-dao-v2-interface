@@ -6,6 +6,8 @@ import { AgendaFilter } from "./agenda/components/AgendaFilter";
 import { useState, useEffect } from 'react';
 import { agendaStatus, agendaResult } from '@/utils/agendaFilter';
 import { useWeb3React } from '@web3-react/core';
+import { CardTitle } from "@/common/card/CardTitle";
+import { useCandidate } from "@/hooks/election/useCandidate";
 
 function Agenda () {
   const agendas = useAgenda()
@@ -14,7 +16,9 @@ function Agenda () {
   const [execution, setExecution] = useState('Execution')
   const [vote, setVote] = useState('Vote')
   const [proposal, setProposal] = useState('Proposal')
+  const [isMember, setIsMember] = useState()
   const [filteredAgenda, setFilteredAgenda] = useState(agendas)
+  const { memberList } = useCandidate()
   const { account } = useWeb3React();
   
   useEffect(() => {
@@ -38,6 +42,11 @@ function Agenda () {
     )
     setFilteredAgenda(filter)
   },[execution])
+
+  useEffect(() => {
+    const isMember = memberList.find((member: any) => member.member === account?.toLowerCase())
+    setIsMember(isMember)
+  }, [account, memberList])
 
   // useEffect(() => {
   //   const filter = agendas.filter((agenda: any) => {
@@ -104,56 +113,65 @@ function Agenda () {
         >
           <Flex
             fontSize={'20px'}
-            mb={'48px'}
-            flexDir={'row'}
+            mb={'18px'}
+            flexDir={'column'}
             alignItems={'center'}
           >
-            <Text mr={'25px'}>
-              Filters
-            </Text>
-            <AgendaFilter 
-              placeholder={status}
-              options={['All', 'Notice', 'Voting', 'Waiting Exec', 'Executed', 'Ended']}
-              width={'120px'}
-              selectOptions={setStatus}
+            <CardTitle 
+              name={'Agenda'}
+              mb={'15px'}
             />
-            <AgendaFilter 
-              placeholder={result}
-              options={['All', 'Pending', 'Accept', 'Reject', 'Dismiss']}
-              width={'120px'}
-              selectOptions={setResult}
-            />
-            <AgendaFilter 
-              placeholder={execution}
-              options={['All', 'Executed', 'Not Executed']}
-              width={'120px'}
-              selectOptions={setExecution}
-            />
-            {
-              account ?
-              <>
-                <AgendaFilter 
-                  placeholder={vote}
-                  options={['All', 'Yes', 'No', 'Abstain', 'Not Voted']}
-                  width={'120px'}
-                  selectOptions={setVote}
-                />
-                <AgendaFilter 
-                  placeholder={proposal}
-                  options={['All', 'Mine']}
-                  width={'120px'}
-                  selectOptions={setProposal}
-                />
-              </> : ''
-            }
+            <Flex
+              flexDir={'row'}
+              alignItems={'start'}
+              w={'100%'}
+            >
+              <AgendaFilter 
+                placeholder={status}
+                options={['All', 'Notice', 'Voting', 'Waiting Exec', 'Executed', 'Ended']}
+                width={'120px'}
+                selectOptions={setStatus}
+              />
+              <AgendaFilter 
+                placeholder={result}
+                options={['All', 'Pending', 'Accept', 'Reject', 'Dismiss']}
+                width={'120px'}
+                selectOptions={setResult}
+              />
+              <AgendaFilter 
+                placeholder={execution}
+                options={['All', 'Executed', 'Not Executed']}
+                width={'120px'}
+                selectOptions={setExecution}
+              />
+              {
+                account ?
+                <>
+                  <AgendaFilter 
+                    placeholder={vote}
+                    options={['All', 'Yes', 'No', 'Abstain', 'Not Voted']}
+                    width={'120px'}
+                    selectOptions={setVote}
+                  />
+                  <AgendaFilter 
+                    placeholder={proposal}
+                    options={['All', 'Mine']}
+                    width={'120px'}
+                    selectOptions={setProposal}
+                  />
+                </> : ''
+              }
+            </Flex>
           </Flex>
           <AgendaList 
             agendaList={agendas}
+            isMember={isMember}
           />
         </Flex>
       </Flex>
       <AgendaSide
         agendaList={agendas}
+        isMember={isMember}
       />
     </Flex>
   )

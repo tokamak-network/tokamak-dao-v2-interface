@@ -1,12 +1,12 @@
 import { Flex, useTheme } from "@chakra-ui/react";
 import { StatsCardRow } from "./StatsCardRow";
-import { onChainEffect } from '../../../types/index';
+import { onChainEffect } from '../../../../types/index';
 import BasicButton from "@/common/button/BasicButton";
 
-export const YourVoteCard = ({
+export const YourVoteCardDetail = ({
   agenda
 }: any) => {
-  console.log(agenda)
+  
   const theme = useTheme()
   const CARD_STYLE = theme.CARD_STYLE;
   

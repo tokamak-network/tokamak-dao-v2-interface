@@ -4,12 +4,12 @@ import { useMemo,useEffect, useState } from "react"
 // import { AgendaSideTable } from "@/common/table/Agenda/AgendaSideTable"
 import { useWeb3React } from '@web3-react/core';
 import { ResourceCard } from "common/card/ResourceCard";
-import { CommitteeStatsCard } from './CommitteeStatsCard';
-import { VotersCard } from "./VotersCard";
+import { CommitteeStatsCard } from './card/CommitteeStatsCard';
+import { VotersCard } from "./card/VotersCard";
 import { INFURA_API } from "@/constants";
 import Web3 from "web3";
 import useCallContract from 'hooks/useCallContract';
-import { YourVoteCard } from "./YourVoteCard";
+import { YourVoteCardDetail } from "./card/YourVoteCardDetail";
 
 type AgendaSideProp = {
   currentAgenda: any
@@ -63,7 +63,7 @@ export const AgendaDetailSide = (args: AgendaSideProp) => {
             name={'Your Vote'}
             mb={'12px'}
           />
-          <YourVoteCard 
+          <YourVoteCardDetail 
             agenda={currentAgenda}
           />
         </> : ''

@@ -9,14 +9,15 @@ import Web3 from 'web3';
 
 type AgendaListProp = {
   agendaList: any
+  isMember: any
 }
 
 export const AgendaList = (args: AgendaListProp) => {
-  const { agendaList } = args
+  const { agendaList, isMember } = args
   const { CARD_STYLE } = useTheme()
   // const functions = useAgendaWithABI(agendaList.add)
   const { account } = useWeb3React()
-  const { memberList } = useCandidate()
+  // const { memberList } = useCandidate()
   const [blockTime, setBlockTime] = useState(0)
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export const AgendaList = (args: AgendaListProp) => {
     fetch()
   }, [])
   
-  const isMember = memberList.find((member: any) => member.member === account?.toLowerCase())
+  
   
 
   return (
@@ -42,10 +43,6 @@ export const AgendaList = (args: AgendaListProp) => {
       w={'786px'}
       flexDir={'column'}
     >
-      <CardTitle 
-        name={'Agendas'}
-        mb={'35px'}
-      />
       {
         agendaList ?
         agendaList.map((agenda: any, i: any) => {

@@ -63,15 +63,19 @@ export const AgendaCard = (args: AgendaCardProp) => {
         setVoteAction(member ? 'VOTE' : '');
       } else if (agendaStatus(status) === 'VOTING' && blockTime <= tVotingEndTime) {
         setVoteAction(member ? 'VOTE' : '');
-      } else if (agendaStatus(status) === 'WAITING_EXEC' &&
-                 agendaResult(result) === 'ACCEPT' &&
-                 blockTime >= tVotingEndTime &&
-                 blockTime <= tExecutableLimitTimestamp &&
-                 !executed) {
-                  setVoteAction('EXECUTE');
-      } else if (agendaStatus(status) === 'VOTING' &&
-                 blockTime >= tVotingEndTime) {
-                  setVoteAction('END AGENDA');
+      } else if (
+        agendaStatus(status) === 'WAITING_EXEC' &&
+        agendaResult(result) === 'ACCEPT' &&
+        blockTime >= tVotingEndTime &&
+        blockTime <= tExecutableLimitTimestamp &&
+        !executed
+      ) {
+        setVoteAction('EXECUTE');
+      } else if (
+        agendaStatus(status) === 'VOTING' &&
+        blockTime >= tVotingEndTime
+      ) {
+        setVoteAction('END AGENDA');
       } else {
         setVoteAction('');
       }

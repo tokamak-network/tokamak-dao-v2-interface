@@ -4,7 +4,7 @@ import Layer2Registry from "services/abi/Layer2Registry.json";
 import DepositManager from "services/abi/DepositManager.json";
 import SeigManager from "services/abi/SeigManager.json";
 import DaoAgendaManager from "services/abi/DAOAgendaManager.json"
-import DaoCommitteeProxy from "services/abi/DAOCommitteeProxy.json"
+import DaoCommitteeProxy from "services/abi/DAOCommittee.json"
 // import ERC20 from "services/abi/ERC20ABI.json";
 
 import useContract from "hooks/useContract";
