@@ -51,9 +51,10 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
         } : type === 'b' ? {
           boxShadow: '0 1px 4px 0 rgba(247, 152, 28, 0.15)',
           backgroundImage: 'linear-gradient(to bottom, #f7981c, #ff7800)'
-        } : type === 'vote' ? {
-          bgColor: '#2a72e5',
-          color: '#fff'
+        } : type === 'vote' && !isDisabled ? {
+          bgColor: '#fff',
+          color: '#2a72e5',
+          borderColor: "#2a72e5"
         } : type === 'inactive' ? {
 
         } : type === 'normal' ? {
@@ -86,14 +87,14 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
         type === 'inactive' 
         ? '#86929d' 
         : type === 'vote'
-        ? '#2a72e5'
+        ? '#a9c6f4'
         : type === 'disable'
         ? '#86929d'
         : "#fff"
       }
       border={
         type === 'vote'
-        ? 'solid 1px #2a72e5'
+        ? 'solid 1px #a9c6f4'
         : type === 'inactive'
         ? 'solid 1px #dfe4ee'
         : ''
@@ -103,7 +104,7 @@ const BasicButton: React.FC<BasicButtonProp> = (props) => {
         type === 'inactive' 
         ? '#dfe4ee' 
         : type === 'vote'
-        ? '#2a72e5'
+        ? '#a9c6f4'
         : 'none'
       }
       background={

@@ -9,7 +9,7 @@ export const YourVoteCard = (args: any) => {
   } = args
   const theme = useTheme()
   const CARD_STYLE = theme.CARD_STYLE;
-  console.log(voteRates)
+  
   return (
     <Flex
       {...CARD_STYLE.mainTheme()}

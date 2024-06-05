@@ -24,9 +24,6 @@ export const AgendaSide = (args: AgendaSideProp) => {
     countCanVoteAgendas,
     canVoteAgendas
   } = useCountVotedAgenda(agendaList, isMember)
-  console.log(voteRates)
-  console.log(countCanVoteAgendas)
-  console.log(canVoteAgendas)
   
   return (
     <Flex 

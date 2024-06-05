@@ -5,7 +5,7 @@ export const CommitteeStatsCard = ({agendaList}: any) => {
   const theme = useTheme()
   const CARD_STYLE = theme.CARD_STYLE;
   const executed = agendaList.filter((agenda:any) => agenda.executed === true)
-  const denied = agendaList.length - executed.length
+  const denied = agendaList.filter((agenda:any) => agenda.result === 2)
   
   return (
     <Flex
@@ -25,7 +25,7 @@ export const CommitteeStatsCard = ({agendaList}: any) => {
       />
       <StatsCardRow 
         title={'Total Denied Agendas'}
-        value={denied}
+        value={denied.length}
       />
     </Flex>
   )

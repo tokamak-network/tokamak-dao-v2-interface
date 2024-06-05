@@ -8,11 +8,17 @@ import CLOCKB from '@/assets/images/poll-time-active-icon-typeB.svg'
 import BasicButton from '@/common/button/BasicButton';
 import Image from 'next/image';
 import { AgendaCardHeader } from './AgendaCardHeader';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { votingTime, agendaStatus } from '../../../utils/getDate';
 import { INFURA_API } from '@/constants';
 import Web3 from 'web3';
+import { useWeb3React } from '@web3-react/core';
+import { useRecoilState } from 'recoil';
+import { txState } from '@/atom/global/transaction';
+import DaoCommitteeProxy from 'services/abi/DAOCommittee.json';
+import useCallContract from '@/hooks/useCallContract';
+import { useVotingResult } from '@/hooks/agenda/useVotingResult';
 
 type AgendaCardProp = {
   data: any;
@@ -47,10 +53,16 @@ export const AgendaCard = (args: AgendaCardProp) => {
   const { CARD_STYLE } = useTheme()
   const numChainEffects = onChainEffects.length
   const router = useRouter()
+  const { account, library } = useWeb3React();
+  const [, setTx] = useState();
+  const [txPending, setTxPending] = useRecoilState(txState);
+  const { DAOCommitteeProxy_Contract } = useCallContract();
 
   const [isActive, setIsActive] = useState<boolean>()
   const [voteAction, setVoteAction] = useState<string>('')
   const [voted, setVoted] = useState()
+
+  const voteResult = useVotingResult(agendaid, voters)
 
   useEffect(() => {
     const active = votingTime(data) != 'POLL ENDED'
@@ -81,7 +93,7 @@ export const AgendaCard = (args: AgendaCardProp) => {
       }
     }
     fetch()
-  }, [])
+  }, [tx, txPending])
   
 
   useEffect(() => {
@@ -89,7 +101,33 @@ export const AgendaCard = (args: AgendaCardProp) => {
       const voted = voters.find((voter: string) => voter.toLowerCase() === member.member)
       setVoted(voted)
     }
-  })
+  }, [tx, txPending])
+
+  const act = useCallback(async () => {
+    if (voteAction === 'VOTE') {
+
+    } else if (account && library && DAOCommitteeProxy_Contract) {
+      try {
+        const tx = voteAction === 'EXECUTE' ? await DAOCommitteeProxy_Contract.executeAgenda(agendaid) : await DAOCommitteeProxy_Contract.endAgendaVoting(agendaid)
+        setTx(tx);
+        setTxPending(true);
+
+        if (tx) {
+          await tx.wait().then((receipt: any) => {
+            if (receipt.status) {
+              setTxPending(false);
+              setTx(undefined);
+            }
+          });
+        }
+      } catch (e) {
+        setTxPending(false);
+        setTx(undefined);
+      }
+    }
+  }, [])
+
+ 
 
 
   return (
@@ -140,26 +178,49 @@ export const AgendaCard = (args: AgendaCardProp) => {
         justifyContent={'space-between'}
       >
         <Flex justifyContent={'space-between'} w={'100%'}>
-          {data === 'Empty' ? '' : 
-            <BasicButton 
-              type={type.toLowerCase()}
-              name={'View Details'}
-              onClick={() => {
-                router.push({
-                  pathname: '/agenda/[agendaid]',
-                  query: { 
-                    agendaid: agendaid,
-                  }
-                })
-              }}
-            />
+          {data === 'Empty' ? '' :
+            <Flex>
+              <BasicButton 
+                type={type.toLowerCase()}
+                name={'View Details'}
+                onClick={() => {
+                  router.push({
+                    pathname: '/agenda/[agendaid]',
+                    query: { 
+                      agendaid: agendaid,
+                    }
+                  })
+                }}
+              />
+              <Flex
+                fontSize={'12px'}
+                fontWeight={'normal'}
+                alignItems={'center'}
+                ml={'20px'}
+              >
+                {
+                  voted ? 
+                  <Flex
+                    color={type === 'A' ? '#2a72e5' : '#ff7800'}
+                  >
+                    {`You have voted ${voteResult === '1' ? '"Yes"' : '"No"'}`}
+                  </Flex> : 
+                  <Flex
+                    color={'#c9d1d8'}
+                  >
+                    You have not voted
+                  </Flex>
+                }
+              </Flex>
+            </Flex> 
           }
           { 
             member && voteAction ? 
             <BasicButton 
-              type={voted ? 'inactive' : 'vote'}
+              type={voteAction === 'END AGENDA' ? 'normal' : 'vote'}
               name={voteAction}
-              isDisabled={voted ? true : false}
+              isDisabled={voteAction === 'VOTE' ? voted ? true : false : false}
+              onClick={() => act()}
             /> : ''
           }
         </Flex>

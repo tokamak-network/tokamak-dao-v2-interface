@@ -14,7 +14,6 @@ export function useCountVotedAgenda (agendaList: any, isMember: any) {
 
     async function fetch () {
       if (agendaList && account && isMember) {
-        console.log(agendaList)
         agendaList.forEach((agenda: any) => {
           agenda.voters.forEach((voter: any) =>{
           if (voter != null && voter.toLowerCase() === account.toLowerCase()) {

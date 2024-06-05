@@ -24,7 +24,7 @@ export function useActivityReward () {
       }
     }
     fetch()
-  }, [])
+  }, [account])
 
   return {
     activityReward

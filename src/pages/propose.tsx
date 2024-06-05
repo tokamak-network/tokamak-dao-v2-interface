@@ -147,8 +147,7 @@ function Propose () {
 
   const modalButton = useCallback(async (modalType: ModalType, data: any, abis: any) => {
     setSelectedModal(modalType);
-    console.log(abis)
-    console.log(data)
+    
     const functions = abis.find((abi: any) => abi.name === data.name)
 
     if (functions) {
