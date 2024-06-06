@@ -8,6 +8,7 @@ type AgendaFilterProps = {
   options: any[]
   width: string
   selectOptions: any
+  type?: string
 }
 
 export const AgendaFilter = (args: AgendaFilterProps) => {
@@ -15,7 +16,8 @@ export const AgendaFilter = (args: AgendaFilterProps) => {
     placeholder,
     options,
     width,
-    selectOptions
+    selectOptions,
+    type
   } = args
   const [menuState, setMenuState] = useState(false);
   const handleMenuButtonhover = (event: any) => {
@@ -28,7 +30,6 @@ export const AgendaFilter = (args: AgendaFilterProps) => {
 
   const handleMenuButtonClick = (event: any) => {
     event.preventDefault();
-
     !menuState && setMenuState(!menuState);
   };
   return (
@@ -36,12 +37,13 @@ export const AgendaFilter = (args: AgendaFilterProps) => {
       <MenuButton 
         h={'32px'}
         p={'7px 13px 7px 15px'}
-        boxShadow={'0 2px 4px 0 rgba(96, 97, 112, 0.14)'}
+        boxShadow={type === 'vote' ? '' : '0 2px 4px 0 rgba(96, 97, 112, 0.14)'}
         bgColor={'#fff'}
         color={'#86929d'}
         fontSize={'13px'}
         borderRadius={'4px'}
         placeholder={placeholder}
+        border={type === 'vote' ? 'solid 1px #dfe4ee' : ''}
         // onClick={handleMenuButtonClick}
         w={width}
         mr={'15px'}

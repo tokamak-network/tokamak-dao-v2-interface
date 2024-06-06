@@ -4,6 +4,7 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { floatParser } from '@/components/number';
 import useProposeInput from '../../hooks/propose/useProposeInput';
+import useVoteInput from '@/hooks/agenda/useVoteInput';
 
 type InputProp = {
   placeHolder?: string;
@@ -96,6 +97,57 @@ function TextInput(props: InputProp) {
   )
 }
 
+function TextInputVote(props: InputProp) {
+  const { placeHolder, h, isError, index, type, w, atomKey } = props;
+  // const [value, setValue] = useRecoilState(inputState);
+  const {inputValue, value, setValue} = useVoteInput(index)
+  const theme = useTheme()
+  const {INPUT_STYLE} = theme
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { target } = event;
+    const { value } = target;
+    return setValue(value);
+  }
+  
+  return (
+    <>
+    {
+      type === 'description' ?
+      <Textarea 
+        isInvalid={isError}
+        w={'736px'}
+        h={'139px'}
+        placeholder={placeHolder}
+        _placeholder={{
+          color: '#86929d',
+          fontSize: '13px'
+        }}
+        border={'1px solid #dfe4ee'}
+        borderRadius={'4px'}
+        value={value}
+        onChange={onChange}
+      /> :
+      <Input
+        isInvalid={isError}
+        w={'736px'}
+        h={'75px'}
+        // focusBorderColor={'#fff'}
+        placeholder={placeHolder}
+        _placeholder={{
+          color: '#86929d',
+          fontSize: '13px'
+        }}
+        border={type === 'description' ? 'none' : '1px solid #dfe4ee'}
+        borderRadius={'4px'}
+        value={value}
+        onChange={onChange}
+      />
+    }
+    </>
+  )
+}
+
 function BalanceInput(props: InputProp) {
   const { placeHolder, h, isError, maxValue, type, w } = props;
   const { colorMode } = useColorMode();
@@ -159,4 +211,4 @@ function BalanceInput(props: InputProp) {
   );
 }
 
-export { BalanceInput, TextInput }
+export { BalanceInput, TextInput, TextInputVote }

@@ -9,7 +9,6 @@ export function useEventList() {
     async function fetchEvent () {
       const candidates = await getCandidates()
       const events = await getRecentEvents()
-      console.log(candidates)
       
       const filteredEvents = events.filter((event: any) => {
         const eventName = event.eventName;

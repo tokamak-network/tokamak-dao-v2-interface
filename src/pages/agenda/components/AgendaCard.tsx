@@ -11,14 +11,14 @@ import { AgendaCardHeader } from './AgendaCardHeader';
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { votingTime, agendaStatus } from '../../../utils/getDate';
-import { INFURA_API } from '@/constants';
-import Web3 from 'web3';
 import { useWeb3React } from '@web3-react/core';
 import { useRecoilState } from 'recoil';
-import { txState } from '@/atom/global/transaction';
-import DaoCommitteeProxy from 'services/abi/DAOCommittee.json';
+import { txState } from '@/atom/global/transaction';;
 import useCallContract from '@/hooks/useCallContract';
 import { useVotingResult } from '@/hooks/agenda/useVotingResult';
+import { VoteModal } from './VoteModal';
+import { ModalType } from '@/types/modal';
+import { modalData, modalState } from '@/atom/global/modal';
 
 type AgendaCardProp = {
   data: any;
@@ -49,6 +49,7 @@ export const AgendaCard = (args: AgendaCardProp) => {
     type,
     onChainEffects
   } = data;
+  console.log(data)
   
   const { CARD_STYLE } = useTheme()
   const numChainEffects = onChainEffects.length
@@ -61,6 +62,8 @@ export const AgendaCard = (args: AgendaCardProp) => {
   const [isActive, setIsActive] = useState<boolean>()
   const [voteAction, setVoteAction] = useState<string>('')
   const [voted, setVoted] = useState()
+  const [selectedModal, setSelectedModal] = useRecoilState(modalState);
+  const [, setSelectedModalData] = useRecoilState(modalData);
 
   const voteResult = useVotingResult(agendaid, voters)
 
@@ -93,7 +96,7 @@ export const AgendaCard = (args: AgendaCardProp) => {
       }
     }
     fetch()
-  }, [tx, txPending])
+  }, [tx, txPending, status])
   
 
   useEffect(() => {
@@ -104,9 +107,7 @@ export const AgendaCard = (args: AgendaCardProp) => {
   }, [tx, txPending])
 
   const act = useCallback(async () => {
-    if (voteAction === 'VOTE') {
-
-    } else if (account && library && DAOCommitteeProxy_Contract) {
+    if (account && library && DAOCommitteeProxy_Contract) {
       try {
         const tx = voteAction === 'EXECUTE' ? await DAOCommitteeProxy_Contract.executeAgenda(agendaid) : await DAOCommitteeProxy_Contract.endAgendaVoting(agendaid)
         setTx(tx);
@@ -127,7 +128,14 @@ export const AgendaCard = (args: AgendaCardProp) => {
     }
   }, [])
 
- 
+  const modalContent = {
+    agendaid: agendaid
+  }
+
+  const modalButton = useCallback(async (modalType: ModalType, data: any) => {
+    setSelectedModal(modalType);
+    setSelectedModalData(data);
+  }, []);
 
 
   return (
@@ -220,11 +228,16 @@ export const AgendaCard = (args: AgendaCardProp) => {
               type={voteAction === 'END AGENDA' ? 'normal' : 'vote'}
               name={voteAction}
               isDisabled={voteAction === 'VOTE' ? voted ? true : false : false}
-              onClick={() => act()}
+              onClick={() => voteAction === 'VOTE' ? modalButton('vote', modalContent) : act()}
             /> : ''
           }
         </Flex>
       </Flex>
+      <VoteModal />
     </Flex>
   )
+}
+
+function setSelectedModal(modalType: ModalType) {
+  throw new Error('Function not implemented.');
 }

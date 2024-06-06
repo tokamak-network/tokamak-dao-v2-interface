@@ -10,6 +10,7 @@ export type StakeModalType =
   | 'wallet'
   | 'reward'
   | 'propose'
+  | 'vote'
 
 export type ModalType = GlobalType | StakeModalType;
 
@@ -24,3 +25,7 @@ export type ProposeModalProps = | {
   prettyName: string
   title: string
 } | undefined
+
+export type VoteModalProps = {
+  agendaid: string
+}
