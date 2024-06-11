@@ -2,7 +2,7 @@ import { AGENDA_INFOS } from "@/constants"
 import { Flex, Link } from "@chakra-ui/react"
 
 import { useEffect, useState } from 'react';
-import { date2 } from '../../../utils/getDate';
+import { date2, checkVotingTime } from '../../../utils/getDate';
 import { hexSlicer } from '../../../utils/trimAddress';
 import { agendaStatus, agendaResult } from '../../../utils/agendaFilter';
 
@@ -54,7 +54,9 @@ export const AgendaInfo = (args: any) => {
                   )
                   : info.type === 'status'
                   ? agendaStatus(info.content)
-                  : agendaResult(info.content)
+                  : info.type === 'result' 
+                  ? agendaResult(info.content)
+                  : checkVotingTime(info)
                   
                 }
               </Flex>

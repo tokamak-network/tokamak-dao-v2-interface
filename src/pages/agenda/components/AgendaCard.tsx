@@ -49,7 +49,7 @@ export const AgendaCard = (args: AgendaCardProp) => {
     type,
     onChainEffects
   } = data;
-  console.log(data)
+  // console.log(data)
   
   const { CARD_STYLE } = useTheme()
   const numChainEffects = onChainEffects.length

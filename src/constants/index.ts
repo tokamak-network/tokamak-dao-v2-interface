@@ -156,7 +156,7 @@ export const AGENDA_INFOS = (agenda: any) => [
   {
     title: 'Executed Time',
     content: agenda.tExecTime,
-    type: 'time'
+    type: 'time2'
   },
 ]
 

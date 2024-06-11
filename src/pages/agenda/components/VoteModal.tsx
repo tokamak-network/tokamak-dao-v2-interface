@@ -38,19 +38,25 @@ export function VoteModal () {
     !menuState && setMenuState(!menuState);
   };
 
+  const closeThisModal = useCallback(() => {
+    setParam1Value('');
+    setDescriptionValue('');
+    closeModal();
+  }, [closeModal]);
+
   const vote = useCallback(async () => {
-    console.log('aaaa')
     if (account && library) {
-      console.log('aaaaa')
       try {
         const candidates = await getCandidates()
         const mycandidate = candidates.find((candidate: any) => candidate.candidate.toLowerCase() === account.toLowerCase())
+        
+        const choice = option === 'Yes' ? 1 : option === 'No' ? 2 : 0
         const Candidate_CONTRACT = getContract(mycandidate.candidateContract, Candidate.abi, library, account)
-        const tx = await Candidate_CONTRACT.castVote(selectedModalData.agendaid, option, descriptionValue)
-        console.log('aaaa')
+        const tx = await Candidate_CONTRACT.castVote(selectedModalData.agendaid, choice, descriptionValue)
+
         setTx(tx);
         setTxPending(true);
-        
+        closeThisModal()
         if (tx) {
           await tx.wait().then((receipt: any) => {
             if (receipt.status) {
@@ -60,6 +66,7 @@ export function VoteModal () {
           });
         }
       } catch (e) {
+        console.log(e)
         setTxPending(false);
         setTx(undefined);
       }

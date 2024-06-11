@@ -26,7 +26,7 @@ export const AgendaDetailSide = (args: AgendaSideProp) => {
     let voteObj: any[] = []
     
     async function fetch () {
-      if (currentAgenda && AgendaManager_Contract) {
+      if (currentAgenda && AgendaManager_Contract && currentAgenda.voters) {
         if (currentAgenda.voters.length > 0) {
           try {
             for (let v of currentAgenda.voters) {

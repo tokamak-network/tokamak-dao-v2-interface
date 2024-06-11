@@ -117,6 +117,21 @@ export function agendaResult (result: number) {
     return '';
   }
 }
+export function checkVotingTime (info: any) {
+  if (info.content === 0) {
+    if (info.title === 'tVotingStartTime' || info.title === 'tVotingEndTime') {
+      return 'Not Started Yet';
+    } else if (info.title === 'tExecutableLimitTimestamp') {
+      return 'Not Executed Yet';
+    } else {
+      return 'Not Executed Yet';
+    }
+  } else {
+    return info.content;
+  }
+
+}
+
 
 export function agendaResultNumber (result: string) {
   switch (result) {
