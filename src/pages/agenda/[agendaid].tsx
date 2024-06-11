@@ -42,7 +42,8 @@ function AgendaDetails () {
     if (index !== agendas.length - 1) {
       router.push({
         pathname: '/agenda/[agendaid]',
-        query: { 
+        query: {
+          //@ts-ignore
           agendaid: agendas[index + 1].agendaid,
         }
       })
@@ -53,7 +54,8 @@ function AgendaDetails () {
     if (index !== 0) {
       router.push({
         pathname: '/agenda/[agendaid]',
-        query: { 
+        query: {
+          //@ts-ignore
           agendaid: agendas[index - 1].agendaid,
         }
       })

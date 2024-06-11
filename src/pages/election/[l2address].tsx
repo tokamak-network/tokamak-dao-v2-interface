@@ -26,7 +26,8 @@ export const CandidateDetails = (props: any) => {
     if (index !== candidate.length - 1) {
       router.push({
         pathname: '/election/[l2address]',
-        query: { 
+        query: {
+          //@ts-ignore
           l2address: candidate[index + 1].candidateContract,
         }
       })
@@ -37,7 +38,8 @@ export const CandidateDetails = (props: any) => {
     if (index !== 0) {
       router.push({
         pathname: '/election/[l2address]',
-        query: { 
+        query: {
+          //@ts-ignore
           l2address: candidate[index - 1].candidateContract,
         }
       })

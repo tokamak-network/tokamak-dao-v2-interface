@@ -1,14 +1,15 @@
 import { parseAgendaBytecode } from '@/components/parseAgendaBytecode';
-import { getAgendas, getAgendaVotes, getAgendaContents } from "@/api";
-import { useEffect, useState } from 'react';
+import { getAgendas, getAgendaContents } from "@/api";
+import { useEffect } from 'react';
 import { useWeb3React } from "@web3-react/core";
 import Web3 from 'web3'
 import { INFURA_API } from '../../constants/index';
+import { useRecoilState } from 'recoil';
+import { agendaState } from '@/atom/agenda/agendas';
 
 export function useAgenda() {
-  const [agendas, setAgendas] = useState<any[]>([]);
+  const [agendas, setAgendas] = useRecoilState(agendaState);
   // const [agendaTxs, setAgendaTxs] = useState<any[]>([]);
-  const { library } = useWeb3React();
 
   useEffect(() => {
     async function fetchAgenda () {

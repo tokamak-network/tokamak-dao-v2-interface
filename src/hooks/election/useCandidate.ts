@@ -5,11 +5,13 @@ import { GET_CANDIDATE } from "@/graphql/getCandidates";
 import { useWeb3React } from "@web3-react/core";
 import { useChangedMembers } from "./useChangedMembers";
 import { ZERO_ADDRESS } from '../../constants/index';
+import { useRecoilState } from "recoil";
+import { candidateState, memberState, nonMemberState } from "@/atom/election/candidate";
 
 export function useCandidate() {
-  const [candidate, setCandidate] = useState<any[]>([]);
-  const [memberList, setMemberList] = useState<any[]>([]);
-  const [nonMemberList, setNonMemberList] = useState<any[]>([]);
+  const [candidate, setCandidate] = useRecoilState(candidateState);
+  const [memberList, setMemberList] = useRecoilState(memberState);
+  const [nonMemberList, setNonMemberList] = useRecoilState(nonMemberState);
   const [isCandidate, setIsCandidate] = useState<boolean>(false);
   const { library, account } = useWeb3React();
   const { memberAddresses } = useChangedMembers();
@@ -25,7 +27,7 @@ export function useCandidate() {
       let candi: any[] = []
 
       const events = await getEvent('ChangedSlotMaximum')
-      console.log(memberAddresses)
+
       const checkSlot = events.filter((event: any) => event.eventName === 'ChangedSlotMaximum')
       const slotNumber = checkSlot[0] ? checkSlot[0].data.slotMax : 3
       
@@ -70,9 +72,11 @@ export function useCandidate() {
             members.push('Empty')
           }
         }
-        
+        //@ts-ignore
         setNonMemberList(nonMembers)
+        //@ts-ignore
         setMemberList(members)
+        //@ts-ignore
         setCandidate(candi)
       }
     }
